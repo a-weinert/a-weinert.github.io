@@ -19,11 +19,18 @@ Prof. Dr.-Ing. Albrecht Weinert<br />
 &Auml; Ä; &Ouml; Ö; &Uuml; Ü; <br />
 &auml; Ä; &ouml; Ö; &uuml; Ü; &szlig; ß; <br />
 
+Here &amp; Auml; is followed by the iso-8859-1 &Auml;; and so on. <br />
+Every (Apache 2.4) web server delivers this page unspoiled but Github Pages won't.<br />
+With Github Pages all iso-8859-1 charactes above 127 get displaye as 
+question mark in black diamond (&#xfffd;).<br />
+
 <h1>Background</h1>
-First experience with github pages were disapointing. In spite of <br />
+Our very first (quasi hello world) experience with github pages was disapointing.<br />
+In spite of <br />
 &nbsp; &lt;?xml version="1.0" encoding="iso-8859-1"?&gt; <br />
 and <br />
 &nbsp; &lt;meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /&gt; <br />
-as well as <br /> 
+as well as even (irrelevant for caracter set settings, of course)<br /> 
 &nbsp; &lt;meta http-equiv="content-language" content="de" /&gt; <br />
+all German Umlauts are spoiled.
 </body></html>

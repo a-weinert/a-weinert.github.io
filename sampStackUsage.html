@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Sampling AVR stack usage &mdash; from the blogs</title>
+<meta name="AUTHOR" content="Albrecht Weinert" />
+<meta name="DESCRIPTION" content=
+"Sampling AVR stack usage &mdash; from the blogs<" />
+<meta name="Keywords" content=
+"blogs made static, Sampling stack usage AVR ATmega" />
+<!-- headToBody-en-1 Start --> </head><body><div><div><!-- headToBody End -->
+<div id="motivbild"><!-- Motivbild start --><img
+src="../images/eclipse-ws-240.jpg" width="240" height="154" 
+title="Eclipse IDE" alt="Eclipse IDE"
+align="right" hspace="3" vspace="3" border="1" /><!-- Motivbild end --></div>
+<div id="toptitle"><!-- BigTitle start -->
+weinert-automation<br />
+Prof. Dr.-Ing. Albrecht Weinert<br />
+<br />
+from the blogs<br />
+sampling stack usage
+<!-- BigTitle end --></div>
+<div id="topnavbar"><!-- topNav-we-en-1 Start -->  <!-- topNav End --></div>
+<div id="spacer"><p><br /></p></div>
+<div id="sidebar">
+<p id="sidebartop"><!-- page head right start -->
+<span class="we1sw" title="Prof. Dr.-Ing. Albrecht Weinert"></span>
+<!-- page head right end --></p>
+<p id="sidebarspac"> </p>
+</div><div id="content">
+<div id="topwhere"><!--  where start -->
+<a href="../" title="Prof. Dr.-Ing. Albrecht Weinert">a-weinert.de</a> &gt;
+<a href="./">blog</a> &gt;
+<a href="./eclipDic.html">eclipDic.html</a> &nbsp;
+<a href="./eclipDic.html" title="sorry, English only">[de]</a><!-- where end --></div>
+
+<div class="cont">
+
+<!-- primary content start -->
+<div class="post" id="post-866">
+<div class="header">
+<div class="date"><em class="user">Albrecht Weinert</em> <br/>
+<em class="postdate">18. Mrz 2014</em></div>
+<h3>Sampling stack usage on ATmegas with GCC software</h3>               
+</div><div class="entry">
+<div class="imgonright"><a class="readmore" title="Diesen Beitrag gibt es nur in Englisch">[de]</a></div>
+<p>Embedded systems using AVR ATmega controllers are usually (best) 
+implemented in pure C with a (WIN-avr) GCC toolchain. RAM is often the 
+tightest resource and sometimes developers fear the stack might collide
+with the variables.</p>
+<p>Analysing tools calculating the minimal stackpointer on assumed call 
+hierarchy and local variable definitions are a bit hard to find and to use in
+a non quite standard C-toolchain (using e.g. AVR-GCC inline ASM). And they
+tend to quite pessimistic outcomes.</p>
+<p>Alternatively one might sample the (minimum) stackpointer in the life
+system at least while in the lab and display the result on command.
+Here&#8217;s a recipe:</p>
+<p>The sampling:
+<pre>
+#ifndef NO_SPMIN_SAMPLE
+/** Do not sample the stack pointer and update its minimal value
+ *
+ *  To hinder the \ref SAMPLE_MIN_SP "sampling" the
+ *  \ref minStckP "minimal stackpointer" define the macro \ref NO_SPMIN_SAMPLE
+ *  with a value of 1.
+ *  \showinitializer
+ */
+#define NO_SPMIN_SAMPLE 0
+#endif
+
+/** Sample the stack pointer and update its minimal value
+ *
+ *  The \ref minStckP "minimal stackpointer" will be updated at the point
+ *  of calling this, if the macro \ref NO_SPMIN_SAMPLE is undefined or 0.
+ *  \param nonc number of nested function calls within the embedding function 
+ *              The value should be in the range 0..3. 
+ *              If the call hierarchy goes deeper or the functions called
+ *              use local variables those
+ *              functions called should \ref  SAMPLE_MIN_SP "sample" self.
+ */
+#if NO_SPMIN_SAMPLE
+# define SAMPLE_MIN_SP(nonc) do { } while(0)
+#else
+# ifdef __AVR_3_BYTE_PC_
+#  define SAMPLE_MIN_SP(nonc) do { \
+   uint16_t sampSP = SP - (3 * (nonc)); \
+   if (sampSP &lt; minStckP) minStckP = sampSP; \
+   } while(0)
+# else
+#  define SAMPLE_MIN_SP(nonc) do { \
+   uint16_t sampSP = SP - (2 * (nonc)); \
+   if (sampSP &lt; minStckP) minStckP = sampSP; \
+   } while(0)
+# endif
+#endif
+
+/** Minimal stack pointer value sampled
+ *
+ *  System and application software might sample the stackpointer at due
+ *  points and set this variable to it if larger. A value of 0xFFFF means
+ *  no (new) samples taken as yet.
+ *  The recipe to \ref SAMPLE_MIN_SP "sample" the stackpointer \c SP
+ *  \ref SAMPLE_MIN_SP "and update" its minimal value is \code
+    uint16_t value = SP;
+    if (value &lt; minStckP) minStckP = value; // sample stackpointer \endcode
+ */
+extern uint16_t minStckP;
+</pre></p>
+<p>What remains is to scatter SAMPLE_MIN_SP(1) in the bodies of some few functions. Choose (a) those deepest in the call hierarchy and (b) those defining lots of local variable space (e.g. buffers) if not yet covered by one of the (a). If no further functions are called within the body the SAMPLE_MIN_SP parameter should be 0 (interrupts disabled) or 1 with interrupts on.</p>
+<p>To display the result do something like:
+<pre>
+      stdPutS_P(sysRunMeldS);
+      {
+         //           0123456789x123456789 v
+         char tt[] = "...  &lt;= SP &lt;= ...  \n";
+
+      fourHexs(&#038;tt[0],(uint16_t)(&#038;_end));  
+      fourHexs(&#038;tt[14], (uint16_t)&#038;__stack);
+      stdPutS(tt); // display the range: end vars ... end RAM
+      }
+#if ! NO_SPMIN_SAMPLE
+      if (minStckP != 0xFFFF) {
+         stdPutS_P(sysRunMldSP);
+         char tt[] = "....  \n";
+         fourHexs(&#038;tt[0], minStckP);
+         stdPutS(tt); // display the sampled mimimal SP
+         minStckP = 0xFFFF; // reset samples
+      }
+#endif</pre></p>
+<p>In this weAutSys excerpt the RAM address range available for stack and the
+sampled minimal stackpointer is displayed to a human operator that gave the
+"runInfo" command on a serial terminal or a Telnet session (weAut_01).<br />
+If the minimal stackpointer fits in the range displayed one line above all is
+well &mdash; as, hopefully, no one uses heap on an embedded system.</p>
+</div></div>
+<br />
+<h4>Comments welcome</h4>
+<small>Due to commonly known troubles some of my publications originally done
+in a Wordpress blog respectively at Google+ will be converted to (static)
+.pdf or .html.<br />
+Nevertheless you are welcome to comment.
+Please do so by mail giving your full name, URL, mail address and a 
+small photo &mdash; and, of course, your comment.</small> 
+</div>
+<div id="downspacer"><small></small></div>
+<div id="downbar"><!-- downBar-we-de-1 Start -->
+<!-- downBar End --></div>
+
+<div id="downtext">
+Copyright &#160; © &#160; 2014, 2019 &nbsp;Albrecht Weinert<br />
+Stand: $Date: 2019-02-27 13:15:15 +0100 (Mi, 27 Feb 2019) $ 
+   (V.$Revision: 68 $) &#160; &#160;
+&#160; <a href="http://a-weinert.de/"
+class="hrf">A. Weinert</a>, &#160; <a href=
+"mailto:webmaster@frame4j.de" class="hrf">E-Mail (webmaster)</a></div>
+</div></div></div></body></html>

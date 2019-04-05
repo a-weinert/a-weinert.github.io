@@ -1,4 +1,32 @@
 # Welcome to Jekyll!
 #
 # Site settings
-encoding: ISO-8859-1
+#  encoding: ISO-8859-1
+
+# from blog made locally
+title: Albrecht Weinert's test blog
+email: gitBlog@a-weinert.de
+description: >- # this means to ignore newlines until "baseurl:"
+  Albrecht Weinert, blog, test on git,
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+#twitter_username: jekyllrb
+github_username:  a-weinert
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

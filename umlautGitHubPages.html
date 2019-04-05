@@ -62,4 +62,15 @@ The failure has two reasons:<ol>
 </ol>
 Tip: No web server should use encoding in its response header when (as usual)
 unaware of the content.
+
+<h2>Remedy</h2>
+Best would be to give the explicit page encoding preference over the server
+response. The latter should only the (server region) default, when the page
+encoding  was forgotten. But that cannot be changed. <br />
+<br />
+If working in Western Europe and doing almost everything in iso-8859-1 or 
+similar code pages you would like to avoid UTF8. Theoretically GitHub pages
+should obey <br />
+<code>encoding: ISO-8859-1</code><br />
+in the _config.yml.But that doesn't seem to work.
 </body></html>

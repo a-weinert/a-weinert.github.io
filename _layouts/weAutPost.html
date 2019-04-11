@@ -1,0 +1,22 @@
+---
+layout: weAutDefault
+---
+{%- include calcPageVals.inc -%} 
+<div class="cont">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="header">
+<div class="date"><em class="user" itemprop="author" 
+  itemscope itemtype="http://schema.org/Person">{{ page.author }}</em> <br/>
+<em class="postdate" itemprop="datePublished">{{pageDateString}}</em></div>
+<h3><a href="http://blog.a-weinert.de/handle-office2007-files/" rel="bookmark" 
+title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>               
+</div><div class="entry">
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+  {%- if site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
+  {%- endif -%}
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
+</div>

@@ -13,12 +13,21 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 github_username:  a-weinert
 
+permalink: /posts/:year/:month/:title.html
+
 # Build settings
 markdown: kramdown
-theme: minima
+# theme: minima
+# highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
 plugins:
   - jekyll-feed
-
+  - jekyll-seo-tag   # added 08.04.2019
+  
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -30,3 +39,22 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "posts" # previously `post` in Jekyll 2.2.
+    values:
+      author: "Albrecht Weinert"
+      lang: en
+      copyrightYear: 2019
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "pages" #
+    values:
+      author: "Albrecht Weinert"
+      lang: en
+      copyrightYear: 2019
+      

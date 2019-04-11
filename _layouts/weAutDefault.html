@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ {% seo %}
+ <link rel="stylesheet"  media="screen"
+     type="text/css" href="{{ "/assets/drop-men.css" | relative_url }}"  />
+ <link rel="stylesheet" href="{{ "/assets/weAut.css" | relative_url }}" />
+ {% feed_meta %}
+ {%- include calcPageVals.inc -%} 
+ <meta name="AUTHOR" content="{{pageAuthor}}" />
+  <script src="{{ "/assets/script/weAut.js" | relative_url }}"></script>
+<link rel="SHORTCUT ICON" href="/favicon.ico" />
+</head><body ><div id="outer"><div id="inner">
+<div id="lay4" 
+  {%- if pageLang == "de"  -%}
+     title="Das Logo von weinert-automation (A. Weinert 2011)" 
+  {%- else -%}
+     title="weinert-automation's logo (A. Weinert 2011)"
+  {%- endif  -%} 
+></div>
+<div id="slider"><!-- sliderList-lang -->
+{%- if pageLang == "de"  -%}
+   {% include sliderList-de.html %}
+{%- else -%}
+   {% include sliderList-en.html %}
+{%- endif  -%} 
+</div>
+<div id="toptitle"><!-- BigTitle start -->
+weinert-automation<br />
+Prof. Dr.-Ing. Albrecht Weinert<br />
+<br />
+{% if pageLang == "de"  %}
+entwicklung dienstleistung beratung<br />
+{% else %}
+development service consulting<br />
+{% endif %}
+{{ page.bigTitle }}<br />
+<!-- sliderbuttons-lang Start -->
+{%- if pageLang == "de"  -%}
+   {% include sliderButtons-de.html %}
+{%- else -%}
+   {% include sliderButtons-en.html %}
+{%- endif  -%}<!-- sliderbuttons End -->
+<!-- BigTitle end --></div>
+<div id="topnavbar"><!-- topNav-we (lang) Start --> 
+{%- if pageLang == "de"  -%}
+   {% include topNav-we-de.html %}
+{%- else -%}
+   {% include topNav-we-en.html %}
+{%- endif  -%} 
+
+ <!-- topNav End --></div>
+<div id="spacer"><p><br /></p></div>
+<div id="sidebar">
+<p id="sidebartop"><!-- page head right start -->
+<span class="we1sw" title="Prof. Dr.-Ing. Albrecht Weinert"> </span>
+<!-- page head right end --></p>
+<p id="sidebarspac" ></p>
+{%- if pagePaths -%}
+<ul><li>{%- if pageLang == "de"  -%}
+Seiten
+<ul>{%- for path in pagePaths -%}
+ {%- assign my_page = site.pages | where: "path", path | first -%}
+ {%- if my_page.dePage and lang != "de" -%}
+  {% continue %}
+ {%- endif -%}
+ {%- if my_page.title -%}
+   <li><a  href="{{ my_page.url | relative_url }}" 
+    title="{{ my_page.url}}">{{ my_page.title | escape }}</a></li>
+ {%- endif -%}
+{%- endfor -%}
+</ul>
+</li>
+</ul>
+{%- else -%}
+Pages
+<ul>{%- for path in pagePaths -%}
+ {%- assign my_page = site.pages | where: "path", path | first -%}
+  {%- if my_page.enPage and lang != "en" -%}
+  {% continue %}
+ {%- endif -%}
+ {%- if my_page.title -%}
+   <li><a  href="{{ my_page.url | relative_url }}" 
+    title="{{ my_page.url}}">{{ my_page.title | escape }}</a></li>
+ {%- endif -%}
+{%- endfor -%}
+</ul>
+</li>
+</ul>
+{%- endif  -%}
+
+{% endif %}
+</div>
+<div id="content">
+<div id="topwhere"><!--  where start -->
+<a href="/">{{ site.url }}/</a> &gt;
+<a href="{{page.url}}">{{pageName}}</a> &nbsp;  &nbsp;
+{% if pageLang != "en"  and page.enPage %}
+ &nbsp;&nbsp; [<a href="{{page.enPage}}">en</a>]
+{% endif %} 
+{% if pageLang != "de"  and page.dePage %}
+ &nbsp;&nbsp; [<a href="{{page.dePage}}">de</a>]
+{% endif %} 
+<!-- where end --></div>
+
+{% if page.isPost %}
+ {{ content }}
+{% else %}
+<div class="cont">
+<a id="welc" class="kt">{{page.title}}<br /></a>
+ {{ content }}
+</div><br clear="right" />
+{% endif %}
+<div id="downbar"><!-- downBar (lang)  Start -->
+{%- if pageLang == "de"  -%}
+   {% include downBar-de.html %}
+{%- else -%}
+   {% include downBar-en.html %}
+{%- endif  -%}<!-- sliderbuttons End -->
+
+<!-- downBar End --></div>
+
+<div id="downtext">
+Copyright &#160; © &#160; {{page.copyrightYear | default: "2019"}} 
+ &nbsp;{{pageAuthor}}<br />
+{%- if page.lang == "de"  -%}
+Stand:&nbsp; {{page.revision | default: "neu"}}
+  ({{pageDateString}}) &#160; &#160;
+{%- else -%}
+Revision: {{pageRevision | default: "new"}} ({{pageDateString}}) &#160; &#160; 
+{%- endif  -%} 
+&#160; &#160; 
+&#160;  &#160; &#160; <a href=
+"mailto:webmaster@weinert-automation.de" class="hrf">E-Mail (webmaster)</a></div>
+</div></div></div></body></html>
+  

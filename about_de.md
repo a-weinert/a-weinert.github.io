@@ -1,0 +1,67 @@
+---
+layout: weAutDefault
+title: Über den blog
+bigTitle: über den  blog
+permalink: /about_de.html
+lang: de
+enPage: about.html 
+copyrightYear: 2019
+revision: 1
+date: 2019-04-10  # 2016-03-23T10:20:00Z
+---
+
+Willkommen bei meinem Blog auf on GitHup Pages. Falls Sie meinen alten Blog
+oder meine Web-Bereiche kennen werden Sie das design und das Layout (theme
+bei Wordpress)  wieder erkennen. So wie das design will ich die Mehrheit der 
+Beiträge (posts) hierher portieren und den alten Blog zumachen.
+
+### Warum weg von Wordpress
+
+Wenn man einen Wordpress / PHP Blog bei 1&1 nach der Mühsal, das Blog-design 
+mit einem eigenen Design (theme, PHP) den Web-Bereichen anzugleichen, über
+ein Jahrzehnt gut laufen hatte, sieht man eigentlich keine Notwendigkeit
+zu radikalen Änderungen. Ja, ich hasse das Backend, die Editoren und einige
+Eigenschaften aber das meiste davon sind bloß Unbequemlichkeiten.
+
+Ende 2018 baute der Anbieter mit Recht Druck zum PHP-Update &mdash; hier
+von 3.x nach 7.y &mdash; auf. Dies erforderte allerdings ein 
+Wordpress-update, was wegen der Eigenentwicklung und einiger plug-ins immer
+möglichst vermieden wurden. Nun ja, das Update schien gut zu gehen, ja es 
+lief extrem schnell und problemlos ab. Die Angst schien ungerechtfertigt.
+Aber recht bald tauchten Inkompatibilitäten mit einigen alten plug-ins auf.
+Mit Aktivieren
+oder Deaktivieren hatte man schließlich die Wahl zwischen kaputter 
+Darstellung oder nicht funtionierender Nutzerverwaltung.
+
+
+### Warum GitHub Pages für einen Web-Auftitt und Blog erwägen
+
+Es stellte sich heraus, dass die Wordpress-Reparatur mühsam und unerfreulich 
+würde und das das Ergebnis nicht schön, vorzeigbar würde oder gar Stabilität
+und update-Festigkeit garantieren könnte. Warum die Zeit nicht nutzen um 
+was Neues zu machen und zu lernen?
+
+Außerdem zeigte die Recherche, dass Viele mit ähnlicher Haltung zu und
+Erfahrung mit Wordpress sich bei GitHub gut aufgehoben fanden, Zitat: Das 
+Beste an Git ist GitHub.
+
+### Status und offene Punkte
+
++ Die Anfangslernkurve ist einigermaßen durch: Git, Jekyll, Liquid ... 
+
++ Ruby und der ganze Kram für lokales Entwickeln und Testen läuft auf dem
+Arbeits-Windows-PC.
+
++ Templates und style sheet sind angepasst.
+
+- Der Inhalt muss gemacht bzw. portiert werden.
+
+- Eine Kommentarfunktion muss her.
+
+### Resume 
+
+GitHup Pages sind großartig. Die Leichtigkeit des lokalen Testens und des 
+Deployment bekommt man hier praktisch geschenkt.
+
+Man muss hoffen, dass GitHub und GitHub Pages länger unter uns weilen als
+Google+ und Kenai und  ... 

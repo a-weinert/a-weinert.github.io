@@ -1,0 +1,278 @@
+---
+---
+/* For Sass to generate weAut.css above front matter is needed. The dashes
+   are enough, and more would produce a lot of scss syntax errors in the 
+   (Eclipe) IDE. 
+   Copyright  2019  Albrecht Weinert
+   For transfering the design of weinert-automation.de ... a-weinert.deand
+   its Wordpress-blog to GItHub Pages this was derived from meva.css the
+   weinert-automation Style sheet, Copyright 2005-2015  Albrecht Weinert
+   
+    V 1.04 19.01.2005 : hrf:link #293d80;
+    V 1.03 21.12.2007 : .rbo instead of .rg (was HS-BO-rot)
+    V.106+ 19.09.2009 : Transfer to blog design
+    V.o36+ 12.04.2010 : ai2t.de extensions
+    V.225+ 11.04.2011 : hide right sidebar; + #sidebarspac for room
+    V.350+ 07.03.2013 : #sidebarspac 122 > 80, .mini 17 > 6 (height)
+    V.282+ 22.03.2013 : includes theme meva4we (todo check %-values)
+    V.433  24.08.2015 : img border 0 for html5
+    V.400+ 16.09.2016 : slider w/o j s display none
+    V.033  23.01.2017 : logos to images/icon(s)_logos (new SVN repo)
+    V.???  07.04.2019 : no more revisions as GitHub Pages use Git
+                        below won't work on Git and has no substitute there' 
+   (V.$Revision: 9 $, $Date: 2017-01-26 12:04:16 +0100 (Do, 26 Jan 2017) $)
+*/
+
+html, body, div, applet, object, h1, h2, h3, h4, h5, h6, p, 
+abbr, acronym, address, big, cite, code,
+del, dfn,  img, ins, kbd, q, s, samp, small, strike, strong, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption, 
+footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video{ margin: 0; padding: 0; border: 0;
+  vertical-align: baseline;}
+
+
+body{ font-size:  62.5%; background-color: white;
+  font-family: Verdana, Arial, Georgia, Tahoma, sans-serif;}
+html>body{ font-size: 10px;}  /* by child selector excludes IE5.5 and 6 */
+
+a, a:link{ text-decoration:none; color:#06c;}
+a:hover, a:active{ text-decoration:underline; color: #4751AA;}
+a:hover:visited{ text-decoration:underline; color:#609060;}
+a.hrf, a.hsl, a.htx{ white-space:nowrap;}
+a.hrf:visited{ text-decoration:none; color:#3D29B0;}
+
+.hsl, a.hsl, a.hsl:link, a.hsl:visited{ text-decoration:none;
+  color:#C0C0D0; font-size:0.5em;}
+.htx, a.htx, a.htx:link, a.htx:visited{ text-decoration:none;
+  color:#100040; font-size:0.5em;}
+a.htx:hover, a.htx:active, a.hsl:hover,
+a.hsl:active{text-decoration:underline;}
+
+.rg, a.rg, a.rg:link{line-height: 150%; color: #ff0000;
+  text-decoration: none;}
+a.rg:hover {text-decoration:underline; color: #e4061c;}
+
+p{ margin-bottom: 14px;}
+
+.kt, .kt:link, .kt:visited, /* a.kt deprecated use h3 */
+h1, h2, h3,h4, h5, h6,  h1 a:link, h2 a:link, h3 a:link, h4 a:link, h5 a:link,
+h6 a:link,  h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, 
+h5 a:visited, h6 a:visited{ margin-bottom: 5px; color:#666644;
+  text-decoration:none; font-weight: 500;}
+
+h2, h3, .kt{font-size: 1.4em; line-height: 1.8em;}
+   
+.kt:hover{color:#400040; text-decoration:none;} /* deprecated use h3 */
+
+.entry h1{ font-size: 160%;  line-height:1.3em;
+  text-decoration:none;  border:none; color: #002F00;}
+.entry h2{ font-size: 140%;  line-height:1.3em;
+  text-decoration:none;  border:none; color: #002F00;}
+.entry h3{ font-size: 120%; line-height:1.3em;
+  text-decoration:none;  border:none; color: #002F00;}
+.entry ul{ margin:1em; padding:0 1em; list-style-image:url(bullet.gif);}   
+  
+
+td, th{ padding: 2px 6px;}
+
+#outer{ position: relative; margin: 0 auto; padding: 13px 30px 13px 30px;}
+#inner{ position: relative; z-index: 2;}
+
+#motivbild, #slider{ position: absolute; background: #FCFCFC;
+   right: 0;  width:240px; height:154px;  z-index: 4;}
+#slider ul, #slider li{  margin:0;  padding:0; list-style:none;}
+/* define width and height of list item (slide) entire slider area
+   will adjust accordingly */
+#slider li{ width:240px; height:154px; overflow:hidden; display:none;}
+
+#lay4{ position: absolute; left: 0; width:166px; height:120px; z-index: 1;
+  background: #FCFCFC url(/assets/icons_logos/weaut_logo_acr120t.png) no-repeat right;}
+#lay4 p:before {content:url(/assets/icons_logos/weaut_logo_acr120t.png)}
+
+#toptitle{ position: absolute; right: 244px;  width:480px; height:120px;
+  background: transparent; color:#100040; padding: 4px 10px 0 0;
+  font-size: 1.9em; text-align:right; text-decoration:none; z-index: 2;}
+@media print{
+  #toptitle, #lay4, #lay4 p, h1 a, #motivbild{
+   color: black; background: transparent; padding-left: 0;}
+}
+
+#topnavbar{ position: absolute; top: 127px; left: 5px; height: 22px;
+   background-color: white; color:#100070;  white-space:nowrap;
+   z-index:3; font-size: 1.5em;}
+
+#topnavbar a{ color:#293d6b; text-decoration:none; border-bottom:none;}
+#topnavbar a:hover{text-decoration:underline; color:black; border-bottom:none;}
+#topnavbar a:hover:visited{ text-decoration:underline; color:#609060;}
+#topnavbar  a.b0red{ color:#e4061c; border-bottom:none;}
+/* only needed for IE8 */
+div.ie8firstbug a:first-child { color:#e4061c !important; border-bottom:none;}
+
+
+#spacer{ position: relative; z-index:0; height:156px; overflow: hidden;}
+/* absolute font size to hide text behind logo image */
+#spacer p{text-align: left; font-size:7px;}
+#spacer p:before{content:"Druckproblem: falsche Platzierung;  IE8?"}
+#spacer p:after{content:"Printproblem: wrong placing; using IE ? IE8?"}
+
+#topwhere{ position: relative;  height: 26px; padding: 10px 0 0 4px;
+  font-size: 0.8em; background-color: #FCFCFC; text-align: right;
+  white-space:nowrap;  z-index:1;}
+#topwhere a{ margin-right: 3px; text-decoration: none;
+  border-bottom:none;  color:#100070;}
+   
+#content{ position: relative; border-top:#e8e8de 1px solid; font-size: 1.4em;
+  background-color: white;  margin: 0 0 0 0;  padding: 0 0 12px 2px;}
+#content ul, #content ol{ margin: 5px 0 5px 30px; line-height: 1.3em;}
+#content .cont{ margin: 6px 0 0 0; padding: 0 0 12px 2px;
+  line-height: 1.3em;}
+
+img { border: 0; }
+.imgonleft {margin: 6px 15px 6px 0; float: left;}
+.imgonright{margin: 6px 0 6px 15px; float: right;}
+.imgonspot {margin: 6px 7px 6px 7px;}
+.imglileft {margin: 2px 15px 10px 18px; float: left;}
+.imgblckbo {border:1px solid black;}
+
+#content .post .header{padding: 0 0 10px 1px;  margin-bottom: 5px;
+  margin-top: 5px;  position: relative;}
+
+#content .post .entry{ margin-bottom: 0;}
+
+#content .post .date{ float:right;  margin:-1px 0; width:25%;  padding:0;
+  color:#666;}
+#content .post .date em{ font-style:normal; color:#666;}
+#content .post .date em.user{ padding-left:15px;
+  background:url(user.png) no-repeat left top;}
+#content .post .date em.postdate { padding-left:17px;
+  background:url(date.gif) no-repeat left top;}
+#content .post .entry{ margin-bottom: 0;}
+
+#content .post .footer{ border-bottom:#e8e8de 2px solid; background-color:#FEFEF8;}
+#content .post .footer ul{ list-style:none; text-align:right; padding:10px 0;}
+
+#content .post .footer ul li{ padding:3px 0 3px 15px; display: inline;
+  background-repeat: no-repeat; background-position: 0 2px;}
+
+#content .post .footer ul li.comments{ color:#999;
+  background-image: url(comment.gif);}
+
+#content .post .footer ul li.readmore{ background-image: url(letter.gif);}
+a.readmore {  text-align:right;   padding:3px 0 3px 15px; display: inline;
+  background-repeat: no-repeat; background-position: 0 2px; 
+  background-image: url(letter.gif);}
+  
+#content .post .footer ul li.edit{ background-image: url(writer.gif);}  
+
+#content .post h4{ font-size:1em; font-weight:normal;}
+#content .post h4 em{ font-style:normal; float:right; font-weight:normal;}
+
+
+.wsnw{white-space: nowrap;}
+
+.bbi{ color: #0000ff; font-weight: bold; font-style:italic;
+  text-decoration:none; white-space:nowrap;}
+a.bbi:hover{ text-decoration:underline;}
+.bb{ color: #0000C0; font-weight: bold;
+  text-decoration:none; white-space:nowrap;}
+a.bb:hover{ color: #0000FF; text-decoration:underline;}
+
+
+#sidebar{ position: relative; float: right; width:240px; margin-left: 10px;
+  /* next just for IE7 */
+  background-color:#FEFEF8; z-index: 2;
+  border-left:#e8e8de 2px solid; border-bottom: #e8e8de 1px solid; 
+  font-size: 1.3em;}
+#sidebar p.top, #sidebartop { padding: 4px 4px 4px 8px; height: 26px; 
+   border-bottom: #e8e8de 1px solid; z-index: 3;}
+#sidebar h2{ font-size: 1.3em; line-height: 1.6em;}
+#sidebar ul{ list-style:none; padding: 0 10px; margin: 0 0 20px 0;}
+#sidebar ul li{ padding: 3px 0; margin:0;}
+#sidebar ul ul{ padding: 0 0 0 15px; margin:0;
+  list-style-image:url(arrow.gif);}
+#sidebar ul ul a:visited{text-decoration:none; color:#60296b;}
+
+/* absolute 16px Arial etc. as font is part of logo image */
+#sidebartop span{line-height: 2em;  font-family: Arial, sans-serif; 
+  font-size:16px; color: #e4061c;}
+
+#sidebartop span.we1sw:before{content:url(/assets/people/weinert2sw-h148.jpg)}
+
+#sidebartop span.bo1lo:after {content:url(/assets/icons_logos/bo-logo_o8.gif)}
+
+#sidebartop span.boDe:before {content: "Hochschule Bochum"}
+#sidebartop span.boEn:before {content: "University of Applied Sciences"}
+/* usage: <p id="sidebartop"><span class="bo1lo boEn" title=.... */
+
+#sidebarspac{ padding: 8px 0 8px 0; height: 80px;
+   background-color: #FCFCFC; z-index: 3;}
+#sidebarspac.mini{ height: 6px;}
+
+
+#sidebar ul.feeds{ margin-left:20px;}
+#sidebar ul.feeds li{ margin:5px 0;  padding:0;
+ list-style-image:url(feed.gif);}
+
+.trackback{ padding:2px 23px; background:url(links.gif) no-repeat left;}
+.commentsrss{ padding:2px 16px; background:url(feed.gif) no-repeat left;}
+
+#comments, #respond{ margin: 8px 0 0 1px;}  
+#commentform { margin:10px; padding:10px;}
+
+.commentlist li{ list-style:none; margin: 2em 0; padding: 0;}
+.commentlist li p{  margin:0 1em;}
+.commentlist li .cmtinfo { font-size:1em; padding:5px; margin-bottom: 10px;
+   position:relative; border:#eee 1px solid;}
+.commentlist li .cmtinfo em { margin:0; padding:0 1em;
+   text-align:right; font-style:normal; color:#999;}
+.commentlist li.alt .cmtinfo{ font-size:1em; padding:5px; margin-bottom: 10px;
+   position:relative; border:#ddd 1px solid;}
+.commentlist li.authorcomment{ border:#ddd 1px solid; border-top-width:0px;}
+
+.commentlist li cite{ font-style:normal; font-weight:bold;}
+input.text, textarea, select{ padding:2px; border: 1px solid #ccc;
+   background:#F9F9F7; font:1em;}
+
+#outer input.text:focus, textarea:focus { background:#fff;
+   border:#999 1px solid;}
+
+#searchsubmit{ border:#fff 1px solid; font-size:0.9em;}
+
+
+dl.puplist dt{margin: 11px 9px 5px 0; margin-left: 9px; text-decoration: none;
+ line-height: 110%; color: #000060;}
+dl.puplist dd {margin-left: 37px; text-decoration: none;}
+dl.puplist dd a {line-height: 110%; color: #ff0000; text-decoration: none;}
+dl.puplist dd a:hover {text-decoration:underline; color: #e4061c;}
+dl.puplist dd a:hover:visited{ text-decoration:underline; color:#609060;}
+
+.curvit td{ padding: 7px;}
+.curvit tr{ vertical-align: middle;}
+.th{ padding: 8px 12px 8px 12px; background:#F0F0F0; border-width:0; 
+   font-size: 100%;}
+.tp{ padding: 8px 12px 8px 12px; background:#F7F8F7; font-size: 100%;}
+.tph{padding: 8px 12px 8px 12px; background:#F0F0F0; font-weight: bold;}
+
+
+#downspacer{ clear:both; background-color: white;}
+#downspacer small {margin: 6px 0 6px 15px; margin-left: 15px;
+ text-decoration: none; font-size: 70%; color:#100070;}
+#downbar{ position: relative; float: right; width:232px; margin-left: 10px;
+ border-top:white 1px solid; border-bottom:#e8e8de 1px solid;
+ border-left:#e8e8de 2px solid; padding: 8px 0 8px 8px;
+ /* next for IE7 */
+ background-color:#FEFEF8; z-index: 2;}
+#downtext{ padding: 14px 0 0 20px; height: 55px; white-space: nowrap;
+ background-color: #FCFCFC; border-top:#e8e8de 1px solid;}
+   
+.nodisplay {display:none;}
+@media print {
+ #topwhere,  #topnavbar,  #downbar {display:none;}
+ #outer {margin: 0 auto; padding: 0 0 0 0;}
+}
+@media screen {
+ abbr {border-bottom: 1px dotted black;}
+}

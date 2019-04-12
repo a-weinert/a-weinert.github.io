@@ -23,11 +23,11 @@ backend and some other features, but most of that is just inconvenience.
 
 End 2018 the provider built up pressure to switch to a new PHP version 
 &mdash; 3 to 7 here &mdash; and quite rightly so. But that required a
-Wordpress update  studiously avoided as long as possible. The Wordpress 
-update over many revisions risked a crash but it went astonishingly fast all
-seemed OK for a while. But then incompatibilities with some essential old
-plug-ins arose. By activating or de-activating those plug-ins one could 
-either spoil the rendering or the user administration.
+Wordpress update. As we feared an crash when updating over many revisions,
+a Wordpress update was studiously avoided.<br />
+But it went astonishingly fast and all seemed OK for a while. But then incompatibilities with some essential old plug-ins arose. By activating or
+de-activating those plug-ins one could either spoil the rendering or 
+inhibit the administration.
 
 ### Why considering GitHub Pages and its blog features  
 
@@ -36,25 +36,22 @@ easy nor the solution beautiful. So why not use the time to learn something
 new.
 
 Additionally a bit research showed many people with a similar point of view
-toward Wordpress were happy with GitHub: The best on Git is GitHub. 
+toward Wordpress were happy with GitHub.<br /> 
+Someone posted: "The best on Git is GitHub". 
 
 ### Status and to do
 
 + The basic learning curve is mastered: Git, Jekyll, Liquid ...
-
 + Ruby and all else for local development and testing is installed on
 the home Windows workstation. 
-
 + Templates and styles were adapted to the site design.
 
 - Content has to be made respectively ported.
-
 - Comment feature has to be added.
 
-### Resume 
+### Résumé 
 
 GitHup Pages is gorgeous. The ease of local testing and deployment comes as
-default.
-
+default.<br />
 Hopefully, GitHub and GitHub Pages last a bit longer than Google+ and Kenai 
-and ... 
+and ...

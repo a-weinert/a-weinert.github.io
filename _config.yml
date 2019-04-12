@@ -4,21 +4,20 @@
 #  encoding: ISO-8859-1
 
 # from blog made locally
-title: Albrecht Weinert's test blog
+title: Albrecht Weinert's blog
 email: gitBlog@a-weinert.de
 description: >- # this means to ignore newlines until "baseurl:"
-  Albrecht Weinert, blog, test on git,
+  Albrecht Weinert, blog on GitHub Pages
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
-github_username:  a-weinert
+github_username: a-weinert
 
 permalink: /posts/:year/:month/:title.html
 
 # Build settings
 markdown: kramdown
 # theme: minima
-# highlighter: rouge
 
 kramdown:
   input: GFM

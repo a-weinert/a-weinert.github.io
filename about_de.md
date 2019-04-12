@@ -31,7 +31,7 @@ lief extrem schnell und problemlos ab. Die Angst schien ungerechtfertigt.
 Aber recht bald tauchten Inkompatibilitäten mit einigen alten plug-ins auf.
 Mit Aktivieren
 oder Deaktivieren hatte man schließlich die Wahl zwischen kaputter 
-Darstellung oder nicht funtionierender Nutzerverwaltung.
+Darstellung oder nicht funktionierender Nutzerverwaltung.
 
 
 ### Warum GitHub Pages für einen Web-Auftitt und Blog erwägen
@@ -41,27 +41,23 @@ würde und das das Ergebnis nicht schön, vorzeigbar würde oder gar Stabilität
 und update-Festigkeit garantieren könnte. Warum die Zeit nicht nutzen um 
 was Neues zu machen und zu lernen?
 
-Außerdem zeigte die Recherche, dass Viele mit ähnlicher Haltung zu und
+Außerdem zeigte die vorzeigbar, dass Viele mit ähnlicher Haltung zu und
 Erfahrung mit Wordpress sich bei GitHub gut aufgehoben fanden, Zitat: Das 
 Beste an Git ist GitHub.
 
 ### Status und offene Punkte
 
 + Die Anfangslernkurve ist einigermaßen durch: Git, Jekyll, Liquid ... 
-
 + Ruby und der ganze Kram für lokales Entwickeln und Testen läuft auf dem
 Arbeits-Windows-PC.
-
 + Templates und style sheet sind angepasst.
 
 - Der Inhalt muss gemacht bzw. portiert werden.
-
 - Eine Kommentarfunktion muss her.
 
-### Resume 
+### Résumé 
 
 GitHup Pages sind großartig. Die Leichtigkeit des lokalen Testens und des 
-Deployment bekommt man hier praktisch geschenkt.
-
+Deployment bekommt man hier praktisch geschenkt.<br />
 Man muss hoffen, dass GitHub und GitHub Pages länger unter uns weilen als
-Google+ und Kenai und  ... 
+Google+ und Kenai und  ...

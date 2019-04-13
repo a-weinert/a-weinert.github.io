@@ -1,11 +1,12 @@
 ---
 layout: weAutHome
-title: Albrecht Weinert's blog
+title: Albrecht's blog
 bigTitle: the blog at github
 permalink: /index.html
+date: 2019-04-10
 lang: en
 dePage: index_de.html 
 copyrightYear: 2019
-revision: 1
-date: 2019-04-10  # 2016-03-23T10:20:00Z
+revision: 2
+reviDate: 2019-04-13
 ---

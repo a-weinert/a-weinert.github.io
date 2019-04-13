@@ -63,7 +63,7 @@ development service consulting<br />
 Seiten
 <ul>{%- for path in pagePaths -%}
  {%- assign my_page = site.pages | where: "path", path | first -%}
- {%- if my_page.dePage and lang != "de" -%}
+ {%- if my_page.dePage and my_page.lang != "de" -%}
   {% continue %}
  {%- endif -%}
  {%- if my_page.title -%}
@@ -78,7 +78,7 @@ Seiten
 Pages
 <ul>{%- for path in pagePaths -%}
  {%- assign my_page = site.pages | where: "path", path | first -%}
-  {%- if my_page.enPage and lang != "en" -%}
+  {%- if my_page.enPage and my_page.lang != "en" -%}
   {% continue %}
  {%- endif -%}
  {%- if my_page.title -%}
@@ -127,7 +127,7 @@ Copyright &#160; © &#160; {{page.copyrightYear | default: "2019"}}
  &nbsp;{{pageAuthor}}<br />
 {%- if page.lang == "de"  -%}
 Stand:&nbsp; {{page.revision | default: "neu"}}
-  ({{pageDateString}}) &#160; &#160;
+  ({{pageRevDatString}}) &#160; &#160;
 {%- else -%}
 Revision: {{pageRevision}} ({{pageRevDatString}}) &#160; &#160; 
 {%- endif  -%} 

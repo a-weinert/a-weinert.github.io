@@ -3,17 +3,20 @@ layout: weAutDefault
 title: Über den blog
 bigTitle: über den  blog
 permalink: /about_de.html
+date: 2019-04-10
 lang: de
 enPage: about.html 
 copyrightYear: 2019
-revision: 1
-date: 2019-04-10  # 2016-03-23T10:20:00Z
+revision: 2
+reviDate: 2019-04-13
 ---
 
-Willkommen bei meinem Blog auf on GitHup Pages. Falls Sie meinen alten Blog
-oder meine Web-Bereiche kennen werden Sie das design und das Layout (theme
-bei Wordpress)  wieder erkennen. So wie das design will ich die Mehrheit der 
-Beiträge (posts) hierher portieren und den alten Blog zumachen.
+Willkommen bei meinem 
+[Blog auf GitHup](/index.html "Inhalt / Beiträge siehe hier") Pages. Falls Sie
+meinen alten Blog oder meine Web-Bereiche kennen werden Sie das design 
+(genannt theme bei Wordpress)  wieder erkennen. So wie das design will ich
+die Mehrheit der Beiträge (posts) hierher portieren und dann den 
+[alten Blog](https://blog.a-weinert.de/le_blog/ "zum alten Wordpress Blog") zumachen.
 
 ### Warum weg von Wordpress
 
@@ -47,7 +50,7 @@ Beste an Git ist GitHub.
 
 ### Status und offene Punkte
 
-+ Die Anfangslernkurve ist einigermaßen durch: Git, Jekyll, Liquid ... 
++ Die Anfangslernkurve ist einigermaßen durch: Git, Jekyll, Markdown, Liquid ... 
 + Ruby und der ganze Kram für lokales Entwickeln und Testen läuft auf dem
 Arbeits-Windows-PC.
 + Templates und style sheet sind angepasst.

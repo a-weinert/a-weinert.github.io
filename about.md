@@ -3,16 +3,19 @@ layout: weAutDefault
 title: About the blog
 bigTitle: about the blog
 permalink: /about.html
+date: 2019-04-10
 lang: en
 dePage: about_de.html 
 copyrightYear: 2019
-revision: 1
-date: 2019-04-10  # 2016-03-23T10:20:00Z
+revision: 2
+reviDate: 2019-04-13
 ---
 
-Welcome to my blog on GitHup Pages. If you know my old Wordpress blog or 
-one of my sites you'll recognize the design aka theme. As well as the design 
-I'll try to port the majority of posts here and shut down the old blog.
+Welcome to my [blog on GitHup](/index.html "content/posts see here") Pages.
+If you know my old Wordpress blog or one of my sites you'll recognize the
+design aka theme. After porting the the design I'll try to port the majority
+of posts here and shut down the 
+[old blog](https://blog.a-weinert.de/le_blog/?lang=en "to the old Wordpress blog").
 
 ### Why leave Wordpress
 
@@ -41,7 +44,7 @@ Someone posted: "The best on Git is GitHub".
 
 ### Status and to do
 
-+ The basic learning curve is mastered: Git, Jekyll, Liquid ...
++ The basic learning curve is mastered: Git, Jekyll, Markdown, Liquid ...
 + Ruby and all else for local development and testing is installed on
 the home Windows workstation. 
 + Templates and styles were adapted to the site design.

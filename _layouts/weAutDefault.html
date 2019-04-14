@@ -95,7 +95,10 @@ Pages
 </div>
 <div id="content">
 <div id="topwhere"><!--  where start -->
-<a href="/">{{ site.url }}/</a> &gt;
+<a href="/">{{ site.github_username }}.github.io/</a> 
+{% if page.isPost %}
+posts/
+{% endif %}
 <a href="{{page.url}}">{{pageName}}</a> &nbsp;  &nbsp;
 {% if pageLang != "en"  and page.enPage %}
  &nbsp;&nbsp; [<a href="{{page.enPage}}">en</a>]

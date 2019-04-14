@@ -36,7 +36,7 @@ and then hitting one of the above said limited environments in deployment or
 at customer sites is a way to to get into deep doo-doo.
 
 In other words it may sometimes still be clever to stick to pure XSLT 1.0
-against all advices and mockery.
+against all advice and mockery.
 
 - XSLT 1.0’s abashing facilities for string / character operations
 

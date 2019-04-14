@@ -21,7 +21,7 @@ Dies ist ein Entwicklungsbericht über einen seriellen Bootlader für ATmega1284
 - Verwendung des verbreiteten Standardprotokolls AVR109 für 
   Programmiergeräte bzw. Bootlader
 - Passend zu professionell üblicherweise genutzten Werkzeugketten
-- Gute Intergration bzw. gutes Zusammenwirken mit der System- und
+- Gute Integration bzw. gutes Zusammenwirken mit der System- und
   Anwendungssoftware
 - Ohne Lizenzgebühren, open source
 - Befreit den Arduino — ArduinoMega’s “jail break”
@@ -43,7 +43,7 @@ Dies ist ein Entwicklungsbericht über einen seriellen Bootlader für ATmega1284
 6.   Abbreviations
 7.   References
 
-Der Entwicklungbericht bringt auch einige Hintergrundinformationenüber die ATmega-Architektur, Bootlader, avr-gcc, Linker und Bootlader sowie über einige häufig zu erlebende Fehler und Probleme. Ein beispielhaftes solches Problem, das gerne bei Arduinos und seriellen Bootladern auftaucht, ist das gefürchtete: 
+Der Entwicklungsbericht bringt auch einige Hintergrundinformationen über die ATmega-Architektur, Bootlader, avr-gcc, Linker und Bootlader sowie über einige häufig zu erlebende Fehler und Probleme. Ein beispielhaftes solches Problem, das gerne bei Arduinos und seriellen Bootladern auftaucht, ist das gefürchtete: 
 ```powershell
 avrdude: error: programmer did not respond to command: set addr
 ```

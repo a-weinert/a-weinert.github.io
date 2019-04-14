@@ -1,18 +1,18 @@
 ---
 layout: weAutDefault
-title: About the blog
-bigTitle: about the blog
+title: About Albrecht's blog
+bigTitle: the blog at github
 permalink: /about.html
 date: 2019-04-10
 lang: en
 dePage: about_de.html 
 copyrightYear: 2019
-revision: 2
-reviDate: 2019-04-13
+revision: 3
+reviDate: 2019-04-14
 ---
 
 Welcome to my [blog on GitHup](/index.html "content/posts see here") Pages.
-If you know my old Wordpress blog or one of my sites you'll recognize the
+If you know my old Wordpress blog or one of my sites you'll recognise the
 design aka theme. After porting the the design I'll try to port the majority
 of posts here and shut down the 
 [old blog](https://blog.a-weinert.de/le_blog/?lang=en "to the old Wordpress blog").

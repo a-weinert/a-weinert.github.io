@@ -7,13 +7,13 @@ categories: serial bootloader AVR ATmega
 lang: en
 dePage: ./serialBootloader_de.html 
 copyrightYear: 2013
-revision: 12
-reviDate: 2019-04-13
+revision: 13
+reviDate: 2019-04-14
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
 
-This is an AVR ATmega develepment report on a serial bootloader for 
+This is an AVR ATmega development report on a serial bootloader for 
 ATmega1284P, ATmega328P and ATmega2560 based systems. The advantages of this bootloader are:
 
 - No (more) need for extra programming hardware

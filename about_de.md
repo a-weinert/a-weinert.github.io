@@ -1,14 +1,14 @@
 ---
 layout: weAutDefault
-title: Über den blog
-bigTitle: über den  blog
+title: Über Albrecht Weinerts blog
+bigTitle: der blog auf github
 permalink: /about_de.html
 date: 2019-04-10
 lang: de
 enPage: about.html 
 copyrightYear: 2019
-revision: 2
-reviDate: 2019-04-13
+revision: 3
+reviDate: 2019-04-14
 ---
 
 Willkommen bei meinem 
@@ -37,7 +37,7 @@ oder Deaktivieren hatte man schließlich die Wahl zwischen kaputter
 Darstellung oder nicht funktionierender Nutzerverwaltung.
 
 
-### Warum GitHub Pages für einen Web-Auftitt und Blog erwägen
+### Warum GitHub Pages für einen Web-Auftritt und Blog erwägen
 
 Es stellte sich heraus, dass die Wordpress-Reparatur mühsam und unerfreulich 
 würde und das das Ergebnis nicht schön, vorzeigbar würde oder gar Stabilität

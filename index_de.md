@@ -1,7 +1,7 @@
 ---
 layout: weAutHome
-title: Albrecht Weinerts blog
-bigTitle: der blog auf github
+title: Der blog / Inhalt
+bigTitle: blog inhalt
 permalink: /index_de.html
 date: 2019-04-10
 lang: de
@@ -10,3 +10,7 @@ copyrightYear: 2019
 revision: 2
 reviDate: 2019-04-13 
 ---
+Willkommen bei 
+[Albrecht Weinert](https://a-weinert.de/ "Prof. Dr.-Ing. Albrecht Weinert")s
+Blog. Hier finden Sie Veröffentlichungen, Tipps, Technisches und Erfahrungen aus der Arbeit in der 
+[Firma](https://weinert-automation.de/ "weinert-automation - Entwicklung Dienste Beratung") und der Hochschule.

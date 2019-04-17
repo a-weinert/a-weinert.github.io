@@ -1,6 +1,6 @@
 ---
 layout: weAutDefault
-title: Über Albrecht Weinerts blog
+title: Albrecht Weinerts blog
 bigTitle: der blog auf github
 permalink: /about_de.html
 date: 2019-04-10

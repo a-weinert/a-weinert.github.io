@@ -6,8 +6,8 @@ date:   2012-12-16
 categories: XML XLST range filter
 lang: en
 copyrightYear: 2012
-revision: 12
-reviDate: 2019-04-13
+revision: 13
+reviDate: 2019-04-17
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
@@ -42,7 +42,7 @@ against all advice and mockery.
 
 One of the worst limitations of XSLT 1.0 is the almost total absence of 
 decent string and character functions and operators. At one hand it is 
-possible to sort using a string attribute (or value) as key. On ...<br />
+possible to sort using a string attribute (or value) as key. On the other h...<br />
 ... Read all at [XSLT1.0RangeFilter.pdf](https://a-weinert.de/pub/XSLT1.0RangeFilter.pdf "full paper") (on
 [a-weinert.de/p...](https://a-weinert.de/publication_en.html/ "some of Albrecht's publications") 
 / [pub/](https://a-weinert.de/pub/ "publications download")).

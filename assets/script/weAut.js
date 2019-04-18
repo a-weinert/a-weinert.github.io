@@ -76,6 +76,7 @@ window.onload = function(){
    jsWarn = document.getElementById("jswarn");
    setClassInElem("jswarn", jsWarn);
    if (noOfSlides > 1)  slideTick();
+   myPageStart(); // call page local JS that could use Liquid
 
 }; // onload
 

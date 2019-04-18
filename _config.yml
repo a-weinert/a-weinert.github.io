@@ -48,6 +48,8 @@ defaults:
       author: "Albrecht Weinert"
       lang: en
       copyrightYear: 2019
+      commentsURL: "https://github.com/a-weinert/a-weinert.github.io/issues"
+      commentsAPI: "https://api.github.com/repos/a-weinert/a-weinert.github.io/issues"
   -
     scope:
       path: "" # an empty string here means all files in the project

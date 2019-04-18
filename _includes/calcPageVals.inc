@@ -18,3 +18,4 @@
 {%- endif  -%} 
 {% assign urlParts = page.url | split: "/" %}
 {% assign  pageName = page.name | default: urlParts.last %}
+{% assign pageIssueId = page.commentIssueId | default: 0 %}

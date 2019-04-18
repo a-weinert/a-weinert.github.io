@@ -219,6 +219,8 @@ a.bb:hover{ color: #0000FF; text-decoration:underline;}
 .trackback{ padding:2px 23px; background:url(links.gif) no-repeat left;}
 .commentsrss{ padding:2px 16px; background:url(feed.gif) no-repeat left;}
 
+/* Wordpress Blog */
+
 #comments, #respond{ margin: 8px 0 0 1px;}  
 #commentform { margin:10px; padding:10px;}
 
@@ -248,6 +250,16 @@ dl.puplist dd {margin-left: 37px; text-decoration: none;}
 dl.puplist dd a {line-height: 110%; color: #ff0000; text-decoration: none;}
 dl.puplist dd a:hover {text-decoration:underline; color: #e4061c;}
 dl.puplist dd a:hover:visited{ text-decoration:underline; color:#609060;}
+
+/* GitHub Blog */
+
+.commentheader  { font-size:1.1em; padding: 5px; margin-bottom: 1px;
+   position:relative; border:#eee 1px solid; min-height: 19px;}
+.commentheader  img { border-radius: 3px; float: left;}
+.commentbody  { padding:5px; margin-bottom: 10px;
+   position:relative; border:#eee 1px solid;}
+
+/* End Blogs */
 
 .curvit td{ padding: 7px;}
 .curvit tr{ vertical-align: middle;}

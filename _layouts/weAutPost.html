@@ -14,9 +14,96 @@ title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
-  {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
-  {%- endif -%}
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
+{% if page.commentIssueId %}
+ {% if pageLang == "de" and page.dePage != nil %}
+ <h2>Kommentare</h2>
+  Möchten Sie einen Kommentar abgeben &mdash; auch gerne auf Englisch? 
+  Besuchen Sie <a href="{{page.commentsURL}}/{{pageIssueId}}" 
+   title="GitHub issues als Blog Kommentare">die issue-Seite</a>
+   auf GitHub.<br /> 
+  Zum Kommentieren benötigen Sie ein GitHub-Konto. 
+  {% if page.commentShare %}
+   Dieser Beitrag hat einen gemeinsamen Kommentarbereich mit 
+    <a href="{{page.commentShare}}">{{page.commentShare}}</a>.
+  {% endif %}
+ {% else %}
+  <h2>Comments</h2>
+  Want to leave a comment? Visit 
+   <a href="{{page.commentsURL}}/{{pageIssueId}}" 
+    title="GitHub issues as Blog comments"
+    >this post's issue</a> page on GitHub.<br />
+  You will need a GitHub account.
+  {% if page.commentShare %}
+   This post shares the issue / comments with 
+    <a href="{{page.commentShare}}">{{page.commentShare}}</a>.
+  {% endif %}
+  
+ {% endif %}
+ <div id="comments" issue="{{pageIssueId}}"></div>
+{% endif %}
 </div>
+
+<script type="text/javascript">
+ function myPageStart(){
+	 var comDiv = document.getElementById("comments");
+	 var pageIssueId = 0; // default none;
+	 if (comDiv != null) {
+		 pageIssueId = comDiv.getAttribute("issue");
+  // alert("myPageStart, commentIssueId = " + pageIssueId);
+	 }
+   var commentsURL = "{{page.commentsAPI}}/{{page.commentIssueId}}/comments";
+  
+   if (pageIssueId > 0) {
+	     getComments();
+   }
+  
+   function loadComments(data){
+     for (var i = 0; i < data.length; i++) {
+       var jasCom = data[i];
+       var cuser = jasCom.user.login;
+       var cuserlink = "https://www.github.com/" + cuser;
+       var clink = "{{page.commentsURL}}/{{page.commentIssueId}}#issuecomment-"
+               + jasCom.url.substring(jasCom.url.lastIndexOf("/")+1);
+       var cbody = jasCom.body;
+       //  alert ("cuserlink= " + cuserlink + "\nclink=   " + clink
+        	//	 + "\ncuser=   ." + cuser  + ".\ncbody=   " + cbody);
+
+       var cavatarlink = jasCom.user.avatar_url;  //       0123456789x123456789
+       var commDat = jasCom.updated_at;  // "created_at": "2019-04-17T19:08:34Z",
+       var cdate = commDat.substring(0, 10) + ' ' + commDat.substring(11, 16);
+       var commNum = i + 1;
+       comDiv.innerHTML +=
+        	 "<div class='comment'><div class='commentheader'>" 
+        		 + '<img src="' + cavatarlink + '" alt="' + cuser 
+        		 +'" width="24" height="24">' 
+        		 + " &nbsp;  #" + commNum + " by &nbsp; <a class='commentuser' href=\"" + cuserlink
+        		 + "\" title=\"to home at GitHub\">" 
+        		 + cuser + "</a> &nbsp;  last edit &nbsp;<a class='commentdate' href=\"" + clink
+        		 + "\" title=\"to this comment on GitHub issues\">" 
+        		 + cdate + " UTC</a></div><div class='commentbody'>" + cbody
+        		 + "</div></div>";
+     } // for
+   } // loadComments(jasonData)
+	    
+     function getComments(){
+      // alert("getComments: " + commentsURL);
+       var xhr = new XMLHttpRequest();
+       xhr.open('GET', commentsURL);
+       xhr.send(null);
+       xhr.onreadystatechange = function () {
+    	   var DONE = 4; // readyState 4 means the request is done.
+    	   var OK = 200; // status 200 is a successful return.
+    	   if (xhr.readyState === DONE) {
+    	     if (xhr.status === OK) {
+    	       console.log(xhr.responseText); // 'This is the returned text.'
+    	       loadComments(JSON.parse(xhr.responseText));
+    	     } else {
+    	     //  alert('Error: ' + xhr.status);
+    	     }
+    	   }
+    	 };
+     } // getComments() 
+ } // myPageStart()
+</script>

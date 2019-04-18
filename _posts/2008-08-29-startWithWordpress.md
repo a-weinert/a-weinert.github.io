@@ -13,7 +13,7 @@ itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
 
-This blog hosted at 1&1 uses WordPress. Please find here some remarks on usage and experiences. (Update: April ported to GitHub Pages)
+This Blog hosted at 1&1 uses WordPress. Please find here some remarks on usage and experiences. (Update: April ported to GitHub Pages)
 
 ### The Software
 This Blog is running since 2008 starting with WordPress’s German version 2.6.0 and using a TerraFirma theme (see image below) then re-designed to a practically new theme . In August 

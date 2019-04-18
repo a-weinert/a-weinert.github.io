@@ -11,6 +11,8 @@ revision: 12
 reviDate: 2019-04-14
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 1
+commentShare: ./eclipDic.html
 ---
 
 Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-

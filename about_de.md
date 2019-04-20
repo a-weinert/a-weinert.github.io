@@ -12,11 +12,11 @@ reviDate: 2019-04-14
 ---
 
 Willkommen bei meinem 
-[Blog auf GitHup](/index.html "Inhalt / Beiträge siehe hier") Pages. Falls Sie
-meinen alten Blog oder meine Web-Bereiche kennen werden Sie das design 
-(genannt theme bei Wordpress)  wieder erkennen. So wie das design will ich
-die Mehrheit der Beiträge (posts) hierher portieren und dann den 
-[alten Blog](https://blog.a-weinert.de/le_blog/ "zum alten Wordpress Blog") zumachen.
+[Blog auf GitHub](/index.html "Inhalt / Beiträge siehe hier") Pages. Falls
+Sie meinen alten Blog oder meine Web-Bereiche kennen werden Sie das design 
+(bei Wordpress theme genannt)  wieder erkennen. Ebenso wie das design wurde
+die Mehrzahl der Beiträge (posts) hierher portiert und dann der alte
+Wordpress-Blog geschlossen.
 
 ### Warum weg von Wordpress
 
@@ -36,31 +36,33 @@ Mit Aktivieren
 oder Deaktivieren hatte man schließlich die Wahl zwischen kaputter 
 Darstellung oder nicht funktionierender Nutzerverwaltung.
 
-
 ### Warum GitHub Pages für einen Web-Auftritt und Blog erwägen
 
 Es stellte sich heraus, dass die Wordpress-Reparatur mühsam und unerfreulich 
 würde und das das Ergebnis nicht schön, vorzeigbar würde oder gar Stabilität
-und update-Festigkeit garantieren könnte. Warum die Zeit nicht nutzen um 
+und update-Festigkeit garantieren könnte. Warum die Zeit nicht nutzen, um 
 was Neues zu machen und zu lernen?
 
-Außerdem zeigte die vorzeigbar, dass Viele mit ähnlicher Haltung zu und
-Erfahrung mit Wordpress sich bei GitHub gut aufgehoben fanden, Zitat: Das 
-Beste an Git ist GitHub.
+Außerdem zeigte die voraus gehende Recherche, dass es Viele mit ähnlicher 
+Haltung zu Wordpress gibt, die sich bei GitHub gut aufgehoben fanden.
+Zitat: "Das Beste an Git ist GitHub".
 
 ### Status und offene Punkte
 
 + Die Anfangslernkurve ist einigermaßen durch: Git, Jekyll, Markdown, Liquid ... 
 + Ruby und der ganze Kram für lokales Entwickeln und Testen läuft auf dem
-Arbeits-Windows-PC.
-+ Templates und style sheet sind angepasst.
+  Arbeits-Windows-PC.
++ Templates und style sheet sind den übrigen Web-Bereichen angepasst,
+  ebenso die optionale Mehrsprachigkeit.
++ Eine Kommentarfunktion wurde ohne externe Provider mit GitHub issues und
+  JavaSript (ohne jQuery) implementiert.
 
-- Der Inhalt muss gemacht bzw. portiert werden.
-- Eine Kommentarfunktion muss her.
+Im Übrigen siehe und kommentiere hierzu den 
+[Testbeitrag](posts/2019/04/testPost.html "nur Englisch").
 
 ### Résumé 
 
-GitHup Pages sind großartig. Die Leichtigkeit des lokalen Testens und des 
+GitHub Pages ist großartig. Die Leichtigkeit des lokalen Testens und des 
 Deployment bekommt man hier praktisch geschenkt.<br />
 Man muss hoffen, dass GitHub und GitHub Pages länger unter uns weilen als
-Google+ und Kenai und  ...
+Google+ und [Kenai](posts/2010/02/oracleClosesKenai_de.html) und  ...

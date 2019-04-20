@@ -7,7 +7,7 @@ layout: weAutDefault
 {%- if site.posts.size > 0 -%}
   {%- if pageLang == "de"  -%}
     {%- assign date_format = site.minima.date_format | default: "%-d. %-m. %Y" -%}
-    <h4>{{ page.list_title | default: "Beiträge" }}</h4>
+    <h4><b>{{ page.list_title | default: "Beiträge" }}</b></h4>
     <ul class="post-list">
       {%- for post in site.posts -%}
        {%- if post.dePage and post.lang != "de" -%}
@@ -25,7 +25,7 @@ layout: weAutDefault
       {%- endfor -%}
     </ul>
   {%- else -%}
-    <h4>{{ page.list_title | default: "Posts" }}</h4>
+    <h4><b>{{ page.list_title | default: "Posts" }}</b></h4>
     {%- assign date_format = "%b %-d, %Y" -%}
     <ul class="post-list">
       {%- for post in site.posts -%}

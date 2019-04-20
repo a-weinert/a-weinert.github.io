@@ -11,11 +11,10 @@ revision: 3
 reviDate: 2019-04-14
 ---
 
-Welcome to my [blog on GitHup](/index.html "content/posts see here") Pages.
+Welcome to my [blog on GitHub](/index.html "content/posts see here") Pages.
 If you know my old Wordpress blog or one of my sites you'll recognise the
-design aka theme. After porting the the design I'll try to port the majority
-of posts here and shut down the 
-[old blog](https://blog.a-weinert.de/le_blog/?lang=en "to the old Wordpress blog").
+design aka theme. After porting the the design I ported the majority
+of posts here and shut down the old Wordpress blog.
 
 ### Why leave Wordpress
 
@@ -46,15 +45,19 @@ Someone posted: "The best on Git is GitHub".
 
 + The basic learning curve is mastered: Git, Jekyll, Markdown, Liquid ...
 + Ruby and all else for local development and testing is installed on
-the home Windows workstation. 
-+ Templates and styles were adapted to the site design.
+  the home Windows workstation. 
++ Templates and styles were adapted to the sites' design as well as the
+  optional  multilingualism.
++ A comment feature was implemented without external providers with 
+ Github issues and pure JavaSript (without jQuery).
+ 
+See also and comment the [test post](posts/2019/04/testPost.html).
 
-- Content has to be made respectively ported.
-- Comment feature has to be added.
 
 ### Résumé 
 
-GitHup Pages is gorgeous. The ease of local testing and deployment comes as
+GitHub Pages is gorgeous. The ease of local testing and deployment comes as
 default.<br />
-Hopefully, GitHub and GitHub Pages last a bit longer than Google+ and Kenai 
+Hopefully, GitHub and GitHub Pages last a bit longer than Google+ and 
+[Kenai](posts/2010/02/oracleClosesKenai_de.html "German only")
 and ...

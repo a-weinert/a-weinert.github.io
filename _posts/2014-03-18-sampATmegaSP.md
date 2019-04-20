@@ -27,27 +27,17 @@ the life system &mdash; at least while in the lab &mdash; and display the
 result on command. Here's a recipe:
 
 ### The sampling "tool"
-```c_cpp
-#ifndef NO_SPMIN_SAMPLE
-/** Do not sample the stack pointer and update its minimal value
- *
- *  To hinder the \ref SAMPLE_MIN_SP "sampling" the
- *  \ref minStckP "minimal stackpointer" define the macro \ref NO_SPMIN_SAMPLE
- *  with a value of 1.
- *  \showinitializer
- */
-#define NO_SPMIN_SAMPLE 0
-#endif
+{% highlight c %}
+#define NO_SPMIN_SAMPLE 0 //!< To inhibit sampling set 1
 
 /** Sample the stack pointer and update its minimal value
  *
  *  The \ref minStckP "minimal stackpointer" will be updated at the point
- *  of calling this, if the macro \ref NO_SPMIN_SAMPLE is undefined or 0.
+ *  of calling this macro, if \ref NO_SPMIN_SAMPLE is undefined or 0.
  *  \param nonc number of nested function calls within the embedding function 
  *              The value should be in the range 0..3. 
  *              If the call hierarchy goes deeper or the functions called
- *              use local variables those
- *              functions called should \ref  SAMPLE_MIN_SP "sample" self.
+ *              use local variables those functions should be sampled instead.
  */
 #if NO_SPMIN_SAMPLE
 # define SAMPLE_MIN_SP(nonc) do { } while(0)
@@ -68,15 +58,11 @@ result on command. Here's a recipe:
 /** Minimal stack pointer value sampled
  *
  *  System and application software might sample the stackpointer at due
- *  points and set this variable to it if larger. A value of 0xFFFF means
+ *  points and set this variable accordingly. A value of 0xFFFF means
  *  no (new) samples taken as yet.
- *  The recipe to \ref SAMPLE_MIN_SP "sample" the stackpointer \c SP
- *  \ref SAMPLE_MIN_SP "and update" its minimal value is \code
-    uint16_t value = SP;
-    if (value < minStckP) minStckP = value; // sample stackpointer \endcode
  */
 extern uint16_t minStckP;
-```
+{% endhighlight %}
 
 ### The sampling set-up
 What remains is to scatter SAMPLE_MIN_SP(1) in the bodies of some few 
@@ -84,13 +70,11 @@ functions. Choose
 - (a) those deepest in the call hierarchy and 
 - (b) those defining lots of local variable space (e.g. buffers)
       if not yet covered by one of the (a). 
-      
-If no further functions are called within the body the SAMPLE_MIN_SP 
-parameter should be 0 (interrupts disabled) or 1 with interrupts on.
+
 
 ### Display the results
 To display the result do something like:
-```c_cpp
+{% highlight c %}
    stdPutS_P(sysRunMeldS);
    //           0123456789x123456789 v
    char tt[] = "...  <= SP <= ...  \n";
@@ -106,7 +90,7 @@ To display the result do something like:
      minStckP = 0xFFFF; // reset samples
    }
 #endif
-```
+{% endhighlight %}
 In this [weAutSys](https://weinert-automation.de/entw_sw.html) excerpt the 
 RAM address range available for stack and the 
 sampled minimal stackpointer is displayed to a human operator, who gave the

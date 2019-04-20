@@ -57,15 +57,15 @@ a.rg:hover {text-decoration:underline; color: #e4061c;}
 
 p{ margin-bottom: 14px;}
 
-.kt, .kt:link, .kt:visited, /* a.kt deprecated use h3 */
+/* .kt, .kt:link, .kt:visited, /* a.kt deprecated use h3 */
 h1, h2, h3,h4, h5, h6,  h1 a:link, h2 a:link, h3 a:link, h4 a:link, h5 a:link,
 h6 a:link,  h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, 
 h5 a:visited, h6 a:visited{ margin-bottom: 5px; color:#666644;
   text-decoration:none; font-weight: 500;}
 
-h2, h3, .kt{font-size: 1.4em; line-height: 1.8em;}
+h2, h3 {font-size: 1.4em; line-height: 1.8em;} /* kt removed */
    
-.kt:hover{color:#400040; text-decoration:none;} /* deprecated use h3 */
+/* .kt:hover{color:#400040; text-decoration:none;} /* deprecated use h3 */
 
 .entry h1{ font-size: 160%;  line-height:1.3em;
   text-decoration:none;  border:none; color: #002F00;}

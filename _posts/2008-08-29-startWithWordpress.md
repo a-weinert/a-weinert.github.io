@@ -7,22 +7,29 @@ categories: Wordpress setup theme
 lang: en
 dePage: ./startWithWordpress_de.html
 copyrightYear: 2008
-revision: 12
-reviDate: 2019-04-17
+revision: 13
+reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
 
-This Blog hosted at 1&1 uses WordPress. Please find here some remarks on usage and experiences. (Update: April ported to GitHub Pages)
+Until April 2019 this Blog was hosted at 1&1 and used WordPress there. Please
+find here some remarks on usage and experiences.
 
 ### The Software
-This Blog is running since 2008 starting with WordPress’s German version 2.6.0 and using a TerraFirma theme (see image below) then re-designed to a practically new theme . In August 
-2009 it was updated to 2.8.4 „by hand“ without any problems.
+This Blog was running since 2008 starting with WordPress’s German version 
+2.6.0 and using a TerraFirma theme (see image below) then re-designed to a practically new theme . In August 2009 it was updated to 2.8.4 „by hand“ 
+without any problems.
 
-In January 2013 we switched over to a (new) MySQL5.0 as the old 4.0 one (in contract 1&1 
-business 5) was no more connectable by php. Experiments to migrate the whole thing (including users, passwords, permalinks, design and all) to another (1&1 virtual) server and WordPress 3.5 run technically OK but in the end un-satisfactory — put mildly. So in February 2013 it was updated by hand and in (the old) place to 3.5.1 and in July 2013 to 3.5.2.
+In January 2013 we switched over to a (new) MySQL5.0 as the old 4.0 one (in 
+contract 1&1 business 5) was no more connectable by PHP. Experiments to 
+migrate the whole thing (including users, passwords, permalinks, design and 
+all) to another (1&1 virtual) server and WordPress 3.5 run technically OK but
+in the end un-satisfactory — put mildly. So in February 2013 it was updated
+by hand and in (the old) place to 3.5.1 and in July 2013 to 3.5.2.
 
-The whole WordPress software is a great cluster of PHP plus a good load of JavaScript for the client side editors among others.
+The whole WordPress software is a great cluster of PHP plus a good load of 
+JavaScript for the client side editors among others.
 
 Basically a Blog is a web service like all many others — Wikis, shops, Web GUIs for automation (process control) systems and else. For Java people or a Java Web service lady the question arises, why not use a Blog implemented as J2EE-Webservice.
 

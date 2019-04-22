@@ -7,16 +7,18 @@ categories: Wordpress setup theme
 lang: de
 enPage: ./startWithWordpress.html
 copyrightYear: 2008
-revision: 12
-reviDate: 2019-04-17
+revision: 13
+reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
 
-Dieser bei 1&1 gehostete Blog verwendet WordPress. Hier finden Sie ein paar Anmerkungen zum Einsatz und Erfahrungen.
+Dieser Blog war bis April 2019 bei 1&1 gehostet und verwendete dort 
+WordPress. Hier finden Sie ein paar Anmerkungen zum Einsatz und Erfahrungen.
 
 ### Die Software
-Dieser Blog lief seit 2008 mit der deutschen Version 2.6.0 von WordPress und benutzte damals ein modifiziertes TerraFirma-theme (siehe unten). Im August 2009 wurde (händisch) auf 2.8.4 aufgedatet.
+Dieser Blog lief seit 2008 mit der deutschen Version 2.6.0 von WordPress und 
+benutzte damals ein modifiziertes TerraFirma-theme (siehe unten). Im August 2009 wurde (händisch) auf 2.8.4 aufgedatet.
 
 Im Januar 2013 wurde auf eine (neue) Datenbank mit MySQL5.0 umgestellt, nachdem die (im Vertrag 1&1 business 5) vorher verwendete 4er-Version dem php die Verbindung verweigerte. Versuche, die Datenbank und den Blog auf einen anderen (1&1 virtual) Server mit WordPress 3.5 zu migrieren und Alles in einen Webbereich mit anderer Kodierung zu übertragen, verliefen gelinde ausgedrückt unerfreulich. So wurde ohne Umzug händisch aufgedatet (auf 3.5.1 „on spot“) und vieles andere (theme, style, translations) renoviert.
 

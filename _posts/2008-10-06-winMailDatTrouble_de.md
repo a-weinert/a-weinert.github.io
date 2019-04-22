@@ -6,17 +6,21 @@ date:   2008-10-06
 categories: Windows winmail.dat
 lang: de
 copyrightYear: 2008
-revision: 12
-reviDate: 2019-04-17
+revision: 13
+reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
 
 ### Das Phänomen
 
-Ein mail-Anhang winmail.dat kommt ohne Wissen der Sender gelegentlich zustande, wenn Microsoft-Office-Dokumente (direkt oder indirekt) mit Microsoft-Outlook versendet werden. Dieser Anhang ist für alle anderen mail-Clients unlesbar und unbearbeitbar. Dies gilt ebenso für alle anderen Anwendungen, auch unter Windows, und für andere Plattformen meist sowieso.
+Ein mail-Anhang winmail.dat kommt ohne Wissen der Absender gelegentlich 
+zustande, wenn Microsoft-Office-Dokumente (direkt oder indirekt) mit Microsoft-Outlook versendet werden. Dieser Anhang ist für alle anderen 
+mail-Clients unlesbar und nicht bearbeitbar. Dies gilt ebenso für alle 
+anderen Anwendungen, auch unter Windows, und für andere Plattformen meist
+sowieso.
 
-Der (Hinter-) Grund ist, dass diese Dateien einem proprietären Microsoft-Archiv-Standard (TNEF) folgen. Diese enthalten u.U. auch weitere Informationen, welche der Absender gar nicht weitergeben will.
+Der (Hinter-) Grund ist, dass diese Dateien einem proprietären Microsoft-Archiv-Standard (TNEF) folgen. Diese enthalten u.U. auch weitere Informationen, welche der Author meist gar nicht weitergeben will.
 
 ### Abhilfe 
 Eine Abhilfe bietet der Aufruf

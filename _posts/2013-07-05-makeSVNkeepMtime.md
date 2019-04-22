@@ -6,8 +6,8 @@ date:   2013-07-05
 categories: SVN subversion time 
 lang: en
 copyrightYear: 2013
-revision: 12
-reviDate: 2019-04-13
+revision: 14
+reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 ---
@@ -18,8 +18,9 @@ Nevertheless, it has one big deficiency:
  
 Since some years the frustrating discussion thereon is still ongoing. In 
 the meantime you can have some SVN clients taking the commit time instead
-of the check out time as the file’s mTime. But that’s still not the time 
-„the photo was taken“.
+of the check out time as the file’s mTime. But that’s still neither the time 
+„the photo was taken“ nor the time of last editing. For many people this is the second or even the most important sort criteria for files and a versioning 
+system not keeping it intact is just a nuisance.
 
 So SVN has no own remedy yet. All discussions seem to go to one end: 
  - one will have to put the respective last mTime as a file property 
@@ -38,8 +39,8 @@ installing WinAVR (e.g.). And you must have
 [Frame4J](https://frame4j.de/index_en.html "Java framework") installed for 
 the following. All will run analogously on Linux, too.
 
-To set/update the property mtime of each file be in the root of your local
-working copy, make the script saveTheDate.bat and run it there:
+To set/update the property mtime of each file be in (cd to) the root of your
+local working copy, make the script saveTheDate.bat and run it there:
 ```powershell
   java FS -relateToDir -omitDirs .svn;build -antTime | grep "m " |  \
     gawk '{print "svn propset mtime \"" $1 " " $2 " " $3 "\" " $5 }' \
@@ -69,7 +70,7 @@ that gawk won’t ignore gracefully.
 
 ### Now the other way round
 To use each file’s property mtime of SVN to reapair the file modification 
-date be in the root of your local working copy, make the script 
+date be in (cd to) the root of your local working copy, make the script 
 rescueTheDate.bat and run it there:
 ```powershell
   svn propget mtime -R | gawk '{print "touch -m --date=\"" $3 " " $4 " " $5 "\" " $1 }' > rescueTheDate.bat
@@ -94,6 +95,6 @@ be automated.
 ### Addendum
 In between the schema — put in scripts as proposed — works quite well since
 years. And en lieu de WinAVR you may have WinRaspi or Rails etc. pp. 
-installed to have both the blessings of Linux tools and Windows. Just have
-one of them on the path: 
+installed to have both the blessings of Linux tools and Windows' omipresence.
+Just have one of them on the path: 
 PATH=C:\bat;C:\util;C:\util\jdk\bin;C:\Windows\sy....;C:\util\WinAVR\utils\bin;...

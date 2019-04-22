@@ -7,8 +7,8 @@ categories: eclipse German dictionary Wörterbuch Deutsch
 lang: de
 enPage: ./eclipDic.html 
 copyrightYear: 2013
-revision: 12
-reviDate: 2019-04-14
+revision: 13
+reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 1
@@ -23,12 +23,12 @@ Fachbegriffe aus Java, OO und (Leit-) Technik enthält.
 
 ### Holen und Installieren
 Download: [weinert-automation.de/software/eclipse/de_DE.dic](https://weinert-automation.de/software/eclipse/de_DE.dic).<br />
-Speichern am besten unter: `C:\Programme\eclipse\dropins`
+Speichern Sie es, wo Sie wollen, z.B. unter: `C:\util\eclipse\dropins`
 
 Installiert in Eclipse wird es einfach als “User defined directory” unter: `Window>Preferences>General>Editors>Texteditors>spelling`.
 
 Hinweis: Eclipse verlangt (vermutlich) Schreibrechte für seinen Benutzer
-auf der Datei `C:\Programme\eclipse\dropins\de_DE.dic`. <br />
+auf der Datei `C:\util\eclipse\dropins\de_DE.dic`. <br />
 Unter Windows macht man die entsprechenden Einstellungen mit dem Explorer 
 oder mit cacls in der shell. Unter Linux erreicht man das nötigenfalls 
 sinngemäß so

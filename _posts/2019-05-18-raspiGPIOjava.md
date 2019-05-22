@@ -6,8 +6,8 @@ date:   2019-05-18
 categories: Java Raspberry PI GPIO frame4j
 lang: en
 copyrightYear: 2019
-revision: 1
-reviDate: 2019-05-18
+revision: 2
+reviDate: 2019-05-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -22,6 +22,8 @@ See the
 [publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 or the 
 [SVN repo](https://weinert-automation.de/svn/rasProject_01/ "rasProject_0 (guest:guest)").
+One part of the success story is using Joan N.N.'s C 
+[pigpio library](http://abyz.me.uk/rpi/pigpio/index.html).
 
 Nevertheless, some people would like to use Java on a PI, too. That's not a
 problem. You can have a Java 8 on a Pi3 and even have 
@@ -41,11 +43,22 @@ professional approaches. Well, the little demos does not use the watch-dog,
 as do the real control programs. (See all in above mentioned
 [publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")).
 
+### Native (JNI) or pure Java
+
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo")
 with all its behaviour was ported to
-[rdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnJPiGpioDBlink.java "Java GPIO demo"). As of now (April 2019) we use a part of Neil Kolban's
-[JNI library](https://github.com/nkolban/jpigpio "interface to pigpio[d]"). We 
-like to replace this by a pure Java solution in near future.
+[rdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnJPiGpioDBlink.java "Java GPIO demo"). This port uses a part of Neil Kolban's
+[JNI library](https://github.com/nkolban/jpigpio "interface to pigpio[d]")
+that also uses 
+[pigpio's](http://abyz.me.uk/rpi/pigpio/sif.html "socket interface docu") 
+socket interface. Using an extra large C layer with JNI to get to pigpiod's
+socket interface seems pure overhead. 
+
+Hence we like to replace this by a pure Java solution. The base functionality
+is implemented and demonstrated by another port from C
+[RdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnPiGpioDBlink.java "100% pure Java").
+
+### Side problems with Java GPIO or process control
 
 An immediate problem that had to be solved in the light of porting 
 "all its behaviour" was implementing the lock file approach (for singleton use
@@ -56,10 +69,20 @@ incompatible with Linux C flock(). From all C programmes or program instances
 (processes) competing for one lock file the first would win and the others
 would have to end or wait. The same can be said of all Java program instances
 using java.nio.channels.FileLock &dash; but even if a C programme has a lock
-(flock) on the very same file. This violation of the singleton use of certain
+(flock) on the very same file.
+
+This violation of the singleton use of certain
 process resources when having control programs also in Java is, of course,
 not acceptable. This problem had to be solved before leaving the state of
 just play programs. The current solution are two lock methods in
 [Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") 
-using a 
-[C helper justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c).
+using a C helper program 
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c).
+
+### Repositories
+
+Find most the sources on the GitHub repository
+[weAut](https://github.com/a-weinert/weAut/) which mirrors parts of the larger
+SVN development repositories essential for this project. For comments and
+issues on [this project](https://github.com/a-weinert/weAut/) use this 
+post's comment function, which by the way is a GitHub issue.   

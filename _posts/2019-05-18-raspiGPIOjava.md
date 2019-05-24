@@ -6,18 +6,19 @@ date:   2019-05-18
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 copyrightYear: 2019
-revision: 3
-reviDate: 2019-05-23
+revision: 4
+reviDate: 2019-05-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
 commentShare: /posts/2009/05/frame4j.html
 ---
-## Pi IO and process control with C
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
+## Pi IO and process control with C
 The natural language for a small Linux controller, like a Raspberry Pi, is
 C &mdash; especially when it comes to process control using Pi's  GPIO
-(general purpose input and output). This we and others did with good success.
+(general purpose input and output) to control actuators and read sensors. 
+This we and others did with good success.
 See the 
 [publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 or the 
@@ -30,10 +31,10 @@ Nevertheless, some people would like to use Java on a Pi, too. That's not a
 problem. You can have a Java&nbsp;8 on a Pi&nbsp;3 and even have 
 [Frame4J](https://frame4j.de/index_en.html "project home") installed and 
 enjoy all the tools etc. <br />
-Problems start when wanting process control with Java. To get the know how
-I ported a demo 
+Problems start &mdash; on any platform by the way &mdash; when wanting 
+process control with Java. To get the know how for Raspberry Pi I ported a 
 [rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
-C program 
+C demo program 
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo").
 The C program uses the pigpio library in the daemon/server variant and a 
 Linux C lock file standard procedure to force control programs using process

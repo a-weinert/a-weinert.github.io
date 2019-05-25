@@ -2,16 +2,17 @@
 layout: weAutPost
 title: Raspberry Pi IO with Java
 bigTitle: PiGpioJava
+permalink: /:title.html
 date:   2019-05-18
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 copyrightYear: 2019
-revision: 4
-reviDate: 2019-05-24
+revision: 5
+reviDate: 2019-05-25
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
-commentShare: /posts/2009/05/frame4j.html
+commentShare: /frame4j.html
 ---
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Pi IO and process control with C

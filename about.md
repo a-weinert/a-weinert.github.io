@@ -7,8 +7,8 @@ date: 2019-04-10
 lang: en
 dePage: about_de.html 
 copyrightYear: 2019
-revision: 3
-reviDate: 2019-04-14
+revision: 4
+reviDate: 2019-05-25
 ---
 
 Welcome to my [blog on GitHub](/index.html "content/posts see here") Pages.
@@ -33,9 +33,9 @@ inhibit the administration.
 
 ### Why considering GitHub Pages and its blog features  
 
-It showed that trying to repair the Wordpress blog ruins would neither be 
-easy nor the solution beautiful. So why not use the time to learn something
-new.
+It was evident that repairing the ruins of the Wordpress blog would neither
+be easy nor the solution beautiful. So why not use the time to learn 
+something new.
 
 Additionally a bit research showed many people with a similar point of view
 toward Wordpress were happy with GitHub.<br /> 
@@ -51,7 +51,7 @@ Someone posted: "The best on Git is GitHub".
 + A comment feature was implemented without external providers with 
  Github issues and pure JavaSript (without jQuery).
  
-See also and comment the [test post](posts/2019/04/testPost.html).
+See also and comment the [test post](/testPost.html).
 
 
 ### Résumé 
@@ -59,5 +59,5 @@ See also and comment the [test post](posts/2019/04/testPost.html).
 GitHub Pages is gorgeous. The ease of local testing and deployment comes as
 default.<br />
 Hopefully, GitHub and GitHub Pages last a bit longer than Google+ and 
-[Kenai](posts/2010/02/oracleClosesKenai_de.html "German only")
+[Kenai](posts/2010/oracleClosesKenai_de.html "German only")
 and ...

@@ -7,8 +7,8 @@ date:   2019-05-18
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 copyrightYear: 2019
-revision: 5
-reviDate: 2019-05-25
+revision: 6
+reviDate: 2019-06-05
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -31,34 +31,45 @@ One part of the success story is using Joan N.N.'s C
 Nevertheless, some people would like to use Java on a Pi, too. That's not a
 problem. You can have a Java&nbsp;8 on a Pi&nbsp;3 and even have 
 [Frame4J](https://frame4j.de/index_en.html "project home") installed and 
-enjoy all the tools etc. <br />
+enjoy all the tools etc. 
+
 Problems start &mdash; on any platform by the way &mdash; when wanting 
 process control with Java. To get the know how for Raspberry Pi I ported a 
 [rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 C demo program 
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo").
-The C program uses the pigpio library in the daemon/server variant and a 
+
+## Native (JNI) or pure Java
+The C program uses the 
+[pigpio library](http://abyz.me.uk/rpi/pigpio/index.html) in the 
+daemon/server variant and a 
 Linux C lock file standard procedure to force control programs using process
 IO (and optionally the Pi watch-dog) singleton, as well as shutdown hooks 
 to leave process IO in an inactive 
 safe state. The little demo shows process IO (by three LEDs) as well as 
-professional approaches. Well, the little demos does not use the watch-dog, 
+professional approaches. Well, the little demo does not use the watch-dog, 
 as do the real control programs. (See all in above mentioned
 [publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")).
-
-## Native (JNI) or pure Java
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo")
 with all its behaviour was ported to
-[rdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnJPiGpioDBlink.java "Java GPIO demo"). This port uses a part of Neil Kolban's
-[JNI library](https://github.com/nkolban/jpigpio "interface to pigpio[d]")
+[rdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnJPiGpioDBlink.java "Java GPIO demo"). 
+
+For the IO part this port uses a part of Neil Kolban's
+[library](https://github.com/nkolban/jpigpio "interface to pigpio[d]")
 that also uses 
 [pigpio's](http://abyz.me.uk/rpi/pigpio/sif.html "socket interface docu") 
-socket interface. Using an extra large C layer with JNI to get to pigpiod's
-socket interface seems pure overhead. 
+socket interface. Hence we have all the advantages of 
+Joan N.N.'s [approach](http://abyz.me.uk/rpi/pigpio/index.html "pigpio library"). On 
+the other hand Neil Kolban's
+[library](https://github.com/nkolban/jpigpio "interface to pigpio[d]") 
+includes a JNI implementation plus its C layer for pigpiod's non socket 
+interface. The library is nowhere written with the aspect of avoiding throw
+away objects.
 
-Hence we like to replace this by a pure Java solution. The base functionality
+Considering that and some other points, we like implement a compact pure Java 
+pigpio[d] socket solution. The base functionality
 is implemented and demonstrated by another port from C
-[RdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnPiGpioDBlink.java "100% pure Java").
+[RdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnPiGpioDBlink.java "compact pure Java").
 
 ## Side problems with Java GPIO or process control
 
@@ -67,10 +78,11 @@ An immediate problem that had to be solved in the light of porting
 use of process IO and watch-dog) established in all our control installations
 with Raspberries and consorts. It turned out that locking a random access
 file fully and exclusively with Java (java.nio.channels.FileLock) on a Linux
-system is incompatible with Linux C flock(). From all C programmes or program
+system is incompatible with Linux C file locking by flock() &mdash; the 
+stabdard approach on Linux. From all C programmes or program
 instances (processes) competing for one lock file the first would win and 
 the others would have to end or wait. The same can be said of all Java 
-program instances using java.nio.channels.FileLock &dash; but even if a 
+program instances using java.nio.channels.FileLock &mdash; but even if a 
 C program has a lock (flock()) on the very same file.
 
 This violation of the singleton use of certain

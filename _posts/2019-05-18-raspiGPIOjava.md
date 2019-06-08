@@ -6,9 +6,10 @@ permalink: /:title.html
 date:   2019-05-18
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
+dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
-revision: 6
-reviDate: 2019-06-05
+revision: 7
+reviDate: 2019-06-08
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -25,7 +26,7 @@ See the
 or the 
 [SVN repo](https://weinert-automation.de/svn/rasProject_01/ "rasProject_0 (guest:guest)").
 One part of the success story is using Joan N.N.'s C 
-[pigpio library](http://abyz.me.uk/rpi/pigpio/index.html).
+[pigpio library](http://abyz.me.uk/rpi/pigpio/index.html) with its daemon/server approach.
 
 ## Java on the Pi
 Nevertheless, some people would like to use Java on a Pi, too. That's not a
@@ -37,7 +38,7 @@ Problems start &mdash; on any platform by the way &mdash; when wanting
 process control with Java. To get the know how for Raspberry Pi I ported a 
 [rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 C demo program 
-[rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo").
+[rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo"). All of a sudden I had a growing [project](https://github.com/a-weinert/weAut/).
 
 ## Native (JNI) or pure Java
 The C program uses the 
@@ -66,12 +67,13 @@ includes a JNI implementation plus its C layer for pigpiod's non socket
 interface. The library is nowhere written with the aspect of avoiding throw
 away objects.
 
-Considering that and some other points, we like implement a compact pure Java 
-pigpio[d] socket solution. The base functionality
+Considering that and some other points, I started to implement a compact 
+pure Java pigpio[d] socket solution. The base functionality
 is implemented and demonstrated by another port from C
 [RdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnPiGpioDBlink.java "compact pure Java").
 
 ## Side problems with Java GPIO or process control
+### Incompatible file lock 
 
 An immediate problem that had to be solved in the light of porting 
 "all its behaviour" was implementing the lock file approach (for singleton
@@ -79,23 +81,27 @@ use of process IO and watch-dog) established in all our control installations
 with Raspberries and consorts. It turned out that locking a random access
 file fully and exclusively with Java (java.nio.channels.FileLock) on a Linux
 system is incompatible with Linux C file locking by flock() &mdash; the 
-stabdard approach on Linux. From all C programmes or program
+standard approach on Linux. From all C programmes or program
 instances (processes) competing for one lock file the first would win and 
 the others would have to end or wait. The same can be said of all Java 
 program instances using java.nio.channels.FileLock &mdash; but even if a 
 C program has a lock (flock()) on the very same file.
 
-This violation of the singleton use of certain
-process resources when having control programs also in Java is, of course,
-not acceptable. This problem had to be solved before leaving the state of
-just play programs. The current solution are two lock methods in
+This violation of the singleton use of certain process resources when having control programs in Java, too, is, of course,
+not acceptable. This problem had to be solved before releasing Java to a 
+real life control module. You can't allow the process control program going in cyclic
+run mode while a Java calibration / service application (e.g.) is touching 
+parts of the sensors or actuators. 
+
+The compatible solution are two lock methods (openLock() and closeLock) in
 [Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") 
 using a C helper program 
-[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c).
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c). Running this little program ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) directly and the 
+Java application [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") at the same time will demonstrate the double lock on the same file.
 
 ## Repositories
 
-Find most the sources on the GitHub repository
+Find most of the sources on the GitHub repository
 [weAut](https://github.com/a-weinert/weAut/) which mirrors parts of the larger
 [SVN development repositories](https://weinert-automation.de/svn/ "guest:guest")
 essential for this project. For comments and

@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
-revision: 7
-reviDate: 2019-06-08
+revision: 8
+reviDate: 2019-06-10
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -98,6 +98,37 @@ The compatible solution are two lock methods (openLock() and closeLock) in
 using a C helper program 
 [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c). Running this little program ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) directly and the 
 Java application [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") at the same time will demonstrate the double lock on the same file.
+
+### Throw away objects
+With OO languages and Java the garbage collector is widely seen as a risk for a real time behaviour otherwise assessed theoretically and experimentally. A WG on automating critical processes with OO languages demanded no objects to be created while in cyclic run mode. Even if one would perhaps not be such strict, it is a good principle. It relieves you from the risks of garbage collection and of memory administration.
+
+And all demo examples here and the corresponding Java applications adhere to it. Mutable classes are used instead of making new immutable objects, like StringBuilder en lieu de String and (own) Container classes instead of Long.
+
+By constantly using mutable objects garbage collection and memory allocation etc. go out of the job. But, the widely used Linux approach "file as device" does not go well with Java. The listing (excerpt from [Pi1WireThDemo](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/Pi1WireThDemo.java "de.weAut.tests.Pi1WireThDemo")) shows one reading of a 1-wire thermometer. They are available in a stainless casing, too, and, by standard dimensions, suitable for boilers, e.g..  
+```java
+  String line1;
+  String line2;
+  final String devID = args[0]; // 28-02119245cd92 e.g.
+  BufferedReader thermometer; 
+  File  thermPath = new File(
+    "/sys/bus/w1/devices/w1_bus_master1/" + devID + "/w1_slave");
+  for(;runningOn;) { // cyclic run mode
+    thermometer = new BufferedReader(new FileReader(thermPath));
+    line1 = thermometer.readLine();
+    line2 = thermometer.readLine();
+    // Auswertung
+```
+The 1-wire Linux device (as file) driver yields one reading as two text lines [sic!]. Having read them the file closes automatically. Hence, opening that file has to go in the endless loop, hinting the cyclic run mode. Every reading thus makes:
+ - 1 BufferedReader, 
+ - 1 FileReader and indirectly 
+ - 1 FileInputStream, 
+ - 1 FileDescriptor etc.
+plus finally 
+ - 2 String objects.
+ 
+We have at least, 6 objects per temperature reading. By using a byte array and spoiling all readability only the Reader and the Strings could be avoided. Of course, a thermometer would seldom be read more than once per second. But imagine such thing in a 10ms  or in an 1ms cycle on a little (embedded) computer.
+
+The Pi (BCM) watchdog, also implemented as device as file, is in this aspect much better: The dog &mdash; i.e. with Java his OutputStream &mdash; stays open for writing all the time. Here we are lucky. But, alas, we have no influence on device drivers deeply embedded in the OS.
 
 ## Repositories
 

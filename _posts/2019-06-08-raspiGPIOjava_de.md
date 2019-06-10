@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: de
 enPage: raspiGPIOjava.html
 copyrightYear: 2019
-revision: 1
-reviDate: 2019-06-08
+revision: 2
+reviDate: 2019-06-10
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -98,6 +98,39 @@ dieses kleine Programm ([justLock](https://github.com/a-weinert/weAut/blob/maste
 dann auch gleichzeitig die Java-Applikation 
 [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") laufen lassen,
 demonstriert dies die zweifache Sperre ein und derselben Datei.
+
+### Wegwerfobjekte
+
+Bei Java oder allgemeiner OO-Sprachen gilt der garbage collector als das 
+Risiko für ein ansonsten theoretisch und experimentell abgesichertes Echtzeitverhalten. Es wurde für die Automatisierung kritischer Prozesse mit objektorientierten Sprachen gefordert, dass im zyklischen Betrieb keine Objekte mehr erzeugt werden dürfen. Selbst wenn diese Forderung (für allgemeine Steuerungen) kaum so hart stellen würde, ist dies ein löbliches Prinzip. Es befreit von den Risiken des Garbage-Collectors und der Speicherverwaltung.
+
+Und es liegt den hier aufgeführten Beispielen und entsprechenden Java-Anwendungen zu Grunde. So werden mutable Klassen anstelle der Neu-Erzeugung unveränderbarer Objekte verwendet, wie StringBuilder statt String und eigener Container statt Long.
+
+Durch gezielte Wiederverwendung veränderbarer Objekte lässt sich Garbage-Collection und Speicherverwaltung verhindern. Bei dem verbreiteten Linux-Ansatz „Gerät als Datei“ (device as file) sieht es dabei aber schlecht aus. Das Listing (Auszug aus [Pi1WireThDemo](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/Pi1WireThDemo.java "de.weAut.tests.Pi1WireThDemo")) zeigt das Auslesen eines 1-wire-Thermometers, die auch edelstahlgekapselt und geeignet für die  üblichen Thermometereinsteckröhrchen gibt.  
+```java
+  final String devID = args[0]; // 28-02119245cd92 e.g.
+  String line1;
+  String line2;
+  BufferedReader thermometer; 
+  File  thermPath = new File(
+    "/sys/bus/w1/devices/w1_bus_master1/" + devID + "/w1_slave");
+  for(;runningOn;) { // zyklischer Dauerbetrieb
+    thermometer = new BufferedReader(new FileReader(thermPath));
+    line1 = thermometer.readLine();
+    line2 = thermometer.readLine();
+    // Auswertung
+```
+Der zugehörige Linux-Device-Treiber liefert ein Messergebnis in zwei Textzeilen [sic!]. Nach deren Einlesen schließt sich die Datei automatisch. Deswegen muss das Dateiöffnen im Listing in die den Dauerbetrieb andeutende Endlosschleife. Jede Messung erzeugt also:
+ - 1 BufferedReader, 
+ - 1 FileReader und indirekt 
+ - 1 FileInputStream, 
+ - 1 FileDescriptor usw.
+und schließlich direkt noch 
+ - 2 String-Objekte.
+ 
+Von diesen mindestens 6 Objekten pro Messung ließen sich mit einem byte-Array (und verminderter Lesbarkeit) nur die Reader und die Strings vermeiden. Nun wird man ein Thermometer selten häufiger als einmal pro Sekunde einlesen. Aber man stelle sich so etwas in einem 10ms- oder gar 1ms-Zyklus in einem kleinen (embedded) Rechner vor.
+
+Der Pi (BCM) Watchdog, auch als device as file implementiert, ist hierbei wesentlich besser: Er – das heißt mit Java sein OutputStream – bleibt die ganze Zeit zum Schreiben geöffnet. Hier ist es zum Glück besser gemacht. Aber hierauf, sprich auf im System verankerte Device-Treiber, haben wir keinen Einfluss.
 
 ## Repositorys
 

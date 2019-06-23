@@ -10,6 +10,7 @@ revision: 12
 reviDate: 2019-04-18
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
 ---
 
 Embedded systems using AVR ATmega controllers are usually (best) implemented

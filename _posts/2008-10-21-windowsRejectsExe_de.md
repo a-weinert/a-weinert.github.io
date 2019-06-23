@@ -10,6 +10,8 @@ revision: 12
 reviDate: 2019-04-17
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
+commentShare: winMailDatTrouble_de.html
 ---
 
 ### Das Phänomen

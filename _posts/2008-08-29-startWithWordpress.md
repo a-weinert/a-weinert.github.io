@@ -11,6 +11,8 @@ revision: 13
 reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
+commentShare: ./startWithWordpress_de.html
 ---
 
 Until April 2019 this Blog was hosted at 1&1 and used WordPress there. Please

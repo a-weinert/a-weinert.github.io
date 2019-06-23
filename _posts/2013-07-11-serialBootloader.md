@@ -11,6 +11,8 @@ revision: 13
 reviDate: 2019-04-14
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
+commentShare: serialBootloader_de.html 
 ---
 
 This is an AVR ATmega development report on a serial bootloader for 

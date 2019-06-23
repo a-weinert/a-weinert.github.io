@@ -11,6 +11,8 @@ revision: 12
 reviDate: 2019-04-13
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
+commentShare: serialBootloader.html
 ---
 
 Dies ist ein Entwicklungsbericht über einen seriellen Bootlader für ATmega1284P, ATmega328P und ATmega2560 basierte Systeme. Seine Vorzüge sind:

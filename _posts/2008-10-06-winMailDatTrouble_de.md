@@ -10,6 +10,8 @@ revision: 13
 reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
+commentShare: windowsRejectsExe_de.html
 ---
 
 ### Das Phänomen

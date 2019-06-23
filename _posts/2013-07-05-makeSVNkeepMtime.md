@@ -10,6 +10,7 @@ revision: 14
 reviDate: 2019-04-22
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
 ---
 
 Subversion (SVN) is a good versioning system and still _the_ standard. 

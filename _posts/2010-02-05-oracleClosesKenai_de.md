@@ -11,6 +11,7 @@ revision: 13
 reviDate: 2019-05-25
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
 ---
 
 Seit Ende 2008 bot SUN mit der Plattform Kenai Entwicklern von Java open 

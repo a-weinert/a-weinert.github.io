@@ -10,6 +10,7 @@ revision: 13
 reviDate: 2019-04-17
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
+commentIssueId: 4
 ---
 
 This is a tip about implementing a first character range filter with pure 

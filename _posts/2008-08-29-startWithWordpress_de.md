@@ -7,8 +7,8 @@ categories: Wordpress setup theme
 lang: de
 enPage: ./startWithWordpress.html
 copyrightYear: 2008
-revision: 13
-reviDate: 2019-04-22
+revision: 14
+reviDate: 2019-06-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -22,9 +22,9 @@ WordPress. Hier finden Sie ein paar Anmerkungen zum Einsatz und Erfahrungen.
 Dieser Blog lief seit 2008 mit der deutschen Version 2.6.0 von WordPress und 
 benutzte damals ein modifiziertes TerraFirma-theme (siehe unten). Im August 2009 wurde (händisch) auf 2.8.4 aufgedatet.
 
-Im Januar 2013 wurde auf eine (neue) Datenbank mit MySQL5.0 umgestellt, nachdem die (im Vertrag 1&1 business 5) vorher verwendete 4er-Version dem php die Verbindung verweigerte. Versuche, die Datenbank und den Blog auf einen anderen (1&1 virtual) Server mit WordPress 3.5 zu migrieren und Alles in einen Webbereich mit anderer Kodierung zu übertragen, verliefen gelinde ausgedrückt unerfreulich. So wurde ohne Umzug händisch aufgedatet (auf 3.5.1 „on spot“) und vieles andere (theme, style, translations) renoviert.
+Im Januar 2013 wurde auf eine (neue) Datenbank mit MySQL5.0 umgestellt, nachdem die (im Vertrag 1&1 business 5) vorher verwendete 4er-Version dem PHP die Verbindung verweigerte. Versuche, die Datenbank und den Blog auf einen anderen (1&1 virtual) Server mit WordPress 3.5 zu migrieren und Alles in einen Webbereich mit anderer Kodierung zu übertragen, verliefen gelinde ausgedrückt unerfreulich. So wurde ohne Umzug händisch aufgedatet (auf 3.5.1 „on spot“) und vieles andere (theme, style, translations) renoviert.
 
-Die ganze WordPress Software ist in recht viel PHP geschrieben. Dazu gibt es noch eine ganze Menge JavaScript, zum Beispiel für die auf dem client laufenden Editoren. Die optionale Übersetzung englischer Texte im .php-Kode in eine andere Zielsprache wird durch sehr umfangreiche Dateien (im php mo-po-Standard) dargestellt, die umsonst zu haben sind. (Die Übersetzung ins Deutsche erfordert, je nach Einsatzziel, schon einige Überarbeitung.)
+Die ganze WordPress Software ist in recht viel PHP geschrieben. Dazu gibt es noch eine ganze Menge JavaScript, zum Beispiel für die auf dem client laufenden Editoren. Die optionale Übersetzung englischer Texte im .php-Kode in eine andere Zielsprache wird durch sehr umfangreiche Dateien (im PHP mo-po-Standard) dargestellt, die umsonst zu haben sind. (Die Übersetzung ins Deutsche erfordert, je nach Einsatzziel, schon einige Überarbeitung.)
 
 Nun ist ein Blog ein Web-Dienst, wie viele andere auch — Wikis, Shops, Web-Bedienoberflächen für Automatisierungssysteme etc. pp. Da stellt sich für eingefleischte Java-Web-Dienstleister die Grundfrage, wieso man also einen Blog nicht auch als J2EE-Webservice implementiert bzw. einen solchen vorhandenen nimmt.
 

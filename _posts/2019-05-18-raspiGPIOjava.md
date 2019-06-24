@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
-revision: 8
-reviDate: 2019-06-10
+revision: 9
+reviDate: 2019-06-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -75,7 +75,8 @@ is implemented and demonstrated by another port from C
 ## Side problems with Java GPIO or process control
 ### Incompatible file lock 
 
-An immediate problem that had to be solved in the light of porting 
+An immediate [problem](javaIncompFlock.html "see also extra post") that had
+to be solved in the light of porting 
 "all its behaviour" was implementing the lock file approach (for singleton
 use of process IO and watch-dog) established in all our control installations
 with Raspberries and consorts. It turned out that locking a random access

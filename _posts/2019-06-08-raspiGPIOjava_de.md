@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: de
 enPage: raspiGPIOjava.html
 copyrightYear: 2019
-revision: 2
-reviDate: 2019-06-10
+revision: 3
+reviDate: 2019-06-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -77,7 +77,7 @@ nach Java,
 ## Weiter Probleme mit Java GPIO und Prozesssteuerung
 ### Nicht kompatible Dateisperre
  
-Ein unmittelbar zu lösendes Problem erschien im Lichte von Portieren "mit
+Ein unmittelbar zu lösendes [Problem](javaIncompFlock_de.html "siehe eigener Beitrag hierzu") erschien im Lichte von Portieren "mit
 allem Verhalten" bei der Linux-üblichen und ja schon eingesetzten 
 Datei-Sperre (lock file, flock()) für den exklusiven Zugriff auf Prozess-IO 
 und watchdog. Es stellte sich heraus, dass ein Java lock einer Datei als 

@@ -17,14 +17,14 @@ commentShare:
 ---
 
 Typo3 ist ein weit verbreitetes sehr mächtiges content management system 
-(CMS). Es umfasst Nutzerverwaltung, front ent, back end und gibt design und 
-layout-Regeln vor. Alles wird auf dem Web-Sever in einer Datenbank gehalten;
-daneben ist PHP und ein Webserver (z.B. Apache) erforderlich, auf dem man 
-gewisse Konfigurationsfreiheiten benötigt.
+(CMS). Es umfasst Nutzerverwaltung, front end und back end und es gibt design
+und layout-Regeln vor. Alles wird auf dem Web-Sever in einer Datenbank
+gehalten; daneben ist PHP und ein Webserver (z.B. Apache) erforderlich, auf
+dem man gewisse Konfigurationsfreiheiten benötigt.
 
 Die Vorzüge von Typo3 sind gut dokumentiert. Insbesondere wird darauf 
 abgehoben, dass eine breite Autorenschaft ohne jegliche Kenntnisse in 
-Web-Techniken und -Sprachen (HTML, CSS, JS u.sw.) eingebunden werden kann.
+Web-Techniken und -Sprachen (HTML, CSS, JS usw.) eingebunden werden kann.
 
 ## Warum sollte jemand von Typo3 weg wollen?
 
@@ -137,22 +137,3 @@ Ein solches template ist per se sinnlos, das es genau eine Seite generieren
 kann. Findet man aber n .html-Seiten, die bis auf Titel und einen 
 Inhaltsblock gleich sind, macht man daraus recht leicht 1 Template und n 
 .md- (markdown) Dateien. Wenn man das beherrscht, ist das Eis gebrochen.
-
-
-
-
-Codeblock markdown (test):
-
-```Markdown
-Wenn man dabei ist, sollte man style sheets, Skripte und grundlegende Bilder
-in solchen Struktur (ab site root) ablegen.
-'''
-├── assets
-|   ├── css
-|   ├── images
-|   └── js
-'''
-Dies entspricht den Gepflogenheiten bei Jekyll.
-
-## Dr. Jekylls markdown
-```

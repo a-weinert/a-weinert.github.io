@@ -8,8 +8,8 @@ categories: WWW CSM Typo3 Markdown Jekyll
 lang: de
 enPage: leaveTypo3.html
 copyrightYear: 2019
-revision: 1
-reviDate: 2019-11-03
+revision: 2
+reviDate: 2019-11-04
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -17,10 +17,9 @@ commentShare:
 ---
 
 Typo3 ist ein weit verbreitetes sehr mächtiges content management system 
-(CMS). Es umfasst Nutzerverwaltung, front end und back end und es gibt design
-und layout-Regeln vor. Alles wird auf dem Web-Sever in einer Datenbank
-gehalten; daneben ist PHP und ein Webserver (z.B. Apache) erforderlich, auf
-dem man gewisse Konfigurationsfreiheiten benötigt.
+(CMS). Es umfasst Nutzerverwaltung, front end und back end und es gibt den 
+Seitenautoren design und layout-Regeln vor. Alles wird auf dem Sever
+in einer Datenbank gehalten. Daneben ist PHP und ein Webserver (z.B. Apache) erforderlich, auf dem man gewisse Konfigurationsfreiheiten benötigt.
 
 Die Vorzüge von Typo3 sind gut dokumentiert. Insbesondere wird darauf 
 abgehoben, dass eine breite Autorenschaft ohne jegliche Kenntnisse in 
@@ -34,14 +33,14 @@ Typo3 nicht mehr wollen. Die Hauptgründe sind meist
    vorgegebenen Designs oder Layouts. So bekommt man beispielsweise 
    sachlich unpassende Navigationsspalten nicht weg oder kann keine
    Mehrsprachigkeit bieten, wenn das nicht "vorgekaut" ist.
- - kein Testview
+ - keine Testvorschau
  - keine Versionsverwaltung (die den Namen verdient)
  - Die Seitenautoren kommen mit dem back end einfach nicht klar.
  
 Der letzte und häufigste Wechselgrund mag erstaunen, da die
 voraussetzungslose Simplizität beim Schreiben meist der eigentliche Grund
 oder Vorwand zum Einführen von Typo3 war. Tatsächlich lässt sich das back end
-so frei konfigurieren bzw. programmieren, das man kaum zwei Installationen 
+so frei konfigurieren bzw. programmieren, dass man kaum zwei Installationen 
 mit gleichem back end- / Editor-Verhalten findet.
 
 Deshalb gib es zwar dicke und gute Lehrbücher für Typo3-Admins / 
@@ -71,9 +70,9 @@ betrachtet werden. Wenn doch, muss man dringend Konvertierungs- bzw. Export-
 und Import-tools klären -- es sei denn der Web-Bereich ist winzig und man 
 will Alles von Null an neu machen.
 
-Ziel 2, d.h. statisches HTML, CSS und JS. Mit geeigneten tools, 
-Syntaxunterstützung und Versionsverwaltung (Eclipse und SVN z.B.) kann man
-allein oder in kleinen Teams erstaunlich gut arbeiten.
+Ziel 2 ist direktes Pflegen von statischem HTML, CSS und JS. Mit geeigneten
+tools, Syntaxunterstützung und Versionsverwaltung (Eclipse und SVN z.B.) 
+kann man allein oder in kleinen Teams erstaunlich gut arbeiten.
 
 Vor Allem, wenn Autoren Inhalte (fast) ohne HTML-Kontakt bereitstellen und
 pflegen sollen, wird man das Ziel 3, d.h. statische site Generierung, z.B.
@@ -88,7 +87,8 @@ Pflege in HTML etc.
 
 Wenn man den kompletten betreffenden Web-Auftritt als statisches HTML hat 
 und (via FTP) auf dem selben Server unter derselben domain bereit stellt,
-ist man Typo3 (und Datenbank und PHP) los und die Besucher merken nichts.
+ist man Typo3 (und Datenbank und PHP) los und die Besucher merken nichts --
+außer vielleicht besserer performance.
 
 Für ein komplettes statisches Abbild des Bereichs auf der 
 Entwicklungs-workstation benötigt man glücklicherweise keine Konvertierungs-
@@ -98,7 +98,8 @@ laufen. Man installiert sich das freie Tool WinHTTrack.exe -- z.Z Version
  - Local structure: site structure
  - rewrite links: Relative URI / Absolute URI
  
-Das Ergebnis sollte mit einer file://-URL lokal laufen, und nach Hochladen
+Das Ergebnis sollte mit einer file://-URL lokal laufen -- hoppla wir haben
+eine lokale Testvorschau -- und nach Hochladen
 auf den Server ist man, wie gesagt, fertig. Eigentlich.
 
 Bei näherem Hinsehen erweist sich der von Typo3 als Ganzes gelieferte 
@@ -124,16 +125,18 @@ Dies entspricht den Gepflogenheiten bei Jekyll.
 Jetzt kann man relativ einfach zur Generierung eines statischen Web-Auftritts
 mit markdown und Jekyll übergehen. Hintergründe und Installation sind gut 
 dokumentiert und leicht zu finden. Wenn man Github server pages verwendet --
-vielleicht auch für einen blog wie diesen -- hat man das eh schon. mit das
-beste daran ist die Vorschau-Funktion.
+vielleicht auch für einen blog wie diesen -- hat man das eh schon. 
+
+Das Ganze funktioniert auch ohne Github und ohne blog. Und mit das Beste 
+daran ist die Vorschau-Funktion.
 
 Der Übergang ist einfach und fließend zu gestalten, weil Jekyll
 
- a) alles statisch vorhandene einfach 1:1 kopiert und
- b) eine syntaktisch korrekte .html-Seite ein syntaktisch richtiges
+ &nbsp; a) alles statisch vorhandene einfach 1:1 kopiert und <br />
+ &nbsp; b) eine syntaktisch korrekte .html-Seite ein syntaktisch richtiges
     Template (in Jekylls template-Sprache Liquid) ist.
     
-Ein solches template ist per se sinnlos, das es genau eine Seite generieren
-kann. Findet man aber n .html-Seiten, die bis auf Titel und einen 
+Ein solches template ist per se sinnlos, da es nur genau die eine Seite
+generieren kann. Findet man aber n .html-Seiten, die bis auf Titel und einen 
 Inhaltsblock gleich sind, macht man daraus recht leicht 1 Template und n 
 .md- (markdown) Dateien. Wenn man das beherrscht, ist das Eis gebrochen.

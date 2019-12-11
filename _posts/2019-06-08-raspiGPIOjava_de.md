@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: de
 enPage: raspiGPIOjava.html
 copyrightYear: 2019
-revision: 3
-reviDate: 2019-06-24
+revision: 4
+reviDate: 2019-12-11
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -39,7 +39,9 @@ Ansteuerung von Aktoren und Sensoren mit Java) auf dem Pi zu lernen portierte
 ich aus
 [rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services") ein C-Demoprogramm
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo").
-"Überraschenderweise" wurde daraus ein [Projekt](https://github.com/a-weinert/weAut/), das immer noch wächst.
+"Überraschenderweise" wurde daraus ein wachsendes Projekt
+[Projekt](https://github.com/a-weinert/weAut/) und eine
+[Veröffentlichung](https://a-weinert.de/publication.html) im Java Magazin.
 
 ## Native (JNI) oder pure Java
 Diese C-Pprogramm nutzt die Bibliothek

@@ -3,13 +3,13 @@ layout: weAutPost
 title: Raspberry Pi IO with Java
 bigTitle: PiGpioJava
 permalink: /:title.html
-date:   2019-05-18
+date:   2019-06-11
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
-revision: 9
-reviDate: 2019-06-24
+revision: 10
+reviDate: 2019-12-11
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -38,7 +38,9 @@ Problems start &mdash; on any platform by the way &mdash; when wanting
 process control with Java. To get the know how for Raspberry Pi I ported a 
 [rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 C demo program 
-[rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo"). All of a sudden I had a growing [project](https://github.com/a-weinert/weAut/).
+[rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo"). All of a sudden I had a growing
+[project](https://github.com/a-weinert/weAut/) and a German
+[publication](https://a-weinert.de/publication_en.html) on Java Magazin.
 
 ## Native (JNI) or pure Java
 The C program uses the 

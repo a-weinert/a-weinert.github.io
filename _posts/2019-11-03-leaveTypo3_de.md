@@ -8,8 +8,8 @@ categories: WWW CSM Typo3 Markdown Jekyll
 lang: de
 enPage: leaveTypo3.html
 copyrightYear: 2019
-revision: 2
-reviDate: 2019-11-04
+revision: 3
+reviDate: 2019-12-11
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -97,6 +97,7 @@ laufen. Man installiert sich das freie Tool WinHTTrack.exe -- z.Z Version
 3.49-2 -- und lässt es laufen. Wichtig sind die Einstellungen 
  - Local structure: site structure
  - rewrite links: Relative URI / Absolute URI
+ - Verbote in robots.txt ignorieren
  
 Das Ergebnis sollte mit einer file://-URL lokal laufen -- hoppla wir haben
 eine lokale Testvorschau -- und nach Hochladen
@@ -127,7 +128,7 @@ mit markdown und Jekyll übergehen. Hintergründe und Installation sind gut
 dokumentiert und leicht zu finden. Wenn man Github server pages verwendet --
 vielleicht auch für einen blog wie diesen -- hat man das eh schon. 
 
-Das Ganze funktioniert auch ohne Github und ohne blog. Und mit das Beste 
+Das Ganze funktioniert auch ohne Github und ohne Blog. Und mit das Beste 
 daran ist die Vorschau-Funktion.
 
 Der Übergang ist einfach und fließend zu gestalten, weil Jekyll
@@ -140,3 +141,26 @@ Ein solches template ist per se sinnlos, da es nur genau die eine Seite
 generieren kann. Findet man aber n .html-Seiten, die bis auf Titel und einen 
 Inhaltsblock gleich sind, macht man daraus recht leicht 1 Template und n 
 .md- (markdown) Dateien. Wenn man das beherrscht, ist das Eis gebrochen.
+
+## Dr. Jekyll's site generator
+
+Der Befehl   
+``` 
+  jekyll serve              oder  
+  bundle exec jekyll serve  
+ ```
+(in Abhängigkeit von der Installation) erzeugt die statische wen site im 
+Verzeichnis _site. Von da kann man es mit Jekylls eingebautem Web-Server
+unter     
+&nbsp; &nbsp; http://127.0.0.1:4000/
+anschauen. Jedwede Änderung bei templates, assets oder markdown regeneriert
+automatisch die web site im Directory _site.
+
+Das ist wirkliche lokale Vorschau. Und wenn bei Zufriedenheit lädt man 
+einfach den generierten Inhalt von _site zum richtigen Web-Server. Bei
+Github server pages genügt commit und push, denn Githubs eingebautes Jekyll
+erledigt die selbe Generierung auf dem Server. Aber, wie gesagt, das Ganze 
+funktioniert auch ohne Github mit jedem Web-Server auf den man Dateien laden
+
+kann.
+ 

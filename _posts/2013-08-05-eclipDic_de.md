@@ -7,8 +7,8 @@ categories: eclipse German dictionary Wörterbuch Deutsch
 lang: de
 enPage: ./eclipDic.html 
 copyrightYear: 2013
-revision: 14
-reviDate: 2019-06-24
+revision: 17
+reviDate: 2020-01-16
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 1
@@ -16,9 +16,10 @@ commentShare: ./eclipDic.html
 ---
 
 Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-
-oder Doxygen-Kommentaren sowie in seinem XML und HTML hat, wird von Eclipses Rechschreibhilfe oft eher gestört. Hier gibt es nun speziell für Entwickler
-ein Wörterbuch mit mehr als 24.800 deutschen Wortformen, das vor allem auch
-Fachbegriffe aus Java, OO und (Leit-) Technik enthält.
+oder Doxygen-Kommentaren sowie in seinem XML und HTML hat, wird von Eclipses
+Rechschreibhilfe oft eher gestört. Hier gibt es nun ein deutsches Wörterbuch
+mit mehr als 25.800 deutschen Wortformen, das vor allem auch Fachbegriffe aus
+Java, OO und (Leit-) Technik enthält.
 
 
 ### Holen und Installieren
@@ -42,18 +43,18 @@ Hinweis 2: Da von allen Eclipse-Editoren die Rechtschreibprüfung beim „Text E
 Die hier verwendete einfachste Form einer von Eclipse nutzbaren 
 .dic-Datei ist
 - eine Wortform pro Zeile
-- keine Wiederholungen auch nicht mit großem Anfangsbuchstaben <br />
+- keine Wiederholungen auch nicht mit großem Anfangsbuchstaben   
   Wenn „wandern“ drin ist, akzeptiert Eclipse „Wandern“ sowieso. Folglich
   wird das [Frame4J](https://frame4j.de/index_en.html) tool 
   UCopy (option -eclipDic) die groß geschriebene Dublette rauswerfen.
-- keine Punkte am Ende <br />
+- keine Punkte am Ende   
   Eclipse akzeptiert „etc.“ im Text nur mit einem .dic-Eintrag „etc“.
-- keine Bindestrichworte <br />
+- keine Bindestrichworte   
   Eclipse prüft „Baden-Württemberg“ sowie so nur gegen die getrennten 
   Einträge „baden“ (auch ein Verb) und „Württemberg“.
-- unsortiert <br />
+- unsortiert   
   Eclipse scheint .dic-files beim Laden nach eigenem Ermessen zu sortieren.
-  ( Andere Informationen?)<br />
+  (Andere Informationen sind willkommen?)   
   &nbsp; 
   
 ### Selbst modifizieren

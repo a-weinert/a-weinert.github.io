@@ -3,7 +3,7 @@ layout: weAutPost
 title: Weg von Typo3
 bigTitle: Aus für Typo3
 permalink: /:title.html
-date:   2019-11-03
+date:   2020-10-04
 categories: WWW CSM Typo3 Markdown Jekyll
 lang: de
 enPage: leaveTypo3.html
@@ -17,9 +17,12 @@ commentShare:
 ---
 
 Typo3 ist ein weit verbreitetes sehr mächtiges content management system 
-(CMS). Es umfasst Nutzerverwaltung, front end und back end und es gibt den 
-Seitenautoren design und layout-Regeln vor. Alles wird auf dem Sever
-in einer Datenbank gehalten. Daneben ist PHP und ein Webserver (z.B. Apache) erforderlich, auf dem man gewisse Konfigurationsfreiheiten benötigt.
+(CMS). Es umfasst Nutzer&shy;ver&shy;waltung, front end und back end und
+es gibt den Seiten&shy;autoren design und layout-Regeln vor. Alles
+wird auf dem Sever
+in einer Datenbank gehalten. Daneben ist PHP und ein Webserver (z.B. Apache)
+erforder&shy;lich, auf dem man gewisse
+Kon&shy;fi&shy;gurations&shy;frei&shy;heiten benötigt.
 
 Die Vorzüge von Typo3 sind gut dokumentiert. Insbesondere wird darauf 
 abgehoben, dass eine breite Autorenschaft ohne jegliche Kenntnisse in 
@@ -38,8 +41,9 @@ Typo3 nicht mehr wollen. Die Hauptgründe sind meist
  - Die Seitenautoren kommen mit dem back end einfach nicht klar.
  
 Der letzte und häufigste Wechselgrund mag erstaunen, da die
-voraussetzungslose Simplizität beim Schreiben meist der eigentliche Grund
-oder Vorwand zum Einführen von Typo3 war. Tatsächlich lässt sich das back end
+voraus&shy;setzungs&shy;lose Simpli&shy;zität beim Schreiben meist der
+eigent&shy;liche Grund oder Vor&shy;wand zum Einführen von Typo3 war. 
+Tat&shy;sächlich lässt sich das back end
 so frei konfigurieren bzw. programmieren, dass man kaum zwei Installationen 
 mit gleichem back end- / Editor-Verhalten findet.
 
@@ -71,7 +75,8 @@ und Import-tools klären -- es sei denn der Web-Bereich ist winzig und man
 will Alles von Null an neu machen.
 
 Ziel 2 ist direktes Pflegen von statischem HTML, CSS und JS. Mit geeigneten
-tools, Syntaxunterstützung und Versionsverwaltung (Eclipse und SVN z.B.) 
+tools, Syntax&shy;unterstützung und Versions&shy;verwaltung (Eclipse
+und SVN z.B.) 
 kann man allein oder in kleinen Teams erstaunlich gut arbeiten.
 
 Vor Allem, wenn Autoren Inhalte (fast) ohne HTML-Kontakt bereitstellen und
@@ -92,7 +97,8 @@ außer vielleicht besserer performance.
 
 Für ein komplettes statisches Abbild des Bereichs auf der 
 Entwicklungs-workstation benötigt man glücklicherweise keine Konvertierungs-
-tools oder Datenbankzugriffe; lediglich der Webauftritt (mit http[s]) muss
+tools oder Daten&shy;bank&shy;zu&shy;griffe; lediglich der
+Web&shy;auf&shy;tritt (mit http[s]) muss
 laufen. Man installiert sich das freie Tool WinHTTrack.exe -- z.Z Version
 3.49-2 -- und lässt es laufen. Wichtig sind die Einstellungen 
  - Local structure: site structure
@@ -149,18 +155,17 @@ Der Befehl
   jekyll serve              oder  
   bundle exec jekyll serve  
  ```
-(in Abhängigkeit von der Installation) erzeugt die statische wen site im 
+(in Abhängigkeit von der Installation) erzeugt die statische web site im 
 Verzeichnis _site. Von da kann man es mit Jekylls eingebautem Web-Server
 unter     
 &nbsp; &nbsp; http://127.0.0.1:4000/
 anschauen. Jedwede Änderung bei templates, assets oder markdown regeneriert
 automatisch die web site im Directory _site.
 
-Das ist wirkliche lokale Vorschau. Und wenn bei Zufriedenheit lädt man 
+Das ist wirkliche lokale Vorschau. Und bei Zufriedenheit lädt man 
 einfach den generierten Inhalt von _site zum richtigen Web-Server. Bei
 Github server pages genügt commit und push, denn Githubs eingebautes Jekyll
 erledigt die selbe Generierung auf dem Server. Aber, wie gesagt, das Ganze 
 funktioniert auch ohne Github mit jedem Web-Server auf den man Dateien laden
-
 kann.
  

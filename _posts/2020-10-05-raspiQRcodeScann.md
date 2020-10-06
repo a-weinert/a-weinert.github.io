@@ -9,7 +9,7 @@ lang: en
 dePage:
 copyrightYear: 2020
 revision: 2
-reviDate: 2020-10-05
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -30,7 +30,7 @@ can
  2. use a stationary scanner doing all that connected via USB to the Pi
 
 The fist approach was abandoned soon for a number of reasons:
- - Distance an resolution would require the "expensive" (80..100€)
+ - Distance and resolution would require the "expensive" (80..100€)
    and relatively bulky Pi camera type with extra objective. For that no
    acceptable casing and stand solution was found.
  - For whatever reasons, software and libraries for bar code recognition,
@@ -46,22 +46,24 @@ The fist approach was abandoned soon for a number of reasons:
    [publication](https://a-weinert.de/pub/ "by A. Weinert") a none lite 
    Raspbian is the death to all our real time requirements.
    
-Hence we choose the second approach. <img src="/assets/images/QRscanner_s414.jpg" width="232"
-height="210" title="The scanner"
-alt="scanner" class="imgonright" />
+Hence we choose the second approach. <img 
+src="/assets/images/QRscanner_s414.jpg" width="232" height="210" 
+title="The scanner" alt="scanner" class="imgonright" />
 
 ## The scanner
 
-We ordered an Alacrity Handsfree 2D 1D Wired Barcode Scanner. Its a black box
+We ordered an *Alacrity Handsfree 2D 1D Wired Barcode Scanner*. Its a black box
 with a viewing window standing solidly on the table. It is connected to and
 supplied
-by the Pi via USB 2. For 110€ you have no fiddling with camera stand, 
+by the Pi via USB 2. For 110€ you have no fiddling with camera stands, 
 objectives or stubborn flat cables.   
 The manual is not worth the name. Its more or less a collection of special 
 bar codes to change settings. Once you've lost, you never get back: No
 download by supplier nor manufacturer.   
-On the other hand this box recognises "every" code in all positions in all
-colours and surfaces, cotton, paper, plastic, handy screen etc.
+On the other hand this box detects almost every code found in our household
+in all positions, in many colours and art designs as well as on surfaces, 
+like cotton, paper, plastic, handy screens etc. And in most cases the loud 
+"victory beep" came very quickly. 
 
 So all seemed well -- and is, but more by luck than understanding.
 
@@ -102,51 +104,49 @@ And "nothings" (shifted or not) can be interspersed at any
 place in any number. The purpose of those can only be speculated on.
 
 Anyway, by providing two (a shifted and a non shifted) key
-number to key value tables (char arrays), you easily get the
-bar/QR code's text. Just know or explore the US American 
-keyboard layout.
+number to key value lookup tables, you easily get the
+bar/QR code's text. Just know the US American keyboard layout or explore its
+implementation by the Alacrity scanner.
 
 ## The char set of the most ignoring people
 
-As being German based and in a German project we, of course,
-would like to read the names correctly, should they appear 
-one day on the ID cards with numbers mentioned above.   
+As being German based and in a German project we, of course, would like to
+read the names correctly, should they appear one day on the ID cards with
+numbers mentioned above.   
 "Käte Nüßlein" should be "Käte Nüßlein" not "Kte Nlein" or
-something totally gaga. Well, our scanner can be set to 
-"German" by a special code; this setting won't get lost at
+something totally gaga. Well, our the Alacrity Handsfree 2D 1D scanner can
+be set to "German" by a special bar code; this setting won't get lost at
 power down.
 
 Now we are faced with a solvable and a unsolvable problem.
 The solvable first:
 
-In its stone age tradition a C char can't handle anything
-but US ASCII in a portable manner. Hard core C programmes  
-(in the past) considered a char's bit 7 as a no cost boolean.
+In its stone age tradition a C char can't handle anything but US ASCII in a
+portable manner. Hard core C programmers (in the past) considered a 
+char's bit 7 as a no cost boolean.
 
-To handle the above to text translation you have to have
-three translation tables (a shifted and a non shifted and a
-AltGr=right Alt one) and you have to use wchar_t 
-(wide char) for those look up tables. And you should know the German
-keyboard or explore it.   
+To handle the above to text translation you have to provide three 
+translation tables (a shifted and a non shifted and a
+AltGr=right Alt one) and you have to use wchar_t (wide char) for those
+look up tables. And you should know the German keyboard or explore it.   
 The most important information: z and y are now in the right
 place, correcting the mistake renaming the perfume 
 "Oil of Olay" to "Oil of Olaz" in Germany.
 
 With all those toils we don't loose characters (many of them
 changing places on the keyboard respectively look up tables).   
-We just get three [sic!] extra: ``² ³ °  `` 
+We just got three [sic!] characters extra: ``² ³ °  `` 
 We do not get: ``ä ö ü Ä Ö Ü ß § € µ``   
 It turns out the (probably) Chinese firmware writers do not
-have even the vaguest idea about a German keyboard.
+have even the vaguest notion of a German keyboard.
 
-So using German text in QR codes is the unsolvable problem.
+So recognising German text in QR codes is the unsolvable problem.
 So we switch back to factory setting and to the char set of
-the most ignoring people US-ASCII. 
+the most ignoring people: US-ASCII. 
 
-As long as this restriction is not clearly communicated by
-the vendors, we would feel us within our rights to return 
-the thing as soon as the detection of the flaw. Imagine a 
-German keyboard without Umlauts!  
-On the other hand -- within its limitations -- the little
-thing works reliably and fast and our C software is no
-thread to the other real time tasks.
+As long as this restriction is not clearly communicated by the vendors, we
+feel us within our rights to return the thing as soon as the detection of
+the flaw. Imagine a German keyboard without Umlauts!  
+On the other hand -- within its limitations for our current project task --
+the little thing works reliably and fast and our C software is no
+thread to the other real time programs running on the same Pi.

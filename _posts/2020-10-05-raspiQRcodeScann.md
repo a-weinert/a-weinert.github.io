@@ -135,8 +135,10 @@ place, correcting the mistake renaming the perfume
 
 With all those toils we don't loose characters (many of them
 changing places on the keyboard respectively look up tables).   
-We just got three [sic!] characters extra: ``² ³ °  `` 
-We do not get: ``ä ö ü Ä Ö Ü ß § € µ``   
+We just got three [sic!] characters extra: ``² ³ ° ``. 
+We do not get: ``ä ö ü Ä Ö Ü ß § € µ``.  
+They are completely lost; i.e. you don't even get whatever key button message
+over the USB line and, hence, no way around "Kte Nlein".      
 It turns out the (probably) Chinese firmware writers do not
 have even the vaguest notion of a German keyboard.
 

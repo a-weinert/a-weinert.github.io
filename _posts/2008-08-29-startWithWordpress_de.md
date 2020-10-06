@@ -16,7 +16,8 @@ commentShare: ./startWithWordpress.html
 ---
 
 Dieser Blog war bis April 2019 bei 1&1 gehostet und verwendete dort 
-WordPress. Hier finden Sie ein paar Anmerkungen zum Einsatz und Erfahrungen.
+WordPress. Hier finden Sie ein paar Anmerkungen zum Einsatz und
+Erfahrungen. <!--more-->
 
 ### Die Software
 Dieser Blog lief seit 2008 mit der deutschen Version 2.6.0 von WordPress und 

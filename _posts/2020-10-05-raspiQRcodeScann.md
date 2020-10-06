@@ -19,7 +19,7 @@ commentShare:
 One of our realtime process control project with Raspberry Pi and C shall be 
 enhanced with a QR and bar code scanner for access and booking. The ID cards 
 in question would contain only numbers. In hindsight, regarding the scanner 
-chosen, this is sheer luck.
+chosen, this is sheer luck. <!--more-->
 
 ## Choosing the approach
 

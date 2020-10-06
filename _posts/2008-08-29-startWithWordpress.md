@@ -16,7 +16,7 @@ commentShare: ./startWithWordpress_de.html
 ---
 
 Until April 2019 this Blog was hosted at 1&1 and used WordPress there. Please
-find here some remarks on usage and experiences.
+find here some remarks on usage and experiences. <!--more-->
 
 ### The Software
 This Blog was running since 2008 starting with WordPress’s German version 

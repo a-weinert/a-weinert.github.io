@@ -8,8 +8,8 @@ categories: WWW CSM Typo3 Markdown Jekyll
 lang: de
 enPage: leaveTypo3.html
 copyrightYear: 2019
-revision: 3
-reviDate: 2019-12-11
+revision: 4
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -17,7 +17,7 @@ commentShare:
 ---
 
 Typo3 ist ein weit verbreitetes sehr mächtiges content management system 
-(CMS). Es umfasst Nutzer&shy;ver&shy;waltung, front end und back end und
+(CMS). Es umfasst Nutzer&shy;ver&shy;waltung, front end<!--more--> und back end und
 es gibt den Seiten&shy;autoren design und layout-Regeln vor. Alles
 wird auf dem Sever
 in einer Datenbank gehalten. Daneben ist PHP und ein Webserver (z.B. Apache)

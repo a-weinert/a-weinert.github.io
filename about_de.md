@@ -7,8 +7,8 @@ date: 2019-04-10
 lang: de
 enPage: about.html 
 copyrightYear: 2019
-revision: 4
-reviDate: 2019-05-25
+revision: 5
+reviDate: 2020-10-06
 ---
 
 Willkommen bei meinem 
@@ -53,15 +53,13 @@ Zitat: "Das Beste an Git ist GitHub".
 
 + Die Anfangslernkurve ist geschafft: Git, Jekyll, Markdown, Liquid ... 
 + Ruby und der ganze Kram für lokales Entwickeln und Testen läuft auf dem
-  Arbeits-Windows-PC.
+  Arbeits-PC (urspr. Windows 7 prof. nun 10).
 + Templates und style sheet sind den übrigen Web-Bereichen angepasst,
   ebenso die optionale Mehrsprachigkeit. Der GitHub-Blog sieht aus wie die
   übrigen Web-Bereiche.
 + Eine Kommentarfunktion wurde ohne externe Provider mit GitHub issues und
   JavaSript (ohne jQuery) implementiert.
 
-Im Übrigen siehe und kommentiere hierzu den 
-[Testbeitrag](/testPost.html "nur Englisch").
 
 ### Résumé 
 

@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
-revision: 10
-reviDate: 2019-12-11
+revision: 11
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -19,8 +19,8 @@ commentShare: /frame4j.html
 ## Pi IO and process control with C
 The natural language for a small Linux controller, like a Raspberry Pi, is
 C &mdash; especially when it comes to process control using Pi's  GPIO
-(general purpose input and output) to control actuators and read sensors. 
-This we and others did with good success.
+<!--more-->(general purpose input and output) to control actuators
+and read sensors. This we and others did with good success.
 See the 
 [publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 or the 

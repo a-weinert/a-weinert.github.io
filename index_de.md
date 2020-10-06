@@ -12,5 +12,5 @@ reviDate: 2019-04-13
 ---
 Willkommen bei 
 [Albrecht Weinert](https://a-weinert.de/ "Prof. Dr.-Ing. Albrecht Weinert")s
-Blog. Hier finden Sie Veröffentlichungen, Tipps, Technisches und Erfahrungen aus der Arbeit in der 
+Blog. Hier finden Sie Tipps und Erfahrungen aus der Arbeit in der 
 [Firma](https://weinert-automation.de/ "weinert-automation - Entwicklung Dienste Beratung") und der Hochschule.

@@ -8,8 +8,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: de
 enPage: raspiGPIOjava.html
 copyrightYear: 2019
-revision: 4
-reviDate: 2019-12-11
+revision: 5
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -17,10 +17,11 @@ commentShare: raspiGPIOjava.html
 ---
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Pi IO und Prozesssteuerung mit C
-Bei sehr kleinen Linux-Rechnern, wie einem Raspberry Pi, ist die Sprache der 
-Wahl C &mdash; besonders bei Prozesssteueranwendungen, welche z.B. beom Pi die 
-GPIO (general purpose input and output) für Sensoren und Aktoren nutzen. So
-arbeiten wir und Andere mit gutem Erfolg. Siehe auch die
+Bei sehr kleinen Linux-Rechnern, wie einem Raspberry Pi, ist die Sprache
+der Wahl C &mdash; besonders bei Prozesssteueranwendungen, welche z.B.
+beim Pi die GPIO <!--more-->(general purpose input and output)
+für Sensoren und Aktoren nutzen. So arbeiten wir und Andere mit gutem
+Erfolg. Siehe auch die
 [Publikation](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services") 
 oder das 
 [SVN repo](https://weinert-automation.de/svn/rasProject_01/ "rasProject_0 (guest:guest)").

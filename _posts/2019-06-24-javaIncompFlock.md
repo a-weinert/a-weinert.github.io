@@ -8,8 +8,8 @@ categories: Java Linux flock Raspberry
 lang: en
 dePage: javaIncompFlock_de.html
 copyrightYear: 2019
-revision: 1
-reviDate: 2019-06-24
+revision: 2
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 5
@@ -17,8 +17,10 @@ commentShare: javaIncompFlock_de.html
 ---
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Java on the Pi
-Working on a [project](raspiGPIOjava.html) dealing with process IO with Java on a Raspberry Pi I got Java applications
-that must compete for a lock with existing C control programs on the little
+Working on a [project](raspiGPIOjava.html) dealing with process IO with
+Java on a Raspberry Pi I got Java applications
+that must compete for a lock <!--more-->with existing C control programs
+on the little
 machine. As usual since decades with Unix/Linux the C programmes know the 
 path of an existing (empty) lock file and use flock() to compete for it.
 

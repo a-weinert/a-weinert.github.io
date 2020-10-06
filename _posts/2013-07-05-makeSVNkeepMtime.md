@@ -6,15 +6,16 @@ date:   2013-07-05
 categories: SVN subversion time 
 lang: en
 copyrightYear: 2013
-revision: 14
-reviDate: 2019-04-22
+revision: 15
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 ---
 
-Subversion (SVN) is a good versioning system and still _the_ standard. 
-Nevertheless, it has one big deficiency:
+Subversion (SVN) is a good versioning system and in many fields still _the_
+standard.  
+Nevertheless, it has one big deficiency:<!--more-->
  - SVN destroys the file modification meta info (mTime for short). 
  
 Since some years the frustrating discussion thereon is still ongoing. In 

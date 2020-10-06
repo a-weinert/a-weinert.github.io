@@ -50,6 +50,7 @@ defaults:
       author: "Albrecht Weinert"
       lang: en
       copyrightYear: 2019
+      excerpt_separator: <!--more-->
       commentsURL: "https://github.com/a-weinert/a-weinert.github.io/issues"
       commentsAPI: "https://api.github.com/repos/a-weinert/a-weinert.github.io/issues"
   -

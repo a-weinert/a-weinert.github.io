@@ -7,8 +7,8 @@ date: 2019-04-10
 lang: en
 dePage: about_de.html 
 copyrightYear: 2019
-revision: 4
-reviDate: 2019-05-25
+revision: 5
+reviDate: 2020-10-06
 ---
 
 Welcome to my [blog on GitHub](/index.html "content/posts see here") Pages.
@@ -38,20 +38,19 @@ be easy nor the solution beautiful. So why not use the time to learn
 something new.
 
 Additionally a bit research showed many people with a similar point of view
-toward Wordpress were happy with GitHub.<br /> 
+toward Wordpress were happy with GitHub.     
 Someone posted: "The best on Git is GitHub". 
 
 ### Status and to do
 
 + The basic learning curve is mastered: Git, Jekyll, Markdown, Liquid ...
 + Ruby and all else for local development and testing is installed on
-  the home Windows workstation. 
+  the Windows workstation. 
 + Templates and styles were adapted to the sites' design as well as the
   optional  multilingualism.
 + A comment feature was implemented without external providers with 
  Github issues and pure JavaSript (without jQuery).
- 
-See also and comment the [test post](/testPost.html).
+
 
 
 ### Résumé 

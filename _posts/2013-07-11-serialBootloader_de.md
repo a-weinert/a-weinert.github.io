@@ -7,15 +7,17 @@ categories: serial bootloader AVR ATmega
 lang: de
 enPage: ./serialBootloader.html 
 copyrightYear: 2013
-revision: 12
-reviDate: 2019-04-13
+revision: 13
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 commentShare: serialBootloader.html
 ---
 
-Dies ist ein Entwicklungsbericht über einen seriellen Bootlader für ATmega1284P, ATmega328P und ATmega2560 basierte Systeme. Seine Vorzüge sind:
+Dies ist ein Entwicklungsbericht über einen seriellen Bootlader für
+ATmega1284P, ATmega328P und ATmega2560 <!--more-->basierte Systeme.
+Seine Vorzüge sind:
 
 - keine Programmierhardware mehr nötig
 - Nutzung von Standardkommunikationsschnittstellen, welche für den normalen 
@@ -45,10 +47,15 @@ Dies ist ein Entwicklungsbericht über einen seriellen Bootlader für ATmega1284
 6.   Abbreviations
 7.   References
 
-Der Entwicklungsbericht bringt auch einige Hintergrundinformationen über die ATmega-Architektur, Bootlader, avr-gcc, Linker und Bootlader sowie über einige häufig zu erlebende Fehler und Probleme. Ein beispielhaftes solches Problem, das gerne bei Arduinos und seriellen Bootladern auftaucht, ist das gefürchtete: 
+Der Entwicklungsbericht bringt auch einige Hintergrundinformationen
+über die ATmega-Architektur, Bootlader, avr-gcc, Linker und Bootlader
+sowie über einige häufig zu erlebende Fehler und Probleme. Ein
+beispielhaftes solches Problem, das gerne bei Arduinos und seriellen
+Bootladern auftaucht, ist das gefürchtete: 
 ```powershell
 avrdude: error: programmer did not respond to command: set addr
 ```
-Lesen Sie den report als [AVRserBootl.pdf](https://a-weinert.de/pub/AVRserBootl.pdf "full paper") (auf
+Lesen Sie den report
+[AVRserBootl.pdf](https://a-weinert.de/pub/AVRserBootl.pdf "full paper") (auf
 [a-weinert.de/p...](https://a-weinert.de/publication_en.html "einige Publikationen von  Albrecht Weinert") 
 / [pub/](https://a-weinert.de/pub/ "download")).

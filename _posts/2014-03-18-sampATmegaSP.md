@@ -6,17 +6,17 @@ date:   2014-03-18
 categories: GCC embedded development AVR ATmega stackpointer
 lang: en
 copyrightYear: 2014
-revision: 12
-reviDate: 2019-04-18
+revision: 13
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 ---
 
 Embedded systems using AVR ATmega controllers are usually (best) implemented
-in pure C with a (WIN-avr) GCC toolchain. With AVRs RAM is often the tightest
-resource and sometimes developers fear the stack might collide with the
-variables.
+in pure C with a (WIN-avr) GCC toolchain.<!--more--> With AVRs RAM is
+often the tightest resource and sometimes developers fear the 
+stack might collide with the variables.
 
 Analysing tools calculating the minimal stackpointer on assumed call 
 hierarchy and local variable definitions are a bit hard to find and to use in

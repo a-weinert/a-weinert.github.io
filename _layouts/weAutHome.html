@@ -14,12 +14,19 @@ layout: weAutDefault
          {% continue %}
        {%- endif -%}
       <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span><br />
+        <span class="post-meta">{{ post.date | date: date_format }}
+        {%- if page.show_excerpts -%} &nbsp; &nbsp;
+        <a href="{{ site.baseurl }}{{ post.url }}">Mehr lesen ...</a>
+        {% endif %}</span><br />
+
+        {%- if page.show_excerpts -%}
+        <h3><a href="{{ post.url }}" rel="bookmark" 
+title="Permanent Link zu {{post.title}}">{{post.title}}</a></h3> 
+          {{ post.excerpt }}<hr /> {%- else -%}
+                  
          <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
         {%- endif -%}
       </li>
       {%- endfor -%}
@@ -33,13 +40,21 @@ layout: weAutDefault
          {% continue %}
        {%- endif -%}
       <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span><br />
+        <span class="post-meta">{{ post.date | date: date_format }}
+        {%- if page.show_excerpts -%} &nbsp; &nbsp;
+        <a href="{{ site.baseurl }}{{ post.url }}">Read more ...</a>
+        {% endif %}
+        </span><br />
+                {%- if page.show_excerpts -%}
+        <h3><a href="{{ post.url }}" rel="bookmark" 
+title="Permanent Link to {{post.title}}">{{post.title}}</a></h3> 
+          {{ post.excerpt }}<hr /> {%- else -%}
+                  
          <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
         {%- endif -%}
+        
       </li>
       {%- endfor -%}
     </ul>

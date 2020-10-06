@@ -14,7 +14,7 @@ commentIssueId: 4
 ---
 
 This is a tip about implementing a first character range filter with pure 
-XSLT 1.0.
+XSLT 1.0.<!--more-->
 
 Though being a bit out of the main hype, XML data files and transforming 
 style sheets are still attractive to separate data and rendering. So this

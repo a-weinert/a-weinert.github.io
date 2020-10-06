@@ -7,8 +7,8 @@ categories: serial bootloader AVR ATmega
 lang: en
 dePage: ./serialBootloader_de.html 
 copyrightYear: 2013
-revision: 13
-reviDate: 2019-04-14
+revision: 14
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -16,7 +16,8 @@ commentShare: serialBootloader_de.html
 ---
 
 This is an AVR ATmega development report on a serial bootloader for 
-ATmega1284P, ATmega328P and ATmega2560 based systems. The advantages of this bootloader are:
+ATmega1284P, ATmega328P and ATmega2560<!--more--> based systems. The
+advantages of this bootloader are:
 
 - No (more) need for extra programming hardware
 - Using a standard communication link, often used anyway in normal operation
@@ -51,6 +52,7 @@ dreaded:
 ```powershell
 avrdude: error: programmer did not respond to command: set addr
 ```
-Read the report at [AVRserBootl.pdf](https://a-weinert.de/pub/AVRserBootl.pdf "full paper") (on
+Read the report 
+[AVRserBootl.pdf](https://a-weinert.de/pub/AVRserBootl.pdf "full paper") (on
 [a-weinert.de/p...](https://a-weinert.de/publication_en.html "some of Albrecht's publications") 
 / [pub/](https://a-weinert.de/pub/ "publications download")).

@@ -8,8 +8,8 @@ categories: Java Linux flock Raspberry
 lang: de
 enPage: javaIncompFlock.html
 copyrightYear: 2019
-revision: 1
-reviDate: 2019-06-24
+revision: 2
+reviDate: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 5
@@ -18,7 +18,8 @@ commentShare: javaIncompFlock.html
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Java auf dem Pi
 
-Bei der Arbeit an einem [Projekt](raspiGPIOjava_de.html) über Prozessein- und -ausgabe mit Java auf Raspberry Pi entstanden Java-Applikationen die Sperrdateien (lock files) im Kooperation mit
+Bei der Arbeit an einem [Projekt](raspiGPIOjava_de.html) über Prozessein- und -ausgabe mit Java auf Raspberry Pi entstanden Java-Applikationen die 
+Sperrdateien<!--more--> (lock files) im Kooperation mit
 existierenden C-Steuerungsprogrammen verwenden müssen. Wie seit langem bei C und auf Linux-Plattformen Usus benutzen die C-Programme hierfür flock().
 
 ```c

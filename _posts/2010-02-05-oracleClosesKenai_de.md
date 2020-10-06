@@ -16,7 +16,8 @@ commentIssueId: 4
 
 Seit Ende 2008 bot SUN mit der Plattform Kenai Entwicklern von Java open 
 source Projekten eine weltweit zugängliche Versionsverwaltung (mit 
-Subversion, Git oder Mercurial) ihrer Quellen. Das anspruchsvolle Motto war
+<!--more-->Subversion, Git oder Mercurial) ihrer Quellen. 
+Das anspruchsvolle Motto war
 
 - „We’re More Than Just a Forge“
 

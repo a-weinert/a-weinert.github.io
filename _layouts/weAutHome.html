@@ -14,15 +14,14 @@ layout: weAutDefault
          {% continue %}
        {%- endif -%}
       <li>
-        <span class="post-meta">{{ post.date | date: date_format }}
-        {%- if page.show_excerpts -%} &nbsp; &nbsp;
-        <a href="{{ site.baseurl }}{{ post.url }}">Mehr lesen ...</a>
-        {% endif %}</span><br />
-
+       <span class="post-meta">{{ post.date | date: date_format }}</span><br />
         {%- if page.show_excerpts -%}
         <h3><a href="{{ post.url }}" rel="bookmark" 
-title="Permanent Link zu {{post.title}}">{{post.title}}</a></h3> 
-          {{ post.excerpt }}<hr /> {%- else -%}
+        title="Permanent Link zu {{post.title}}">{{post.title}}</a></h3> 
+{%- assign size = post.excerpt | size | minus: 6 -%}
+         {{ post.excerpt  | slice: 0, size }} .. <a 
+          href="{{ site.baseurl }}{{ post.url }}"
+          > ..&nbsp;Mehr lesen</a></p><hr /> {%- else -%}
                   
          <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
@@ -40,16 +39,14 @@ title="Permanent Link zu {{post.title}}">{{post.title}}</a></h3>
          {% continue %}
        {%- endif -%}
       <li>
-        <span class="post-meta">{{ post.date | date: date_format }}
-        {%- if page.show_excerpts -%} &nbsp; &nbsp;
-        <a href="{{ site.baseurl }}{{ post.url }}">Read more ...</a>
-        {% endif %}
-        </span><br />
+        <span class="post-meta">{{ post.date | date: date_format }}</span><br />
                 {%- if page.show_excerpts -%}
         <h3><a href="{{ post.url }}" rel="bookmark" 
 title="Permanent Link to {{post.title}}">{{post.title}}</a></h3> 
-          {{ post.excerpt }}<hr /> {%- else -%}
-                  
+{%- assign size = post.excerpt | size | minus: 6 -%}
+         {{ post.excerpt  | slice: 0, size }} .. <a 
+          href="{{ site.baseurl }}{{ post.url }}"
+          > ..&nbsp;Read more</a></p><hr /> {%- else -%}
          <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>

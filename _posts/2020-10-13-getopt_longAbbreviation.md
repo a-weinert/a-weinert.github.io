@@ -20,7 +20,8 @@ long options. If your ```struct option``` (getopt.h) defines an option
 cons it will be triggered by ```--cons --con --co``` <!--more-->
 but not by ```--c```.
 
-As a developer of reliable and safe automation systems I couldn't help
+As a [developer](http://a-weinert.de/cv-pub_en.html) of reliable and
+safe automation systems I couldn't help
 considering this as a potentially dangerous bug. Accordingly, I was shocked
 by my discovery. Consider an
 option ```destroyMyShipInSightOfEnemy```

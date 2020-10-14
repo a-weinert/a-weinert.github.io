@@ -23,7 +23,8 @@ Wenn Ihre  ```struct option```
 durch ```--cons --con --co```
 getriggert aber nicht durch ```--c```.
 
-Als alter Entwickler hochverfügbarer und sicher Automatisierungssysteme 
+Als alter [Entwickler](http://a-weinert.de/cv-pub.html) hochverfügbarer
+und sicherer Automatisierungssysteme 
 kam ich nicht umhin, meine Entdeckung als potentiell gefährlichen Bug
 anzusehen. Stellen sie sich eine Option ```scharfeMunition```
 vor, für die auch das unschuldige ```-sc```

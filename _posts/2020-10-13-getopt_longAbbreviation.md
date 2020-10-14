@@ -6,10 +6,10 @@ permalink: /:title.html
 date:   2020-10-13
 categories: C GCC 
 lang: en
-dePage:
+dePage: getopt_longAbbreviation_de.html
 copyrightYear: 2020
 revision: 2
-reviDate: 2020-10-13
+reviDate: 2020-10-14
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -17,7 +17,7 @@ commentShare:
 ---
 Today (13.10.2020) I discovered getopt_long accepting abbreviations of 
 long options. If your ```struct option``` (getopt.h) defines an option
-cons it will be triggered by ```--cons --con --co```
+cons it will be triggered by ```--cons --con --co``` <!--more-->
 but not by ```--c```.
 
 As a developer of reliable and safe automation systems I couldn't help
@@ -29,7 +29,7 @@ triggered by innocent ```-de```.
 ## What the manual says
 
 Further reading revealed the 
-[manual](https://linux.die.net/man/3/getopt_long) saying   
+[manual](https://linux.die.net/man/3/getopt_long "man/3/getopt_long") saying   
 "Long option names may be abbreviated if the abbreviation is unique or is
 [not?] an exact match for some defined option."   
 
@@ -39,7 +39,7 @@ won't suffice.
 
 ## What others say
 
-Still further reading showed that some colleaguesconsider accepting
+Still further reading showed that some colleagues consider accepting
 abbreviations always or even by default as bug, too. And the glibc
 developers, constantly, won't accept it.
 

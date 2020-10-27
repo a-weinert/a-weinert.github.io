@@ -18,8 +18,8 @@ commentShare:
 
 In a common network one should have the same time on all machines -- be them 
 servers, workstations or small controllers, like Pis for real
-time control as described, e.g. in [this](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services") in<!--more--> 
-   [publication](https://a-weinert.de/pub/ "by A. Weinert").   
+time control as described, e.g. in ["Raspberry for remote services"](https://a-weinert.de/pub/raspberry4remoteServices.pdf "technical report (.pdf)") (see<!--more--> also 
+   [publications](http://a-weinert.de/publication_en.html "by A. Weinert")).   
 The rationale: You want
  - comparable file dates and
  - log file entries that can be put in order over several
@@ -38,16 +38,15 @@ know hour nor date abandon all hope.
 
 The proven way to synchronous system times is having all systems use the 
 same [NTP](#ntp-server "Net time protocol") server or the same ordered
-set of servers.
-Such NTP server must
-be in site i.e. in the local (W)LAN. It may get its 
-time from an external server.
-
-Reasons for a common (first) NTP server being internal are (probably) more
+set of servers. At least one of them must be reachable for all controllers 
+vie (W)LAN.   
+A good approach is having one or two NTP servers on the internal (W)LAN, 
+getting it's own time by one or more external time sources. Reasons for 
+a common internal NTP server are probably more
 stable transmission times and reachability for all. Not all computers or
 embedded systems should have access to outside servers.
 
-The NTP server role is usually given to domain controllers usually having
+The NTP server role is often given to domain controllers usually having
 the internal IP p.r.v.1 to p.v.r.4.   
 In private homes or small companies 
 [DNS](#ntp-server "Domain name system")  (and 
@@ -68,29 +67,28 @@ server 192.168.178.1
 ```
 
 Note all pool entries being commented out, lest distract the client from
-the fritz.box. NTP clients may prefer other offers as a fritz.box handling
+the fritz.box. NTP clients may prefer other offers. A fritz.box handling
 dozens of telephones and some 100 active (W)LAN clients, USB drives and 
-sometimes more is often less attractive as a full grown server in the
+sometimes more is often less attractive than a full grown NTP server in the
 internet. If you really want an extra server or pool use fritz.bos' time
 source: ``` ntp1.t-online.de; 2.europe.pool.ntp.org ``` e.g.
 
-The availability / usage of NTP server may be checked on Linux / Windows by
+The availability / usage of an NTP server may be checked by
 e.g.:
 ```
-ntpstat
-w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5
+ntpstat  # Linux
+w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 &REM Windows
 ```
-
 ## NTP with fritz.box and Raspberry Pi
 
 On a FRITZ.Box 7490 with FRITZ!OS 7.21 we experienced a failure of its NTP
 server function for all clients (diagnosed by w32tm, ntpstat etc.) while the 
 box's NTP server configuration entries were still intact and all (W)LAN 
-communication was OK. In the end unticking the NTP server role, 
-counting to 20 and ticking it re-animated
-the function (Netzwerk -> Netzwerkeinstellungen).  Reseting the FRITZ!Box
+communication was OK. In the end (at Netzwerk -> Netzwerkeinstellungen)
+unticking the NTP server role, pressing OK, counting to 20, ticking it
+and OK re-animated the function. Reseting the FRITZ!Box
 by power down and up probably would have the same effect, but this we
-could not do with home office and teaching at Corona times.
+could not do on a working day.
 
 When tracking NTP problems the toil of having Windows and Linux in the net
 is sufficient. Not finding the standard NTP tools and services on just the
@@ -106,6 +104,7 @@ sudo nano  /etc/ntp.conf # see changes above
 sudo apt-get install ntpstat
 sudo apt-get install openntpd
 sudo apt-get install ntpctl
+sudo timedatectl set-ntp True
 sudo systemctl restart ntp
 sudo systemctl restart ntp # it might take 3 min until sync
 sudo ntpdate -u fritz.box  # force setting time on a very async client 
@@ -115,11 +114,10 @@ This restores the uniform world of Linux NTP.
 
 ## NTP failure
 
-If NTP fails in our local site drift will start. A system affected rebooting
-may even start with totally gaga time. Well on some Linuxes including some 
-Rasbians a trick with the file ```/etc/fake-hwclock.data``` 
-guarantees a monotone time over shutdown/reboot but, of course, 
-no correctness.
+If NTP fails in our local site drift will start. A system rebooting may than
+even start with totally gaga time. Well on some Linuxes and Rasbians a trick
+with the file ```/etc/fake-hwclock.data``` guarantees a monotonic 
+time over shutdown/reboot but, of course, no correctness.
 
 To avoid such incorrectness when no NTP server is available (for whatever
 reasons) a redundant time source is necessary.
@@ -159,13 +157,13 @@ Hence when adding a DCF77 receiver to a controller/computer within a
 minute after start of receiving or reboot one has the atomic standard time.  
 Properties:    
  &nbsp; o &nbsp; needs one digital port of the controller    
- &nbsp; - &nbsp; usually no OS support
- &nbsp; - &nbsp; own DCF77 software / (sudo) application needed (not  rocket 
+ &nbsp; - &nbsp;&nbsp; usually no OS support    
+ &nbsp; - &nbsp;&nbsp; own DCF77 software / (sudo) application needed (not  rocket 
  science)        
- &nbsp; + &nbsp; no battery needed
+ &nbsp; + &nbsp; no battery needed     
  &nbsp; + &nbsp; cheap but reliable DCF77 
   [AM](#dcf77-receiver "amplitude modulation") receiver modules available   
- &nbsp; - &nbsp; those (cheap) modules only demodulate the AM
+ &nbsp; - &nbsp;&nbsp; those (cheap) modules only demodulate the AM
    and not DCF77's 
   [PM](#dcf77-receiver "phase modulation") modulation
    (less subject to EMI).    

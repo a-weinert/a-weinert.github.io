@@ -7,8 +7,9 @@ categories: eclipse German dictionary Wörterbuch Deutsch
 lang: de
 enPage: ./eclipDic.html 
 copyrightYear: 2013
-revision: 19
+revision: 20
 reviDate: 2020-10-05
+date: 2020-10-01
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 1

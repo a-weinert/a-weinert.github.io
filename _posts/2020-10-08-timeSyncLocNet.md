@@ -8,7 +8,7 @@ categories: Raspberry Pi distributed time clock NTP DCF77
 lang: en
 dePage:
 copyrightYear: 2020
-revision: 4
+revision: 5
 reviDate: 2020-10-28
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -167,7 +167,7 @@ The PM is much less prone to
 [EMI](#dcf77-signal "electro-magnetic interference") and the time tick
 can be detected more exactly (about 2µs vs. 200µs with AM). A source of 
 PM disturbance is an extra modulation by a storm moving the large long wave
-transmitter antenna.  
+transmitter antenna (probably reported, Bit 15).   
 The technique of an PM receiver and the decoding of the telegram bits is
 more complicated and quite expensive. Hence, notwithstanding PM's
 advantages, we will use AM receivers.
@@ -197,9 +197,9 @@ quality without having to read
 src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
 title="DCF77 receiver, Canaduino module, full size (click)" alt="scanner" class="imgonright" />](/assets/images/DCF77rec_0469.jpg
 "image full size")  
-_____    
-<sup>Note *): Might the Brexit reduce the power of the British admiralty so,
-that the rest of the world can get rid of leap seconds.</sup>
+<small>______________    
+Note *): Might the Brexit reduce the power of the British admiralty so,
+that the rest of the world can get rid of leap seconds.</small>
 
 
 
@@ -208,27 +208,86 @@ that the rest of the world can get rid of leap seconds.</sup>
 
 As said for technical and financial reasons we will use 
 [AM](#dcf77-receiver "amplitude modulation") receiver modules. You get ones
-for below 10€ and better quality ones for ~14€. Adding the cost for a small#
+for below 10€ and better quality ones for ~14€. Adding the cost for a small
 plastic (!) casing 5m cable -- for the freedom to find a good place for the 
 ferrite antenna -- etc. you can have a DCF77 receiver directly connectable
-to a Raspberry Pi or another controller for less than 30€.    
+to a Raspberry Pi or another controller for less than 30€.
+
 Properties:    
  &nbsp; o &nbsp; needs one digital port of the controller    
  &nbsp; - &nbsp;&nbsp; usually no OS support    
  &nbsp; - &nbsp;&nbsp; own DCF77 software / application needed (not rocket 
  science)        
  &nbsp; + &nbsp; no battery needed     
- &nbsp; + &nbsp; the module might be assembled together *) and supplied
-   from the controller (a Raspberry Pi e.g.)    
+ &nbsp; + &nbsp; the module might be assembled together with *) and   
+ &nbsp; + &nbsp; be supplied from the controller (a Raspberry Pi e.g.)    
  &nbsp; + &nbsp; the module might as well be put several meters away from
    the controller.    
- &nbsp; + &nbsp; the slow (1 bit/s) signal from one receiver might easily
-   be distributed to many controllers.    
-_____    
-<sup>Note *): As said, it's wiser to put the receiver module and its ferrite
-antenna in an extra casing connected by a thin three wire (best shielded)
-cable to the Pi or whatever controller.</sup>
+ &nbsp; + &nbsp; the signal from one receiver be distributed
+    to multiple **) controllers.
 
+There are AM receiver modules below 10€ from Pollin and other vendors. The
+have been used with success. To test them before use an oscilloscope or a 
+programme, like testOnPi.    
+The log excerpt
+```
+test      µs stamp pulse µs  sec res period µs
+DCF77 1543.409.034 _ 115881  56: F.S 1006463
+DCF77 1547.401.464 _3199923  57: e#e 3992430
+DCF77 1548.404.476 _ 131020  58: u#S 1003012
+DCF77 1549.391.629 _ 125781  59: F.S  987153
+DCF77 1550.403.932 _ 152950  60: T.S 1012303
+```
+shows a low quality module delivering erroneous (e) and undefined (u) results
+in spite of very forgiving criteria. With standard criteria a pulse of 
+153ms (last line) would be undefined (u) and not true (T). S means second
+period and M end minute (2s) period.   
+Those cheap module's circuit consists of an AM receiver chip (MAS6180 e.g.),
+a filter quartz and almost nothing else. The out pin is very sensitive to EMI
+seemingly acting as input. Some modules got broken (ending the joy on 
+the bargain) when connected a shielded cable (probe). Those "MAS6180 only"
+modules always need an extra output stage (open collector e.g.) and supply
+filters.
+
+In the end it is much wiser to spend 12..16€ for a module which comes with 
+all that, like e.g. the CANADUINO DCF77 receiver kit
+[see image](/assets/images/DCF77rec_0469.jpg "Canaduino kit assembled"). It
+comes with all necessary extras to the AM receiver chip: output stages, 
+power supply circuitry and even extra LEDs to optionally watch the operation.    
+The log excerpt
+```
+DCF77 1.386.096.959 _ 108380  56: F.S  998332
+DCF77 1.387.098.152 _ 110062  57: F.S 1001193
+DCF77 1.389.097.247 _ 208680  58: T.M 1999095
+DCF77 1.390.098.050 _ 111480   0: F.S 1000803
+DCF77 1.391.097.982 _ 208910   1: T.S  999932
+DCF77 1.392.099.544 _ 210360   2: T.S 1001562
+DCF77 1.393.098.457 _ 108151   3: F.S  998913
+```
+shows no errors for the Canaduino module and good timing values. Logging
+over days gave 3 errors per
+hour with much harder criteria where all but the first line of above
+excerpt for a cheap module would have been considered as erroneous. Three 
+errors per hour can easily be ignored and bypassed. 20 to more than 100 --
+as have been observed with cheap modules -- threaten the availability of the 
+time information. 
+
+Rightfully it has to said: It is possible to use the cheap "MAS6180 only"
+modules with extra circuitry, meticulous antenna positioning and very "soft"
+timing criteria. One can even filter out one extra modulation spike
+within a second by a mildly clever algorithm.   
+But is that worthwhile?
+
+Just take a good module and enjoy the results.
+    
+<small>______________    
+Note *): As said, it's wiser to put the receiver module and its ferrite
+antenna in an extra casing connected by a thin three wire (best shielded)
+cable to the Pi or whatever controller.         
+Note **): Here a decoupling by multiple NPN open collector output stages 
+would be necessary and probably extra considerations on the receiver's 
+supply.</small>
+<hr />
 
 
 ## DCF77 implementation with a Pi

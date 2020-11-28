@@ -3,22 +3,23 @@ layout: weAutPost
 title: Time synchronisation in local nets
 bigTitle: All same time
 permalink: /:title.html
-date:   2020-10-08
+date:   2020-11-28
 categories: Raspberry Pi distributed time clock NTP DCF77
 lang: en
 dePage:
 copyrightYear: 2020
-revision: 2
-reviDate: 2020-10-26
+revision: 4
+reviDate: 2020-10-28
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 commentShare:
 ---
 
-In a common network one should have the same time on all machines -- be them 
-servers, workstations or small controllers, like Pis for real
-time control as described, e.g. in 
+In a [LAN](/timeSyncLocNet.html "Local Area Network") 
+one should have the same time on all machines -- be them servers,
+workstations or small controllers, like Pis for real time control as
+described, e.g. in 
 ["Raspberry for remote services"](https://a-weinert.de/pub/raspberry4remoteServices.pdf "technical report (.pdf)")
 (see<!--more--> also 
    [publications](http://a-weinert.de/publication_en.html "by A. Weinert")).   
@@ -30,18 +31,19 @@ The rationale: You want
  
 These time dependent features would fail if internal time of the 
 systems differs too much. Hence, we have a hard or soft real time 
-requirement on the synchronisation of those system times. And as ever,
+requirement on the synchronisation of those system times. And 
 "real time" does nothing say on absolute values. The maximum tolerable 
 system time difference of two of your systems might be something between
-50ns and 2min -- it depends. Anyway, if a system after reboot doesn't 
+50ns and 20s -- it depends. Anyway, if a system after reboot doesn't 
 know hour nor date abandon all hope.
 
 ## NTP server
 
-The proven way to synchronous system times is having all systems use the 
+The proven way to synchronous times is having all systems use the 
 same [NTP](#ntp-server "Net time protocol") server or the same ordered
 set of servers. At least one of them must be reachable for all controllers 
-vie (W)LAN.   
+via 
+[(W)LAN](#ntp-server "(Wireless) Local Area Network").   
 A good approach is having one or two NTP servers on the internal (W)LAN, 
 getting it's own time by one or more external time sources. Reasons for 
 a common internal NTP server are probably more
@@ -56,14 +58,14 @@ In private homes or small companies
 are often given the provider's or private router. In Germany this will
 often be a
 [fritz.box](#ntp-server "fritz.box is the name; FRITZ!Box is the product"),
-IP 192.168.178.1. The following excerpt of
+IP 192.168.178.1 by default. The following excerpt of
 /etc/ntp.conf sets the fritz.box as sole time server:
 
 ```
-# You do need to talk to an NTP server or two (or three).
+# I need to talk to one NTP server or two (or three).
 server 192.168.178.1
 # 192.168.178.1 is fritz.box (the FRITZ!Box)
-# pool.ntp.org maps to about 1000 low-stratum NTP servers.
+# pool.ntp.org maps to ~1000 low-stratum NTP servers.
 #pool 0.debian.pool.ntp.org iburst
 ```
 
@@ -89,10 +91,10 @@ communication was OK. In the end (at Netzwerk -> Netzwerkeinstellungen)
 un-ticking the NTP server role, pressing OK, counting to 20, ticking it ON
 with OK re-animated the function. Reseting the FRITZ!Box
 by power down and up probably would have the same effect, but this we
-could not do on a working day.
+could not do on a busy working day.
 
 When tracking NTP problems the toil of having Windows and Linux in the net
-is sufficient. Not finding the standard NTP tools and services on just the
+is enough. Not finding the standard NTP tools and services on just the
 most modern Raspians came as a surprising extra impertinence.
 
 Well, we wanted the old NTP functions with the rich source of documentation
@@ -110,13 +112,13 @@ sudo systemctl restart ntp
 sudo systemctl restart ntp # it might take 3 min until sync
 sudo ntpdate -u fritz.box  # force setting time on a very async client 
 ```
-This restores the uniform world of Linux NTP.
+This restores the uniform world of Linux' NTP.
   
 
 ## NTP failure
 
 If NTP fails in a local site the drift of the clients away from official time
-abd from each other will start. A client rebooting in such situation may 
+and from each other will start. A client rebooting in such situation may 
 even start with totally gaga time. Well, on some Linuxes and Rasbians a trick
 with the file ```/etc/fake-hwclock.data``` guarantees a monotonic 
 time over shutdown/reboot but, of course, no correctness.
@@ -157,75 +159,83 @@ near Frankfurt/Main. It can be received  in large parts of Europe. Its
 ([PM](#dcf77-signal "phase modulation")) modulated.
 
 At the begin of (most) seconds the amplitude is reduced to 25% for 100 ms
-(false) or 200 ms (true. From about 3ms before the begin of each second to 
-exact 200 ms after the second's begin the phase
-is 0° and then modulated +/- 13° in a way that the net phase shift is zero.   
+(false) or 200 ms (true). From about 3ms before the begin of a second to 
+exactly 200 ms after the second's begin the phase is 0° and then 
+modulated &plusmn;13° in a way that the net phase shift is zero.   
 
 The PM is much less prone to 
-[EMI](#dcf77-signal "electro-magnetic interference") and the second's tick
-can be detected more exactly. A source of PM disturbance is an extra PM by 
-a storm moving the large long wave transmitter antenna (which would 
-be reported).  
+[EMI](#dcf77-signal "electro-magnetic interference") and the time tick
+can be detected more exactly (about 2µs vs. 200µs with AM). A source of 
+PM disturbance is an extra modulation by a storm moving the large long wave
+transmitter antenna.  
 The technique of an PM receiver and the decoding of the telegram bits is
 more complicated and quite expensive. Hence, notwithstanding PM's
 advantages, we will use AM receivers.
 
+The AM signal gives a second start tick for all but the last seconds 
+of a minute. These pulses yield a low frequency (1 bit /s) data stream. 
 The coding in the 59 telegram bits carries all time and date information,
 including [CET (MEZ)](#dcf77-signal "Central European Time, UTC + 1h") /
 [CEST (MESZ)](#dcf77-signal "CE summer Time, UTC + 2h"). Hence, we 
 also get world time [UTC](#dcf77-signal "Coordinated Universal Time").
 
+Hence when adding a DCF77 receiver to a controller/computer within a 
+minute after start of receiving or reboot one has the standard time.
+ 
+Any NTP server in Europe with any sense will in the end use PTB's atomic
+clocks and hence DCF77 time. A system with time set by DCF will be in quite
+good sync with a NTP used later and will not have make big jumps (or long
+adjustment times) to correct time.   
+The good accordance of DCF77 and NTP does not hold on an hour before a leap
+second *) if the NTP server uses the so called leap second
+smearing as most do. This means, intentionally (!), NTP servers then deliver
+the wrong time. As DCF77 delivers an announcement in the last hour before a
+leap second (xx:59:60) one will be informed about this shameful NTP clock
+quality without having to read
+[IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
+"Earth Rotation Services").[<img 
+src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
+title="DCF77 receiver, Canaduino module, full size (click)" alt="scanner" class="imgonright" />](/assets/images/DCF77rec_0469.jpg
+"image full size")  
+_____    
+<sup>Note *): Might the Brexit reduce the power of the British admiralty so,
+that the rest of the world can get rid of leap seconds.</sup>
+
+
+
+
 ## DCF77 receiver
 
-An [AM](#dcf77-receiver "amplitude modulation") receiver's signal
-gives an exact second tick for all but the last seconds of a minute.
-These pulses yield a low frequency (1 bit /s) data stream. This gives the
-CET/CEST date and time information as well as DST on or off and leap
-seconds announcement. 
-
-Hence when adding a DCF77 receiver to a controller/computer within a 
-minute after start of receiving or reboot one has the atomic standard time.  
+As said for technical and financial reasons we will use 
+[AM](#dcf77-receiver "amplitude modulation") receiver modules. You get ones
+for below 10€ and better quality ones for ~14€. Adding the cost for a small#
+plastic (!) casing 5m cable -- for the freedom to find a good place for the 
+ferrite antenna -- etc. you can have a DCF77 receiver directly connectable
+to a Raspberry Pi or another controller for less than 30€.    
 Properties:    
  &nbsp; o &nbsp; needs one digital port of the controller    
  &nbsp; - &nbsp;&nbsp; usually no OS support    
  &nbsp; - &nbsp;&nbsp; own DCF77 software / application needed (not rocket 
  science)        
  &nbsp; + &nbsp; no battery needed     
- &nbsp; + &nbsp; cheap but reliable DCF77 
-  [AM](#dcf77-receiver "amplitude modulation") receiver modules available   
- &nbsp; - &nbsp;&nbsp; more subject  subject to EMI then PM receivers      
  &nbsp; + &nbsp; the module might be assembled together *) and supplied
    from the controller (a Raspberry Pi e.g.)    
  &nbsp; + &nbsp; the module might as well be put several meters away from
    the controller.    
  &nbsp; + &nbsp; the slow (1 bit/s) signal from one receiver might easily
    be distributed to many controllers.    
-And the biggest +:
-Any NTP server in Europe with any sense will in the end use PTB's atomic
-clocks and hence DCF77 time. A system with time set by DCF will be in quite
-good sync with a NTP used later and will not have make big jumps (or long
-adjustment times) to correct time.
-
-The good accordance of DCF77 and NTP does not hold on an hour before a leap
-second **) if the NTP server uses the so called leap second
-smearing as most do. This means NTP servers intentionally deliver the
-wrong time. As DCF77 delivers an announcement in the last hour before a leap
-second xx:59:60 one will know it without having read
-[IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
-"Earth Rotation Services").   
 _____    
-<sup>Note *): It might be wise to put the receiver module and its ferrite
+<sup>Note *): As said, it's wiser to put the receiver module and its ferrite
 antenna in an extra casing connected by a thin three wire (best shielded)
-cable to the Pi or whatever controller.   
-Note **): Might the Brexit reduce the power of the British admirality so,
-that the rest of the world can get rid of leap seconds.</sup>
+cable to the Pi or whatever controller.</sup>
 
+
+
+## DCF77 implementation with a Pi
 
 Sofar we shared the considerations for choosing DCF77 instead 
 of battery powered "real time clocks" as an extra redundant time source for
 our embedded/distributed controller projects mostly with Raspberry Pis.
-
-## DCF77 implementation with a Pi
 
 Connecting a DCF77 receiver module to a Raspberry Pi and implementing the
 decoding in C will be reported on later a separate publication/post.

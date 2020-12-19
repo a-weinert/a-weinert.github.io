@@ -12,7 +12,7 @@ itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 ---
-
+{% include referenceLinks.txt %}
 Subversion (SVN) is a good versioning system and in many fields still _the_
 standard.  
 Nevertheless, it has one big deficiency:<!--more-->
@@ -37,9 +37,8 @@ purpose of linking Atmel bootloader items to the application. This was,
 of course, unrelated to the big SVN problem. Nevertheless, that tool &mdash;
 as well very flexible as very fragile &mdash; leads the way to the 
 mTime rescue. You’ll get that tool (and all the Linux lot as well) when 
-installing WinAVR (e.g.). And you must have 
-[Frame4J](https://frame4j.de/index_en.html "Java framework") installed for 
-the following. All will run analogously on Linux, too.
+installing WinAVR (e.g.). And you must have [Frame4J][f4j_en]{: class="bbi"}
+installed for the following. All will run analogously on Linux, too.
 
 To set/update the property mtime of each file be in (cd to) the root of your
 local working copy, make the script saveTheDate.bat and run it there:

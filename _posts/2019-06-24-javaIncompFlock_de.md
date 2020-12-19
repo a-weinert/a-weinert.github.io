@@ -18,9 +18,11 @@ commentShare: javaIncompFlock.html
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Java auf dem Pi
 
-Bei der Arbeit an einem [Projekt](raspiGPIOjava_de.html) über Prozessein- und -ausgabe mit Java auf Raspberry Pi entstanden Java-Applikationen die 
+Bei der Arbeit an einem [Projekt](raspiGPIOjava_de.html) über Prozessein-
+und -ausgabe mit Java auf Raspberry Pi entstanden Java-Applikationen die 
 Sperrdateien<!--more--> (lock files) im Kooperation mit
-existierenden C-Steuerungsprogrammen verwenden müssen. Wie seit langem bei C und auf Linux-Plattformen Usus benutzen die C-Programme hierfür flock().
+existierenden C-Steuerungsprogrammen verwenden müssen. Wie seit langem
+bei C und auf Linux-Plattformen Usus benutzen die C-Programme hierfür flock().
 
 ```c
 /*  Lock file handle. */
@@ -57,10 +59,12 @@ void closeLock(void){
   close(lockFd);
 } // closeLock()
 ```
-Auszug aus [weUtil.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/weRasp/weUtil.c)
+Auszug aus
+[weUtil.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/weRasp/weUtil.c)
 <br /> &nbsp;
 
-Bei einer Java-Applikation würde man naheliegenderweise für diese Dateisperren das nutzen, was Java hierzu zu bieten hat:
+Bei einer Java-Applikation würde man naheliegenderweise für diese 
+Dateisperren das nutzen, was Java hierzu zu bieten hat:
 
 ```java
 /** Common path to a lock file for GpIO use. */
@@ -124,51 +128,95 @@ Bei einer Java-Applikation würde man naheliegenderweise für diese Dateisperren
      } // lockFile
   } // closeLock()
 ```
-Auszug aus [JustNotFLock.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java) und [PiUtil.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java)
+Auszug aus
+[JustNotFLock.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java)
+und [PiUtil.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java)
 <br />  &nbsp;
 
-Abgesehen davon, dass es ein bisschen länger als mit C ist, scheint das Java-Äquivalent zu funktionieren: Von zwei oder mehr Java-Applikationen die die selbe Sperrdatei haben wollen, gewinnt auf diese jeweils nur eine.
+Abgesehen davon, dass es ein bisschen länger als mit C ist, scheint das
+Java-Äquivalent zu funktionieren: Von zwei oder mehr Java-Applikationen,
+die die selbe Sperrdatei haben wollen, gewinnt auf diese jeweils nur eine.
 
 ## Nicht kompatible Dateisperre 
 
-Aber leider zeigte es sich, das das Sperren einer Datei (as random access file fully and exclusively) mit Java auf einer Linux-Plattform nicht mit Linux' 
-flock() &mdash; _dem_ Standardvorgehen &mdash; kompatibel ist! Von allen C-Programmen oder Programminstanzen (Prozessen) im Wettbewerb um eine Sperrdatei gewinnt das erste, und die anderen müssen warten oder aufhören. Und genau dasselbe kann über Java-Applikationen mit java.nio.channels.FileLock gesagt werden &mdash; allerdings selbst dann, wenn bereits ein C-Program eine Sperre (mit flock()) auf dieselbe Datei hat.
+Aber leider zeigte es sich, das das Sperren einer Datei (as random access
+file fully and exclusively) mit Java auf einer Linux-Plattform nicht mit
+Linux' 
+flock() &mdash; _dem_ Standardvorgehen &mdash; kompatibel ist! Von 
+allen C-Programmen oder Programminstanzen (Prozessen) im Wettbewerb 
+um eine Sperrdatei gewinnt das erste, und die anderen müssen warten 
+oder aufhören. Und genau dasselbe kann über Java-Applikationen mit
+java.nio.channels.FileLock gesagt werden &mdash; allerdings selbst
+dann, wenn bereits ein C-Program eine Sperre (mit flock()) auf
+dieselbe Datei hat.
 
-Diese Inkompatibilität führt zur Verletzung von singleton-Bedingungen bei der Nutzung bestimmter kritischer Ressourcen &mdash; in den Beispielen hier Prozess-IO. Das ist ein Unding mit hohem Schadenspotential. Das muss gelöst werden, bevor man Java-Anwendungen
+Diese Inkompatibilität führt zur Verletzung von singleton-Bedingungen
+bei der Nutzung bestimmter kritischer Ressourcen &mdash; in 
+den Beispielen hier Prozess-IO. Das ist ein Unding mit hohem 
+Schadenspotential. Das muss gelöst werden, bevor man Java-Anwendungen
 auf beispielsweise einem Prozesskontrollmodul verwendet. 
 
 ### Der Fehler liegt bei Java
 
-Wenn man die Übermacht von C auf kleinen (eingebetteten) Systemen sieht und wenn man in Betracht zieht, dass wir auf einem Linux-System sind, erkennen wir eindeutig die älteren Rechte von Flock() an. Die Java8-Portierung nach Linux
-hat eine fehlerhafte Implementierung von FileLock. 
+Wenn man die Übermacht von C auf kleinen (eingebetteten) Systemen
+sieht und wenn man in Betracht zieht, dass wir auf einem Linux-System
+sind, erkennen wir eindeutig die älteren Rechte von Flock() an. Die
+Java8-Portierung nach Linux hat eine fehlerhafte Implementierung
+von FileLock. 
 
 ### Lösung gesucht
 
-Das verpacken von flock() etc. mit JNI scheint der naheliegende Weg. Aber von seiner Hässlichkeit abgesehen beeinträchtigt es die Plattformabhängigkeit und damit eines der dicksten Pfunde, die Java beim Cross-Übersetzen und -Bauen hat.
-(Es mag ein Vorurteil sein. Wann immer ich JNI einsetzen musste, habe ich es verabscheut.)
+Das verpacken von flock() etc. mit JNI scheint der naheliegende Weg. Aber
+von seiner Hässlichkeit abgesehen beeinträchtigt es die 
+Plattformabhängigkeit und damit eines der dicksten Pfunde, die Java
+beim Cross-Übersetzen und -Bauen hat.
+(Es mag ein Vorurteil sein. Aber, wann immer ich JNI einsetzen musste,
+habe ich es verabscheut.)
 
-Andersherum, nämlich FileLock für C verpacken, sollte man aus vielen Gründen ablehnen.
+Andersherum, nämlich FileLock für C verpacken, sollte man aus
+vielen Gründen ablehnen.
 
-Für die letztlich verwirklichte, getestete und benutzte Variante muss man ein bisschen 'um die Ecke' denken.
+Für die letztlich verwirklichte, getestete und benutzte Variante
+muss man ein bisschen 'um die Ecke' denken.
 
 ### Das Halten eines Prozesses anstelle einer Datei
 
 Eine nette Lösung mit reinem C und reinem Java erscheint, wenn man
- - aufhört, Java das Linux/C-kompatible flock() beibringen zu wollen<br />
+ - aufhört, Java das Linux/C-kompatible flock() beibringen zu wollen   
    und stattdessen das Dateisperren (worin Java schlecht ist) zu ersetzen durch
- - das Starten eines Programms und das Halten des laufenden (!) Prozesses sowie
- - Beenden &mdash; das bedeutet Entsperren &mdash; durch das Töten dieses Prozesses.
+ - das Starten eines Programms und das Halten des laufenden
+   (!) Prozesses sowie
+ - Beenden &mdash; das bedeutet Entsperren &mdash; durch
+   das Töten dieses Prozesses.
  
-Denn das Starten von Programmen und das Handhaben von Prozessen funktioniert gut und mit reinem Java auf allen bisher hierzu benutzen Plattformen. Das betreffende Programm ist das kleine C_Hilfsprogramm 
-[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c). Nach seinem Start versucht es die gegebene Sperrdatei zu öffnen und (natürlich mit flock()) zu sperren. Falls es die Sperre bekommt, läuft es endlos, bis es getötet wird. Daraufhin (Im sog. shut down hook) wird es die Datei entsperren. Wenn die betreffende Sperrdatei nicht existiert oder nicht gesperrt werden kann, endet 
-das Programm sofort mit einem Fehlerkode.  Letztlich ist [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c) ein C-Prozesssteuerprogramm, dass all seiner Prozesssteuerfunktionen entkleidet ist.
+Denn das Starten von Programmen und das Handhaben von Prozessen 
+funktioniert gut und mit reinem Java auf allen bisher hierzu benutzen
+Plattformen. Das betreffende Programm ist das kleine C_Hilfsprogramm 
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c).
+Nach seinem Start versucht es die gegebene Sperrdatei zu öffnen und
+(natürlich mit flock()) zu sperren. Falls es die Sperre bekommt, läuft
+es endlos, bis es getötet wird. Daraufhin (im sog. shut down hook) wird es
+die Datei entsperren. Wenn die betreffende Sperrdatei nicht existiert
+oder nicht gesperrt werden kann, endet das Programm sofort mit einem
+Fehlerkode. Letztlich ist 
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)
+ein C-Prozesssteuerprogramm, dass all seiner Prozesssteuerfunktionen
+entkleidet ist.
 
-Die Handhabung von [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c) wird über zwei Methoden (openLock() and closeLock) in
-[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") vermittelt. Somit ist die zu flock() kompatible Dateisperre für Java  genauso einfach wie in C.
+Die Handhabung von 
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)
+wird über zwei Methoden (openLock() and closeLock) in
+[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") vermittelt. Somit ist die zu flock() kompatible Dateisperre für Java
+genauso einfach wie in C.
 
 ### Die Inkompatibilität vorführen
 
-Wenn man das kleine Programm ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) direkt von der Konsole bzw. mit putty ausführt und dies gleichzeitig mit der Java-Applikation [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") tut, bekommt man zwei Sperren zur selben Zeit auf die selbe Datei. [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") nutzt Javas eigene Dateisperre mit java.nio.channels.FileLock, welche von Dateisperren des Betriebssystems offensichtlich nichts weiß.
+Wenn man das kleine Programm 
+([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c))
+direkt von der Konsole bzw. mit putty ausführt und dies gleichzeitig mit
+der Java-Applikation 
+[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed)")
+tut, bekommt man zwei Sperren zur selben Zeit auf die selbe Datei. [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") nutzt Javas eigene Dateisperre mit java.nio.channels.FileLock, welche von Dateisperren des Betriebssystems offensichtlich nichts weiß.
 
 
 ## Repositories

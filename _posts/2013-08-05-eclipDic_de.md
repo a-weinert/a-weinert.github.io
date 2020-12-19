@@ -14,7 +14,7 @@ isPost: true
 commentIssueId: 1
 commentShare: ./eclipDic.html
 ---
-
+{% include referenceLinks.txt %}
 Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-
 oder Doxygen-Kommentaren<!--more--> sowie in seinem XML und HTML hat,
 wird von Eclipses
@@ -47,7 +47,7 @@ Die hier verwendete einfachste Form einer von Eclipse nutzbaren
 - eine Wortform pro Zeile
 - keine Wiederholungen auch nicht mit großem Anfangsbuchstaben   
   Wenn „wandern“ drin ist, akzeptiert Eclipse „Wandern“ sowieso. Folglich
-  wird das [Frame4J](https://frame4j.de/index_en.html) tool 
+  wird das [Frame4J][f4j_en]{: class="bbi"} tool 
   UCopy (option -eclipDic) die groß geschriebene Dublette rauswerfen.
 - keine Punkte am Ende   
   Eclipse akzeptiert „etc.“ im Text nur mit einem .dic-Eintrag „etc“.
@@ -61,7 +61,7 @@ Die hier verwendete einfachste Form einer von Eclipse nutzbaren
   
 ### Selbst modifizieren
  
-Das Frame4J-Tool UCopy kann eine Textdatei mit Aufruf
+Das [Frame4J][f4j_en]{: class="bbi"}-Tool UCopy kann eine Textdatei mit Aufruf
 ```powershell
     java UCopy source.txt -eclipDic -v destination.dic
 ```

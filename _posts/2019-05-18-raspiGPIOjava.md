@@ -15,6 +15,7 @@ isPost: true
 commentIssueId: 3
 commentShare: /frame4j.html
 ---
+{% include referenceLinks.txt %}
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Pi IO and process control with C
 The natural language for a small Linux controller, like a Raspberry Pi, is
@@ -31,7 +32,7 @@ One part of the success story is using Joan N.N.'s C
 ## Java on the Pi
 Nevertheless, some people would like to use Java on a Pi, too. That's not a
 problem. You can have a Java&nbsp;8 on a Pi&nbsp;3 and even have 
-[Frame4J](https://frame4j.de/index_en.html "project home") installed and 
+[Frame4J][f4j_en]{: class="bbi"} installed and 
 enjoy all the tools etc. 
 
 Problems start &mdash; on any platform by the way &mdash; when wanting 
@@ -100,7 +101,8 @@ The compatible solution are two lock methods (openLock() and closeLock) in
 [Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") 
 using a C helper program 
 [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c). Running this little program ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) directly and the 
-Java application [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") at the same time will demonstrate the double lock on the same file.
+Java application [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs [Frame4J][f4j_en]{: class="bbi"}
+installed") at the same time will demonstrate the double lock on the same file.
 
 ### Throw away objects
 With OO languages and Java the garbage collector is widely seen as a risk for a real time behaviour otherwise assessed theoretically and experimentally. A WG on automating critical processes with OO languages demanded no objects to be created while in cyclic run mode. Even if one would perhaps not be such strict, it is a good principle. It relieves you from the risks of garbage collection and of memory administration.

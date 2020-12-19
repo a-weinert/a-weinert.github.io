@@ -15,6 +15,7 @@ isPost: true
 commentIssueId: 3
 commentShare: raspiGPIOjava.html
 ---
+{% include referenceLinks.txt %}
 [![Frame4J](/assets/icons_logos/frame4jlogo-02t.png "&gt; Frame4J"){: .imgonright height="40px" width="206px"}](https://frame4j.de/index_en.html)
 ## Pi IO und Prozesssteuerung mit C
 Bei sehr kleinen Linux-Rechnern, wie einem Raspberry Pi, ist die Sprache
@@ -31,14 +32,15 @@ Erklecklichen Anteil am guten Gelingen hat die C-Bibliothek
 ## Java auf dem Pi
 Nichtsdestotrotz möchten manche auf dem Pi auch Java nutzen. Das ist an sich
 kein Problem. Man kann ein Java&nbsp;8 auf einem Pi&nbsp;3 und sogar mit
-[Frame4J](https://frame4j.de/index_en.html "project home") mit allen seinen 
+[Frame4J][f4j_en]{: class="bbi"} mit allen seinen 
 Tools und APIs ergänzen.
 
 Der Spaß mit Java hört &mdash; übrigens auf jeder Plattform &mdash; auf, wenn 
 man Prozesssteuerung mit Java machen will. Um dies (d.h. auch die direkte 
 Ansteuerung von Aktoren und Sensoren mit Java) auf dem Pi zu lernen portierte
 ich aus
-[rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services") ein C-Demoprogramm
+[rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
+ein C-Demoprogramm
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo").
 "Überraschenderweise" wurde daraus ein wachsendes Projekt
 [Projekt](https://github.com/a-weinert/weAut/) und eine
@@ -105,11 +107,25 @@ demonstriert dies die zweifache Sperre ein und derselben Datei.
 ### Wegwerfobjekte
 
 Bei Java oder allgemeiner OO-Sprachen gilt der garbage collector als das 
-Risiko für ein ansonsten theoretisch und experimentell abgesichertes Echtzeitverhalten. Es wurde für die Automatisierung kritischer Prozesse mit objektorientierten Sprachen gefordert, dass im zyklischen Betrieb keine Objekte mehr erzeugt werden dürfen. Selbst wenn diese Forderung (für allgemeine Steuerungen) kaum so hart stellen würde, ist dies ein löbliches Prinzip. Es befreit von den Risiken des Garbage-Collectors und der Speicherverwaltung.
+Risiko für ein ansonsten theoretisch und experimentell abgesichertes
+Echtzeitverhalten. Es wurde für die Automatisierung kritischer Prozesse
+mit objektorientierten Sprachen gefordert, dass im zyklischen Betrieb
+keine Objekte mehr erzeugt werden dürfen. Selbst wenn diese Forderung
+(für allgemeine Steuerungen) kaum so hart stellen würde, ist dies ein
+löbliches Prinzip. Es befreit von den Risiken des Garbage-Collectors
+und der Speicherverwaltung.
 
-Und es liegt den hier aufgeführten Beispielen und entsprechenden Java-Anwendungen zu Grunde. So werden mutable Klassen anstelle der Neu-Erzeugung unveränderbarer Objekte verwendet, wie StringBuilder statt String und eigener Container statt Long.
+Und es liegt den hier aufgeführten Beispielen und entsprechenden
+Java-Anwendungen zu Grunde. So werden mutable Klassen anstelle der
+Neu-Erzeugung unveränderbarer Objekte verwendet, wie StringBuilder
+statt String und eigener Container statt Long.
 
-Durch gezielte Wiederverwendung veränderbarer Objekte lässt sich Garbage-Collection und Speicherverwaltung verhindern. Bei dem verbreiteten Linux-Ansatz „Gerät als Datei“ (device as file) sieht es dabei aber schlecht aus. Das Listing (Auszug aus [Pi1WireThDemo](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/Pi1WireThDemo.java "de.weAut.tests.Pi1WireThDemo")) zeigt das Auslesen eines 1-wire-Thermometers, die auch edelstahlgekapselt und geeignet für die  üblichen Thermometereinsteckröhrchen gibt.  
+Durch gezielte Wiederverwendung veränderbarer Objekte lässt sich
+Garbage-Collection und Speicherverwaltung verhindern. Bei dem verbreiteten
+Linux-Ansatz „Gerät als Datei“ (device as file) sieht es dabei aber
+schlecht aus. Das Listing (Auszug aus
+[Pi1WireThDemo](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/Pi1WireThDemo.java "de.weAut.tests.Pi1WireThDemo")) zeigt das Auslesen eines 1-wire-Thermometers, die auch edelstahlgekapselt
+und geeignet für die  üblichen Thermometereinsteckröhrchen gibt.  
 ```java
   final String devID = args[0]; // 28-02119245cd92 e.g.
   String line1;
@@ -123,7 +139,10 @@ Durch gezielte Wiederverwendung veränderbarer Objekte lässt sich Garbage-Colle
     line2 = thermometer.readLine();
     // Auswertung
 ```
-Der zugehörige Linux-Device-Treiber liefert ein Messergebnis in zwei Textzeilen [sic!]. Nach deren Einlesen schließt sich die Datei automatisch. Deswegen muss das Dateiöffnen im Listing in die den Dauerbetrieb andeutende Endlosschleife. Jede Messung erzeugt also:
+Der zugehörige Linux-Device-Treiber liefert ein Messergebnis in zwei
+Textzeilen [sic!]. Nach deren Einlesen schließt sich die Datei 
+automatisch. Deswegen muss das Dateiöffnen im Listing in die den
+Dauerbetrieb andeutende Endlosschleife. Jede Messung erzeugt also:
  - 1 BufferedReader, 
  - 1 FileReader und indirekt 
  - 1 FileInputStream, 
@@ -131,15 +150,23 @@ Der zugehörige Linux-Device-Treiber liefert ein Messergebnis in zwei Textzeilen
 und schließlich direkt noch 
  - 2 String-Objekte.
  
-Von diesen mindestens 6 Objekten pro Messung ließen sich mit einem byte-Array (und verminderter Lesbarkeit) nur die Reader und die Strings vermeiden. Nun wird man ein Thermometer selten häufiger als einmal pro Sekunde einlesen. Aber man stelle sich so etwas in einem 10ms- oder gar 1ms-Zyklus in einem kleinen (embedded) Rechner vor.
+Von diesen mindestens 6 Objekten pro Messung ließen sich mit einem
+byte-Array (und verminderter Lesbarkeit) nur die Reader und die Strings
+vermeiden. Nun wird man ein Thermometer selten häufiger als einmal
+pro Sekunde einlesen. Aber man stelle sich so etwas in einem 10ms-
+oder gar 1ms-Zyklus in einem kleinen (embedded) Rechner vor.
 
-Der Pi (BCM) Watchdog, auch als device as file implementiert, ist hierbei wesentlich besser: Er – das heißt mit Java sein OutputStream – bleibt die ganze Zeit zum Schreiben geöffnet. Hier ist es zum Glück besser gemacht. Aber hierauf, sprich auf im System verankerte Device-Treiber, haben wir keinen Einfluss.
+Der Pi (BCM) Watchdog, auch als device as file implementiert, ist
+hierbei wesentlich besser: Er – das heißt mit Java sein OutputStream – 
+bleibt die ganze Zeit zum Schreiben geöffnet. Hier ist es zum Glück
+besser gemacht. Aber hierauf, sprich auf im System verankerte
+Device-Treiber, haben wir keinen Einfluss.
 
-## Repositorys
+## Repositories
 
 Finden Sie bitte die meisten Quellen im GitHub repository
 [weAut](https://github.com/a-weinert/weAut/). Es spiegelt dieTeile der größeren
-[SVN Entwicklungs-Repositorys](https://weinert-automation.de/svn/ "guest:guest"),
+[SVN Entwicklungs-Repositories](https://weinert-automation.de/svn/ "guest:guest"),
 welche für dieses Projekt essentiell sind. Für Kommentare und Probleme
 [dieses Projekts](https://github.com/a-weinert/weAut/) nutzen Sie bitte die
 Kommentarfunktion dieses Beitrags, die übrigens ein "GitHub issue" ist.   

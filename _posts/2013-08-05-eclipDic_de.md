@@ -2,14 +2,13 @@
 layout: weAutPost
 title: Deutsches Wörterbuch für Eclipse
 bigTitle: eclipse dictionary
-date:   2013-08-05
 categories: eclipse German dictionary Wörterbuch Deutsch
 lang: de
 enPage: ./eclipDic.html 
 copyrightYear: 2013
 revision: 20
-reviDate: 2020-10-05
-date: 2020-10-01
+reviDate: 2020-12-19
+date: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 1
@@ -20,7 +19,7 @@ Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-
 oder Doxygen-Kommentaren<!--more--> sowie in seinem XML und HTML hat,
 wird von Eclipses
 Rechtschreibhilfe oft eher gestört. Hier gibt es nun ein deutsches Wörterbuch
-mit etwa 26.500 deutschen Wortformen, das vor allem auch Fachbegriffe aus
+mit etwa 26.600 deutschen Wortformen, das vor allem auch Fachbegriffe aus
 Java, OO und (Leit-) Technik enthält. Bei Rev. 129 (Mai 2020) wurden auch
 alte Fehler korrigiert &mdash; Danke für alle Hinweise!
 

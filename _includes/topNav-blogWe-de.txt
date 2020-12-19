@@ -1,0 +1,16 @@
+<ul class="sf-menu" id="top-nav-we-de-1">
+  <li><a href="/index.html" class="b0red"
+     title="weinert-automation &mdash; Dr.-Ing. Albrecht Weinert">weAut</a></li>
+  <li><a href="https://weinert-automation.de/entw_hw.html"
+      title="Entwicklung &mdash; Hardware">entw HW&nbsp;</a></li>
+  <li><a href="https://weinert-automation.de/entw_sw.html"
+      title="Entwicklung &mdash; Software">entw SW&nbsp;</a></li>
+  <li><a href="https://a-weinert.de/index.html" class="b0red"
+     title="Prof. Dr.-Ing. Albrecht Weinert">weinert</a></li>
+  <li><a href="https://a-weinert.de/publication.html"
+      title="Publikationen von Albrecht Weinert">pub</a></li>
+  <li><a href="/index_de.html"
+     title="Blog von A. Weinert (Git)">blog</a></li>
+  <li><a href="https://github.com/a-weinert"
+     title="Albrecht Weinert bei Git">git</a></li>
+</ul>

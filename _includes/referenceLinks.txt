@@ -1,0 +1,9 @@
+
+[deAWhomepg]: https://a-weinert.de/index.html "Prof. Weinerts home page"
+[enAWhomepg]: https://a-weinert.de/index_en.html "Albrecht's home page"
+[enWeHomepg]: https://a-weinert.de/index_en.html "Prof. Weinert's home page"
+
+[enWeAut]: https://weinert-automation.de/ "weinert-automation &ndash; service &amp; consulting"
+
+[deFrame4Jdoc]: https://weinert-automation.de/java/docs/frame4j/de/frame4j/package-summary.html "documentation ( javadoc nur Englisch)"
+[f4j_en]: https://frame4j.de/index_en.html "frame4j home (en)"

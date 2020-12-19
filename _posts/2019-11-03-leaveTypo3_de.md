@@ -3,13 +3,13 @@ layout: weAutPost
 title: Weg von Typo3
 bigTitle: Aus für Typo3
 permalink: /:title.html
-date:   2020-10-04
 categories: WWW CSM Typo3 Markdown Jekyll
 lang: de
 enPage: leaveTypo3.html
 copyrightYear: 2019
 revision: 4
 reviDate: 2020-10-06
+date:   2020-10-04
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4

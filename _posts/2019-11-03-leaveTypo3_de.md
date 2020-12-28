@@ -167,5 +167,7 @@ einfach den generierten Inhalt von _site zum richtigen Web-Server. Bei
 Github server pages genügt commit und push, denn Githubs eingebautes Jekyll
 erledigt die selbe Generierung auf dem Server. Aber, wie gesagt, das Ganze 
 funktioniert auch ohne Github mit jedem Web-Server auf den man Dateien laden
-kann.
+kann.   
+Sehen Sie mehr beim Beitrag
+[Jekyll Tipps](/twoJekyllTricks_de.html "Zwei Jekyll Tricks").
  

@@ -8,27 +8,26 @@ lang: de
 enPage: twoJekyllTricks.html
 copyrightYear: 2020
 revision: 1
-reviDate: 2020-12-27
-date:   2020-12-27
+reviDate: 2020-12-29
+date:   2020-12-29
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 commentShare:
 ---
-
-Wer meine 
+Meine 
 [Schlussbemerkungen](/leaveTypo3_de.html#dr-jekylls-site-generator "Dr. Jekyll's site generator")
-in [Weg von Typo3](/leaveTypo3_de.html "Aus für Typo3") las, weiß, dass ich
-ein engagierter Befürworter der statischen Generierung von Web-Bereichen bin.
-Diese sind schneller als jedes 
+in [Weg von Typo3](/leaveTypo3_de.html "Aus für Typo3") zeigen, dass ich
+ein engagierter Befür&shy;worter der statischen Generierung von Web-Bereichen
+bin. Diese sind schneller als jedes 
 <abbr title="content management systems">CMS</abbr> und fühlen sich auch auf 
 preiswerten Servern wohl, die kaum mehr als Apache<!--more--> 2.4 zu
-bieten haben.
+bieten haben und die man vielleicht mit dutzenden anderen Kunden teilt.
 
 Mit dem direkten Bearbeiten der .html-Dateien kommt man natürlich nicht weit. 
-Vielmehr wird man den Bereich aus übersichtlichen Textblöcken -- den
-Quelldateien sozusagen -- zusammensetzen bzw. bereits mit Tools auf
-dem Entwicklungsrechner generieren lassen.
+Vielmehr wird man den Bereich aus übersichtlichen Textblöcken -- sozusagen
+den Quelldateien -- zusammensetzen bzw. mit Tools bereits auf
+dem Entwicklungsrechner generieren lassen, am Besten mit Test und Vorschau.
     
 Idealerweise läuft der selbe Generator auch auf dem Server des
 Versions&shy;verwaltungs&shy;systems für besagte Quell&shy;dateien. Im Fall von 
@@ -41,25 +40,25 @@ auf derselben Maschine sein, um diesen Komfort für Web-Autoren zu
 ermöglichen.</small>
 
 Über zwölf Jahre habe ich statische Generierung von Web-Bereichen mit
-[Frame4](https://frame4j.de/index.html "ein Java (8) framework") Tools
-betrieben. Von 2019 bis heute habe ich alle meine und mir anvertraute
+[Frame4](https://frame4j.de/index.html "ein Java (8) framework")-Tools
+betrieben. Von 2019 bis heute habe ich meine sowie die mir anvertrauten
 Web-Bereiche auf Jekyll/Liquid umgestellt.
 
 
 ## Eine kleine Dosis PHP -- Trick Nr. 1
 
-Despite (Entschuldigung, noch zu übersetzen) 
-all advantages of static sites compared to those generated at 
-request with PHP (Mostly, seldom Java) and
-<abbr title="Data base systems">DBS</abbr> by the web server one might need
-a server information, some times. One example is displaying the account name
-of a user currently logged in. Thats trivially easy on the server with PHP,
-e.g., and virtually impossible for programs (probably JavaSript) on the
-client.
+Bei allen Vorzügen statisch generierten Web-Bereiche Despite gegenüber
+dynamisch auf dem Web-Server mit PHP (jedenfalls meist, selten mit Java)
+und <abbr title="Datenbanksystemen">DBS</abbr> braucht man doch mal
+Informationen vom Web-Server. Ein Beispiel ist die Anzeige des (Konto-)
+Namens eines eingeloggten Nutzers. Dies ist mit PHP auf dem Server trivial
+aber wohl (fast?) unmöglich mit einem client-seitigen Programm 
+(i.a. JavaScript).
 
-Though Jekyll is totally unaware of PHP we can put a bit PHP in a page
-by its markdown and make Jekyll generate .php instead of .html. 
-[Excerpt](https://weinert-automation.de/software/jekyll/index_en.md "See complete file index_en.md"):
+Obgleich Jekyll gar nichts von PHP weiß, können wir ein bisschen PHP im
+Markdown einer Seite unterbringen und Jekyll veranlassen, sie als .php statt
+als .html zu erzeugen.
+[Exzerpt](https://weinert-automation.de/software/jekyll/index_en.md "Sehen Sie die ganze Datei index_en.md"):
 
 ```markdown
 ---
@@ -78,89 +77,105 @@ in with the [weinert-automation.de][enWeAut]> account
 ...
 ```
 
-<small>Note: Replace -( with {. Due to a bug Jekyll would
-execute code in an markdown code example instead of just
-displaying it.</small>  
+<small>Note: Ersetzen Sie -( durch {. Wegen eines Bugs führt
+Jekyll Anweisungen in einem Markdown-Kodebeispiel aus
+anstatt dieses (hier) lediglich darzustellen.</small>  
 
-As the 
-[excerpt](https://weinert-automation.de/software/jekyll/index_en.md "See complete file index_en.md")
-shows
- - injecting a bit PHP is done by the raw/endraw tag pairs and
- - generating .php instead if .html is ordered by permalink in the front 
-   matter.    
-   permalink also works for "normal" pages not just for posts.
+Wie das 
+[Exzerpt](https://weinert-automation.de/software/jekyll/index_en.md "Sehen Sie die ganze Datei index_en.md")
+zeigt
+ - injiziert man ein bisschen PHP mit einem Paar raw/endraw tags und
+ - befiehlt das Erzeugen von .php statt
+   .html mit permalink im "front matter".    
+   permalink funktioniert auch für "normale" Seiten und nicht nur für
+   Beiträge bzw. posts.
    
-You may see the result on 
+Das Ergebnis können Sie auf 
 [weinert-automation.de/userInfo/index_en.php](https://weinert-automation.de/userInfo/index_en.php "Users and Accounts")
-when logging in as guest:guest. The Jekyll development server won't display
-a .php page. Hence, the testing has to be done on the real server.
+sehen, wenn Sie sich mit guest:guest einloggen. Der 
+Jekyll-Entwicklungs-Web-Server zeigt allerdings keine .php-Seiten an. So was
+muss dann letztlich auf dem "echten" Web-Server getestet werden.
 
-This trick #1 wasn't invented by me but found in many places. What I missed 
-(and tried to put here) was a complete presentation of all vital points.
+Diesen Trick Nr. 1 habe ich nicht erfunden sondern ziemlich häufig gefunden.
+Vermisst (und versucht hier zu ergänzen) habe ich eine vollständige
+Darstellung der wesentlichen Punkte.
 
-Trick #2 on the other hand, I did "invent" and develop to working state. 
-Most probably, I would not be the first one, but I was unable to find
-anything about it.
+Aber den Trick Nr. 2 habe ich erfunden und in der Kette Entwicklungs-PC 
+Web-Server anwendungsreif gemacht. Nun, bestimmt bin ich doch nicht der
+Erste, aber gefunden habe ich zu diesem Ansatz bis jetzt (22.12.2020) nichts.
 
 ## Apaches "fancy indexing" mit Kopf und Fuß -- Trick Nr. 2
 
-The Apache web server will generate very nice -- or even "fancy" --
-directory listings 
- - for those directories you explicitly allow that by  
-   Options +Indexes or Options +FancyIndexing, e.g., and
- - when the directory in question does not contain a file listed by
-   DirectoryIndex, usually index.html, index.htm and index.php.
+Der Apache Wb-Server kann wirklich hübsche "fancy" Verzeichnislisten
+generieren
+ - für Verzeichnisse, für die man dies ausdrücklich mit   
+   Options +Indexes or Options +FancyIndexing z.B. erlaubt und 
+ - wenn das betreffende Verzeichnis keine im DirectoryIndex aufgeführte
+   Datei enthält; üblicherweise sind dies index.html, index.htm und index.php.
    
-For nice indexing one may provide two html page fragments to be put before
-and after the directory table generated by Apache. They are
- - configured by options HeaderName and ReadmeName and are
- - called consequently pub-header.htm and pub-footer.htm in my case.
+Für ein besonders hübsches listing mit Zusatzinformationen kann man noch zwei
+HTML-Fragmente liefern, welche vor und hinter die von Apache generierte 
+Verzeichnistabelle gesetzt werden. Diese werden
+ - mit den Optionen HeaderName und ReadmeName konfiguriert und
+ - und hier durchgehend pub-header.htm und pub-footer.htm genannt.
  
-Those fragments pub-header.htm and pub-footer.htm can be held and maintained
-in the respective directories. Kindly, Jekyll will copy them to _site 
-from whence the deployment process will transfer them to the (real) web
-server.  
-So far no problem. But besides that having pub-header.htm and
-pub-footer.htm is a nuisance:
+Diese Fragmente pub-header.htm und pub-footer.htm können in den 
+betreffenden Verzeichnissen gehalten und gepflegt werden. Freundlicherweise
+kopiert Jekyll diese nach _site, von wo sie der der Auslieferungsprozess
+(das deployment) zum echten Web-Server bringt.  
+Soweit also kein Problem. Ansonsten aber ist das Halten und Hüten von
+pub-header.htm und pub-footer.htm ein ziemliches Ärgernis:
 
- 1. HTML aware Eclipse will mark both with a lot of errors as they (must)
-    have a lot of unclosed respectively unopened tags. This renders
-    Eclipse's HTML syntax checks virtually useless for those files.
- 2. You can't see / check them while developing as, alas, Jekylls test 
-    server cannot index -- be it fancy or not.
- 3. Partners and customers well acquainted to Jekyll and Markdown may get
-    confused by HTML fragment files -- not visible as said.
- 4. Those pub-header.htm and pub-footer.htm contain a lot of repeated code
-    contradicting the static site generating philosophy.
+ 1. Ein Eclipse mit HTML-Kenntnissen wird beide Dateien wegen vieler Fehler
+    rot einfärben. Schließlich haben sie (notwendigerweise) einen ganzen
+    Haufen nicht geschlossener bzw. ungeöffneter tags. Die Fülle falscher 
+    Fehler macht letztlich die Syntaxprüfung von Eclipse nutzlos.
+ 2. Während der Entwicklung kann man das Erscheinungsbild dieser Dateien 
+    nicht prüfen, da Jekylls Testserver wie gesagt keine Verzeichnislisten
+    macht.
+ 3. Partner und Kunden, die man mit Jekyll und Markdown vertraut gemacht
+    hat, könnten diese -- nie zu sehenden -- HTML-Fragmente verwirren.
+ 4. Diese pub-header.htm und pub-footer.htm enthalten eine Menge wiederholten
+    Kodes, was der Philosophie der statischen Bereichsgenerierung 
+    zuwiderläuft.
     
-The idea respectively trick to remedy this situation is simple by itself --
-but partly a bit tricky in realisation:
+Die Idee bzw. der Trick zum Heilen dieser Situation ist an sich einfach -- 
+mit allerdings teilweise ziemlichen Schwierigkeiten in der
+durchgehenden Realisierung:
 
- 1. From each distinct pair of pub-header.htm and pub-footer.htm make one
-    index.htm -- not .html as all others.    
-    Advantage: Eclipse is happy and the jekylls test server shows them 
-    (with no index table).
- 2. Find the commons and little differences easy to handle and make an
-    according layout file. As all your directory listings should look alike
-    one layout file should suffice, _layouts/weAutDirHF.htm in my case.
- 3. At the union point of the former pub-header.htm and pub-footer.htm 
-    insert a line with only a distinct html comment:   
+ 1. Von jedem zusammengehörigen Paar pub-header.htm und pub-footer.htm 
+    machen Sie eine index.htm -- nicht .html wie all die anderen.    
+    Vorteil: Eclipse ist glücklich und der Testserver von Jekyll zeigt sie
+    (ohne die Verzeichnistabelle).
+ 2. Finden Sie nun die Gemeinsamkeiten und mit Liquid leicht handhabbaren 
+    Unterschiede und erstellen ein passendes layout file. Da alle Ihre
+    Verzeichnislisten ähnlich aussehen sollten müsste ein layout file 
+    genügen, in meinem Falle
+    [_layouts/weAutDirHF.htm](https://weinert-automation.de/software/jekyll/weAutDirHF.htm.txt).
+ 3. An der Vereinigungs- bzw. Trennstelle der vorherigen pub-header.htm und
+    pub-footer.htm fügen Sie eine Zeile mit nur einem ganz bestimmten
+    HTML-Kommentar ein:    
     ```<!-- Apache 2 fancy directory index -->``` 
- 4. Now turn all remaining pub-header.htm and pub-footer.htm or index.htm 
-    to index.md referring to the layout just made (weAutDirHF.htm).
- 5. Let those index.md be generated to index.htm -- not .html as all the
-    rest.
- 6. In the deployment process, only, split all files index.htm at said
-    HTML comment line to pub-header.htm and pub-footer.htm.
+ 4. Nun machen Sie aus allen übrig gebliebenen pub-header.htm und 
+    pub-footer.htm oder index.htm ein index.md, welches sich auf das gerade
+    erstellte Layout (weAutDirHF.htm) bezieht.
+ 5. Lassen Sie diese index.md zu index.htm generieren -- nicht zu .html
+    wie alle Übrigen.
+ 6. Nur bei der Auslieferung (dem deployment) zerlegen Sie alle Dateien
+    index.htm an besagter HTML-Kommentarzeile in pub-header.htm
+    und pub-footer.htm.
     
-This split will be made by 
+Diese Zerlegung geht so 
 ```
   csplit index.htm "/^<small>listing generated by/"
   mv xx00 pub-header.htm
   mv xx01 pub-footer.htm
  ```
-on the Linux (web server) machine and the Windows (development) workstation.
-csplit is a Linux tools, but will be available on Windows, too, when you
-have WinRaspi, WinAVR or the like installed and their tools on the PATH.  
-All other details may get clear by reading the (real) 
-[example files](https://weinert-automation.de/software/jekyll/). 
+auf einer Linux-Maschine (Web-Server) und der Windows-Workstation
+(Entwicklung). 
+csplit ist ein Linux-Tools. Auch auf Windows haben Sie es (und vieles 
+andere), falls Sie WinRaspi, WinAVR oder dergleichen installiert haben und
+deren Werkzeuge im "PATH".     
+Alle weiteren Details mögen sich aus den (echten, so verwendeten) 
+[Beispieldateien](https://weinert-automation.de/software/jekyll/) 
+erschließen. 

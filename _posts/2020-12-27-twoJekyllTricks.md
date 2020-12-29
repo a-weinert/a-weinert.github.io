@@ -8,7 +8,7 @@ lang: en
 dePage: twoJekyllTricks_de.html
 copyrightYear: 2020
 revision: 1
-reviDate: 2020-12-27
+reviDate: 2020-12-29
 date:   2020-12-27
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -21,12 +21,12 @@ in [Dispose of Typo3](/leaveTypo3.html "Out of Typo3")
 I am a strong proponent of static web sites. They run faster than 
 any <abbr title="content management systems">CMS</abbr> and do well on 
 inexpensive servers featuring little more than an Apache<!--more-->
-web server.
+2.4. and perhaps shared with dozens of other customers.
 
 Of course, no one would get far by editing many .html files directly. Instead
 one would assemble or generate the site from neat text blocks -- 
-a collection of source files  in a manner of speaking -- with tools on
-the client workstation.
+a collection of source files in a manner of speaking -- with tools on
+the client workstation best featuring test and preview.
     
 Ideally this generator also runs on the 
 version control system server for said source files. In the case of
@@ -81,7 +81,7 @@ As the
 [excerpt](https://weinert-automation.de/software/jekyll/index_en.md "See complete file index_en.md")
 shows
  - injecting a bit PHP is done by the raw/endraw tag pairs and
- - generating .php instead if .html is ordered by permalink in the front 
+ - generating .php instead of .html is ordered by permalink in the front 
    matter.    
    permalink also works for "normal" pages not just for posts.
    
@@ -133,11 +133,13 @@ but partly a bit tricky in realisation:
 
  1. From each distinct pair of pub-header.htm and pub-footer.htm make one
     index.htm -- not .html as all others.    
-    Advantage: Eclipse is happy and the jekylls test server shows them 
+    Advantage: Eclipse is happy andJekyll's test server shows them 
     (with no index table).
  2. Find the commons and little differences easy to handle and make an
     according layout file. As all your directory listings should look alike
-    one layout file should suffice, _layouts/weAutDirHF.htm in my case.
+    one layout file should suffice,
+    [_layouts/weAutDirHF.htm](https://weinert-automation.de/software/jekyll/weAutDirHF.htm.txt)
+    in my case.
  3. At the union point of the former pub-header.htm and pub-footer.htm 
     insert a line with only a distinct html comment:   
     ```<!-- Apache 2 fancy directory index -->``` 
@@ -155,7 +157,7 @@ This split will be made by
   mv xx01 pub-footer.htm
  ```
 on the Linux (web server) machine and the Windows (development) workstation.
-csplit is a Linux tools, but will be available on Windows, too, when you
+csplit is a Linux tool, but will be available on Windows, too, when you
 have WinRaspi, WinAVR or the like installed and their tools on the PATH.  
 All other details may get clear by reading the (real) 
 [example files](https://weinert-automation.de/software/jekyll/). 

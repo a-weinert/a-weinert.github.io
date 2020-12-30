@@ -2,7 +2,6 @@
 layout: weAutPost
 title: Raspberry Pi Ein- und Ausgabe mit Java
 bigTitle: PiGpioJava
-permalink: /:title.html
 date:   2019-06-08
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: de

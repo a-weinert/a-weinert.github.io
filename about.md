@@ -52,11 +52,10 @@ Someone posted: "The best on Git is GitHub".
  Github issues and pure JavaSript (without jQuery).
 
 
-
 ### Résumé 
 
 GitHub Pages is gorgeous. The ease of local testing and deployment comes as
 default.<br />
 Hopefully, GitHub and GitHub Pages last a bit longer than Google+ and 
-[Kenai](posts/2010/oracleClosesKenai_de.html "German only")
+[Kenai](/oracleClosesKenai_de.html "German only")
 and ...

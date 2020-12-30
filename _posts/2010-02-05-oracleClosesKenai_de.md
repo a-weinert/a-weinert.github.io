@@ -2,7 +2,6 @@
 layout: weAutPost
 title: Oracle schließt Kenai
 bigTitle: closing kenai
-permalink: /posts/:year/:title.html
 date:   2010-02-05
 categories: Oracle Kenai shutdown
 lang: de

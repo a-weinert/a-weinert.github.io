@@ -34,7 +34,7 @@ This file
 will be generated as
 `jekyll/update/2019/04/04/welcome-to-jekyll.html`
 originally and, here after some changes, as
-`/posts/2019/04/welcome-to-jekyll.html`.
+`/welcome-to-jekyll.html`.
 
 Jekyll also offers powerful support for code snippets:
 

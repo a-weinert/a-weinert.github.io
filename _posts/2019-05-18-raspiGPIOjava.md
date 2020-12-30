@@ -2,7 +2,6 @@
 layout: weAutPost
 title: Raspberry Pi IO with Java
 bigTitle: PiGpioJava
-permalink: /:title.html
 date:   2019-06-11
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en

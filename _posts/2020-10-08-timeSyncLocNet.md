@@ -8,8 +8,8 @@ categories: Raspberry Pi distributed time clock NTP DCF77
 lang: en
 dePage:
 copyrightYear: 2020
-revision: 5
-reviDate: 2020-10-28
+revision: 6
+reviDate: 2021-01-04
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -45,7 +45,7 @@ set of servers. At least one of them must be reachable for all controllers
 via 
 [(W)LAN](#ntp-server "(Wireless) Local Area Network").   
 A good approach is having one or two NTP servers on the internal (W)LAN, 
-getting it's own time by one or more external time sources. Reasons for 
+getting its own time by one or more external time sources. Reasons for 
 a common internal NTP server are probably more
 stable transmission times and reachability for all. Not all computers or
 embedded systems should have access to outside servers.
@@ -53,10 +53,10 @@ embedded systems should have access to outside servers.
 The NTP server role is often given to domain controllers usually having
 the internal IP p.r.v.1 to p.v.r.4.   
 In private homes or small companies 
-[DNS](#ntp-server "Domain name system")  (and 
+[DNS](#ntp-server "Domain name system") (and 
 [DHCP](#ntp-server "Dynamic host configuration protocol")) roles
-are often given the provider's or private router. In Germany this will
-often be a
+are often given the provider's or your own private router. In Germany this
+will often be a
 [fritz.box](#ntp-server "fritz.box is the name; FRITZ!Box is the product"),
 IP 192.168.178.1 by default. The following excerpt of
 /etc/ntp.conf sets the fritz.box as sole time server:
@@ -95,7 +95,8 @@ could not do on a busy working day.
 
 When tracking NTP problems the toil of having Windows and Linux in the net
 is enough. Not finding the standard NTP tools and services on just the
-most modern Raspians came as a surprising extra impertinence.
+most modern Raspians (some called Raspberry Pi OS now) came as a 
+surprising extra impertinence.
 
 Well, we wanted the old NTP functions with the rich source of documentation
 and experiences back.
@@ -108,7 +109,6 @@ sudo apt-get install ntpstat
 sudo apt-get install openntpd
 sudo apt-get install ntpctl
 sudo timedatectl set-ntp True
-sudo systemctl restart ntp
 sudo systemctl restart ntp # it might take 3 min until sync
 sudo ntpdate -u fritz.box  # force setting time on a very async client 
 ```
@@ -131,7 +131,7 @@ time source is necessary.
 Therefore often so called "real time clocks" are used. They are battery 
 powered quartz clocks without hands or display but with an interface
 to the processor/controller to be read and set. As long as the setting by
-NTP fails they drift as every over non-synchronised clock and if the
+NTP fails they drift as every other non-synchronised clock and if the
 battery gets low they drift faster or fail totally.
 
 If by design such "real time clock" is incorporated in the hardware and
@@ -158,7 +158,7 @@ near Frankfurt/Main. It can be received  in large parts of Europe. Its
 ([AM](#dcf77-signal "amplitude modulation")) and phase
 ([PM](#dcf77-signal "phase modulation")) modulated.
 
-At the begin of (most) seconds the amplitude is reduced to 25% for 100 ms
+At the begin of (most) seconds the amplitude is reduced to 15% for 100 ms
 (false) or 200 ms (true). From about 3ms before the begin of a second to 
 exactly 200 ms after the second's begin the phase is 0° and then 
 modulated &plusmn;13° in a way that the net phase shift is zero.   
@@ -195,13 +195,12 @@ quality without having to read
 [IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
 "Earth Rotation Services").[<img 
 src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
-title="DCF77 receiver, Canaduino module, full size (click)" alt="scanner" class="imgonright" />](/assets/images/DCF77rec_0469.jpg
+title="DCF77 receiver, Canaduino module, full size (click)"
+ alt="DCF77 receiver, Canaduino module, full size " class="imgonright" />](/assets/images/DCF77rec_0469.jpg
 "image full size")  
 <small>______________    
 Note *): Might the Brexit reduce the power of the British admiralty so,
 that the rest of the world can get rid of leap seconds.</small>
-
-
 
 
 ## DCF77 receiver
@@ -228,42 +227,86 @@ Properties:
 
 There are AM receiver modules below 10€ from Pollin and other vendors. The
 have been used with success. To test them before use an oscilloscope or a 
-programme, like testOnPi.    
-The log excerpt
+programme, like testOnPi. The log excerpt
 ```
-test      µs stamp pulse µs  sec res period µs
-DCF77 1543.409.034 _ 115881  56: F.S 1006463
-DCF77 1547.401.464 _3199923  57: e#e 3992430
-DCF77 1548.404.476 _ 131020  58: u#S 1003012
-DCF77 1549.391.629 _ 125781  59: F.S  987153
-DCF77 1550.403.932 _ 152950  60: T.S 1012303
+test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
+DCF77 2.630.290.551   110060   7: F.M 2020225  15:43:06.133 -.188   |o|
+DCF77 2.631.001.112   187210   0: T#b  710561  15:43:08.231 -. 13 minErr
+DCF77 2.631.281.253    12020   1: s#b  280141  15:43:08.766 -.188   | |
+DCF77 2.631.891.315   187991   2: T#b  610062  15:43:09.222 -. 40   |-|
+DCF77 2.632.275.296    39190   3: F#b  383981  15:43:09.683 -.177   |o|
+DCF77 2.632.771.357   176720   4: T#b  496061  15:43:10.205 -. 35   |-|
+DCF77 2.632.815.177    34270   5: F#b   43820  15:43:10.558 -.  7   |o|
+DCF77 2.632.860.417     6660   6: s#b   45240  15:43:10.575 -. 29   | |
+DCF77 2.632.996.258    28510   7: s#b  135841  15:43:10.642 -. 18   | |
+DCF77 2.633.033.588   130580   8: u#e 2120225  15:43:10.767 -. 17   | |
 ```
-shows a low quality module delivering erroneous (e) and undefined (u) results
-in spite of very forgiving criteria. With standard criteria a pulse of 
-153ms (last line) would be undefined (u) and not true (T). S means second
-period and M end minute (2s) period.   
+shows delivering erroneous (e) and undefined (u) results 
+as well as short / spiky (b s) modulation pulses and periods. This happens
+with very bad receiving conditions (misdirected antenna or strong EMI) or
+with low grade receiver modules.      
 Those cheap module's circuit consists of an AM receiver chip (MAS6180 e.g.),
 a filter quartz and almost nothing else. The out pin is very sensitive to EMI
 seemingly acting as input. Some modules got broken (ending the joy on 
-the bargain) when connected a shielded cable (probe). Those "MAS6180 only"
-modules always need an extra output stage (open collector e.g.) and supply
-filters.
+the bargain) when connected a shielded cable (probe) was connected to an 
+output. Those "MAS6180 only" modules do always need an extra 
+<abbr title="open collector">OC</abbr> output stage and supply
+filters. Without you hardly get two minutes of fault free pulses.       
+<small>______________    
+Note *): It's wiser to put the receiver module and its ferrite
+antenna in an extra casing connected by a thin three wire (best shielded)
+cable to the Pi or whatever controller.         
+Note **): Here a decoupling by multiple NPN open collector output stages 
+would be necessary and probably extra considerations on the receiver's 
+supply.</small>
 
-In the end it is much wiser to spend 12..16€ for a module which comes with 
+In the end it is better to spend 12..16€ for a module which comes with 
 all that, like e.g. the CANADUINO DCF77 receiver kit
 [see image](/assets/images/DCF77rec_0469.jpg "Canaduino kit assembled"). It
 comes with all necessary extras to the AM receiver chip: output stages, 
-power supply circuitry and even extra LEDs to optionally watch the operation.    
-The log excerpt
+power supply circuitry and even extra LEDs to optionally watch the 
+operation. Nevertheless, we always recommend an extra OC output stage as it
+allows an independent power supply for the receiver (more than 3.3V and not
+from the PI) and the Pi.            
+The log Canaduino receiver excerpt was taken
+with ```testOnPi  --DCF77``` obviously on Mo, 2021-01-04, 15:08.
+
 ```
-DCF77 1.386.096.959 _ 108380  56: F.S  998332
-DCF77 1.387.098.152 _ 110062  57: F.S 1001193
-DCF77 1.389.097.247 _ 208680  58: T.M 1999095
-DCF77 1.390.098.050 _ 111480   0: F.S 1000803
-DCF77 1.391.097.982 _ 208910   1: T.S  999932
-DCF77 1.392.099.544 _ 210360   2: T.S 1001562
-DCF77 1.393.098.457 _ 108151   3: F.S  998913
+test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
+DCF77 0.522.295.426   183491 127: T.M 2001026  15:07:58.226 -. 83 mSrch
+DCF77 0.523.295.068    82340   0: F.S  999642  15:08:00.126 -.182 minute
+DCF77 0.524.293.681   182271   1: T.S  998613  15:08:01.225 -.185   |-|
+DCF77 0.525.294.905   183870   2: T.S 1001224  15:08:02.226 -.183   |-|
+
+:
+DCF77 0.537.294.503   182981  14: T.S  998632  15:08:14.228 -. 84   |-|
+DCF77 0.538.297.096    83881  15: F.S 1002593  15:08:15.126 -. 81 antOK
+DCF77 0.539.296.099    80450  16: F.S  999003  15:08:16.126 -. 83 dlsKp
+DCF77 0.540.295.321    83350  17: F.S  999222  15:08:17.127 -.181
+DCF77 0.541.295.404   181171  18: T.S 1000083  15:08:18.224 -. 83 MEZ
+DCF77 0.542.293.516    82270  19: F.S  998112  15:08:19.126 -.184 noLpS
+DCF77 0.543.292.039   183611  20: T.S  998523  15:08:20.225 -.186 time:
+:
+DCF77 0.550.293.047    84330  27: F.S  999623  15:08:27.126 -. 87 hh:09
+DCF77 0.551.294.209    85870  28: F.S 1001162  15:08:28.127 -.183 __:__
+:
+DCF77 0.557.292.804    84420  34: F.S  998672  15:08:34.127 -.185 15:mm
+DCF77 0.558.291.607   184541  35: T.S  998803  15:08:35.226 -. 89 __:__
+:
+DCF77 0.564.292.682    84070  41: F.S  998203  15:08:41.126 -.187 04.mm.
+DCF77 0.565.294.654   186470  42: T.S 1001972  15:08:42.228 -. 84
+DCF77 0.566.293.897    83701  43: F.S  999243  15:08:43.127 -. 84
+DCF77 0.567.289.019    84670  44: F.S  995122  15:08:44.126 -.189 Day:Mo
+:
+DCF77 0.572.290.832    88390  49: F.S 1000882  15:08:49.127 -.186 dd.01.
+DCF77 0.573.291.855   185871  50: T.S 1001023  15:08:50.225 -. 86
+:DCF77 0.580.290.432    84920  57: F.S  997312  15:08:57.127 -.189 .2O21
+DCF77 0.582.291.829   187961  58: T.M 2001397  15:08:58.227 -. 86 ______
+DCF77 0.583.290.190    86009   0: F.S  998361  15:09:00.126 -. 90 minute
+DCF77 0.584.292.262    89550   1: F.S 1002072  15:09:01.128 -.188   |o|
+DCF77 0.585.293.105   188381   2: T.S 1000843  15:09:02.229 -.185   |-|
 ```
+
 shows no errors for the Canaduino module and good timing values. Logging
 over days gave 3 errors per
 hour with much harder criteria where all but the first line of above
@@ -276,19 +319,39 @@ Rightfully it has to said: It is possible to use the cheap "MAS6180 only"
 modules with extra circuitry, meticulous antenna positioning and very "soft"
 timing criteria. One can even filter out one extra modulation spike
 within a second by a mildly clever algorithm.   
-But is that worthwhile?
+But is that worthwhile?<img 
+src="/assets/images/klinke34DCF77.jpg" width="259" height="228" 
+title="3 or 4 pin jack connector"  alt="3 or 4 pin jack connector"
+class="imgonright" />
 
 Just take a good module and enjoy the results.
-    
-<small>______________    
-Note *): As said, it's wiser to put the receiver module and its ferrite
-antenna in an extra casing connected by a thin three wire (best shielded)
-cable to the Pi or whatever controller.         
-Note **): Here a decoupling by multiple NPN open collector output stages 
-would be necessary and probably extra considerations on the receiver's 
-supply.</small>
-<hr />
 
+## Plugging the module to the µC 
+
+When having multiple receiving modules *) and/or some decoding devices
+(like in our case Pis) I recommend a three pin
+or even quadripolar 3.5mm jack connection -- male and cable at the receiver,
+female to the Pi. The (one) reasonable *) assignment is:    
+ &nbsp; 1 &nbsp; &nbsp; &nbsp; Ub +    
+ &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77 signal     
+ &nbsp; 3 / - &nbsp; AM receiver Off input **)    
+ &nbsp; 4 / 3 &nbsp; Ground
+ 
+There are complete AM receiver module with (of course *)) compatible 3.5mm
+jacks commercially available under names like "Aktivantenne" or
+"Filterantenne". For still reasonable prices you are relieved from drilling
+and soldering. On the other hand, each of those tested was outperformed
+by the homemade Canaduino based device.    
+<small>______________    
+Note *): On plugging in and out this assignment won't endanger signal pins.  
+Plugging with power on is practically safe. On all other permutations it is
+not.     
+Note **): This is usually the PDN (power down) pin of the MAS6180C AM
+ receiver IC. Hi or open means Off/ no operation. Usually (and with the 
+ three pin connection) it would be tight to ground.    
+ This will be done automatically when the receivers quadripolar male 
+ jack is put in three pin female plug on the µC side.  
+<hr />
 
 ## DCF77 implementation with a Pi
 
@@ -296,5 +359,5 @@ Sofar we shared the considerations for choosing DCF77 instead
 of battery powered "real time clocks" as an extra redundant time source for
 our embedded/distributed controller projects mostly with Raspberry Pis.
 
-Connecting a DCF77 receiver module to a Raspberry Pi and implementing the
-decoding in C will be reported on later a separate publication/post.
+Algorithms and tricks for implementing the DCF77 decoding in C will may be
+reported on later in a separate publication/post.

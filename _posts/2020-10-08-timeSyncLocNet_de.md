@@ -59,7 +59,7 @@ und kleinen Firmen werden die DC-Rollen
 des Internet-Providers oder dem privaten Router übernommen. In 
 Deutschland word dies oft eine 
 [fritz.box](#ntp-server "fritz.box = Netzname; FRITZ!Box = Produkt") sein,
-mit standardmäßig IP 192.168.178.1. Der folgende Auszuge aus
+mit standardmäßig IP 192.168.178.1. Der folgende Auszug aus
 /etc/ntp.conf setzt fritz.box als alleinigen Zeitserver ein:
 
 ```
@@ -85,24 +85,23 @@ w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 &REM Windows
 ```
 ## NTP mit fritz.box und Raspberry Pi
 
-Sorry, noch nicht fertig übersetzt. Bitte noch etwas Geduld.
+Mit einer FRITZ!Box 7490 mit FRITZ!OS 7.21 hatten wir einen Ausfall ihres 
+NTP-Servers für alle clients (diagnostiziert mit by w32tm, ntpstat etc.),
+wobei die NTP-Serverkonfiguration intakt war und die gesamte 
+(W)LAN-Kommunikation OK war. Schließlich half es
+(in Netzwerk -> Netzwerkeinstellungen) den Haken für die NTP-Serverrolle zu
+entfernen, OK drücken, bis 20 zählen und neu Setzen. Das Rücksetzen der 
+FRITZ!Box mit Netz Aus hätte wohl das selbe bewirkt war aber mitten an 
+einem Arbeitstag unzumutbar.
 
-On a FRITZ.Box 7490 with FRITZ!OS 7.21 we experienced a failure of its NTP
-server function for all clients (diagnosed by w32tm, ntpstat etc.) while the 
-box's NTP server configuration entries were still intact and all (W)LAN 
-communication was OK. In the end (at Netzwerk -> Netzwerkeinstellungen)
-un-ticking the NTP server role, pressing OK, counting to 20, ticking it ON
-with OK re-animated the function. Reseting the FRITZ!Box
-by power down and up probably would have the same effect, but this we
-could not do on a busy working day.
+Wenn man NTP-Problemen nachgehen muss, ist das Vorhandensein von Linux- und
+Windows-Systemen im Netz schon Mühsal genug. Dann aber gerade auf den
+neuesten Raspians (nun teilweise Raspberry Pi OS genannt) die 
+Standard-NTP-Linux-Werkzeuge und Vorgehensweisen nicht mehr zu haben,
+ist schon eine überraschende Dreistigkeit.
 
-When tracking NTP problems the toil of having Windows and Linux in the net
-is enough. Not finding the standard NTP tools and services on just the
-most modern Raspians (some called Raspberry Pi OS now) came as a 
-surprising extra impertinence.
-
-Well, we wanted the old NTP functions with the rich source of documentation
-and experiences back.
+Natürlich wollten wir die Standardwerkzeuge mit ihrem Schatz an
+Dokumentation und Erfahrung zurück:
 ```
 sudo service systemd-timesyncd stop
 sudo systemctl disable systemd-timesyncd --now
@@ -115,122 +114,128 @@ sudo timedatectl set-ntp True
 sudo systemctl restart ntp # it might take 3 min until sync
 sudo ntpdate -u fritz.box  # force setting time on a very async client 
 ```
-This restores the uniform world of Linux' NTP.
+Das stellt die Einheitlichkeit der unserer Linuxe bezüglich NTP wieder her.
   
 
 ## NTP-Ausfall
 
-If NTP fails in a local site the drift of the clients away from official time
-and from each other will start. A client rebooting in such situation may 
-even start with totally gaga time. Well, on some Linuxes and Rasbians a trick
-with the file ```/etc/fake-hwclock.data``` guarantees a monotonic 
-time over shutdown/reboot but, of course, no correctness.
+Wenn NTP in einem lokal Bereich ausfällt, beginnt das weg driften der clients
+von der offiziellen Zeit und voneinander. Ein client mit einem Neustart in
+dieser Situation hat dann evtl. sogar eine total blödsinnige Zeit. Nun 
+einige Linuxe und Rasbians garantieren mit einer
+Datei ```/etc/fake-hwclock.data``` wenigstens eine monotone Zeit 
+über Runterfahren und Wiederanlauf hinweg aber natürlich keine Korrektheit.
 
-To avoid such incorrectness on NTP service failure a redundant
-time source is necessary.
+Um in der Gegenwart von NTP-Ausfällen Korrektheit zu erreichen oder aufrecht
+zu erhalten braucht man eine redundante Zeitquelle.
 
-## Real time clocks
+## Echtzeituhren
 
-Therefore often so called "real time clocks" are used. They are battery 
-powered quartz clocks without hands or display but with an interface
-to the processor/controller to be read and set. As long as the setting by
-NTP fails they drift as every other non-synchronised clock and if the
-battery gets low they drift faster or fail totally.
+Hierfür werden oft sogenannte "Echtzeituhren" eingesetzt. Es sind 
+batteriebetriebene Quarzuhren ohne Zeiger oder Anzeige aber mit einer
+Schnittstelle zum Prozessor zum Auslesen und Stellen. Sobald das NTP-basierte
+Stellen ausfällt, driften sie wie jede andere unsynchronisierte Uhr, und wenn
+ihre Batterie schwach wird, driften sie schneller oder fallen gar aus,
 
-If by design such "real time clock" is incorporated in the hardware and
-known to the [OS](#real-time-clocks "Operating System")
-without any configuration (as with standard PCs) use it.
-   
-But think twice before adding such thing to, e.g., an embedded controller.
-One might get troubles to get/keep the thing working from beginning or 
-after updates. And checking/replacing a battery in some places where
-those little systems have to dwell might be a nightmare.    
-A good alternative might be using the **DCF77 signal** with an inexpensive 
-**DCF77 receiver**. A receiver module could even be shared by some clients.
+Wenn Ihre Hardware vom Grund-Design her so eine "Echtzeituhr" hat, und 
+diese vom Betriebssystem ohne zusätzliche Konfiguration korrekt gehandhabt
+wird, so mag man dergleichen nutzen. Bei Standard-PCs ist das meist so.
 
+Aber zögern Sie, so was nur bedingt nützliches einem Embedded-Controller
+nachträglich hinzuzufügen. Es kann von vornherein oder nach updates
+schwierig zum Laufen zu bringen sein. Und ein Batteriewechsel kann an manchem
+Einbauort eines Controllers ein Albtraum sein.    
+Eine gute Alternative kann das Nutzen des **DCF77-Signals** mit einem 
+preiswerten **DCF77-Empfänger** sein. Gegebenenfalls können sich auch mehrere
+clients ein Empfangsmodul teilen.
 
 ## DCF77-Signal
 
-The German official/legal atomic time provided by the 
+Die offizielle, gesetzliche Deutsche Zeit wird von der
 [PTB](#dcf77-signal "Physikalisch-Technische Bundesanstalt, Braunschweig")
-is distributed by the long wave transmitter
+mit weltweit synchronisierten Atomuhren dargestellt und über den
+Langwellensender 
 [DCF77](#dcf77-signal
  "the callsign of the long wave time transmitter in Mainflingen")
-near Aschaffenburg/Main. It can be received  in large parts of Europe. Its
-77,5 kHz carrier is both amplitude 
-([AM](#dcf77-signal "amplitude modulation")) and phase
-([PM](#dcf77-signal "phase modulation")) modulated.
+in der Nähe von Aschaffenburg/Main verbreitet. Er kann in weiten Teilen 
+Europas empfangen werden. Sein 77,5 kHz-Träger ist sowohl amplituden-
+([AM](#dcf77-signal "amplitude modulation")) als auch phasenmoduliert
+([PM](#dcf77-signal "phase modulation")).
 
-At the begin of (most) seconds the amplitude is reduced to 15% for 100 ms
-(false) or 200 ms (true). From about 3ms before the begin of a second to 
-exactly 200 ms after the second's begin the phase is 0° and then 
-modulated &plusmn;13° in a way that the net phase shift is zero.   
+Am Beginn der meisten Sekunden wird die Amplitude für 100 ms (false) oder
+für 200 ms (true) auf 15% reduziert. Von etwa 3ms vor Sekundenbeginn
+bis genau 200 ms danach ist die Phase 0°. Sonst wird sie so &plusmn;13°
+moduliert, dass die Verschiebung insgesamt Null ist.
 
-The PM is much less prone to 
-[EMI](#dcf77-signal "electro-magnetic interference") and the time tick
-can be detected more exactly (about 2µs vs. 200µs with AM). A source of 
-PM disturbance is an extra modulation by a storm moving the large long wave
-transmitter antenna (probably reported, Bit 15).   
-The technique of an PM receiver and the decoding of the telegram bits is
-more complicated and quite expensive. Hence, notwithstanding PM's
-advantages, we will use AM receivers.
+Die PM ist wesentlich weniger anfällig gegenüber
+[EMI](#dcf77-signal "elektromagnetischen  Interferenzen") und der 
+Sekundentick kann exakter erfasst werden (etwa 2µs verglichen
+mit 200µs bei AM). Eine Störquelle bei PM ist die ungewollte zusätzliche
+Modulation durch eine im Sturm bewegte (große) Sendeantenne. (Solche 
+und andere Störungen werden vermutlich über das "Rufbit" 15 gemeldet.)    
+Die Technik eines PM-Empfängers und die Dekodierung ist komplizierter 
+und deutlich teurer. Wir werden uns, wie viele, trotz aller PM-Vorzüge auf
+mit AM-Empfängern zufriedengeben.
 
-The AM signal gives a second start tick for all but the last seconds 
-of a minute. These pulses yield a low frequency (1 bit /s) data stream. 
-The coding in the 59 telegram bits carries all time and date information,
-including [CET (MEZ)](#dcf77-signal "Central European Time, UTC + 1h") /
-[CEST (MESZ)](#dcf77-signal "CE summer Time, UTC + 2h"). Hence, we 
-also get world time [UTC](#dcf77-signal "Coordinated Universal Time").
+Das AM-Signal liefert einen Start-Tick für alle Sekunden außer der letzten
+einer Minute (59, 60, 61). Diese Pulse ergeben einen langsamen 
+(1 bit /s) Datenstrom. Die Kodierung der 59 Telegramm-Bits liefert alle 
+Zeit- und Datumsinformation einschließlich
+[MEZ (CET)](#dcf77-signal "Mitteleuropäische Zeit, UTC + 1h") /
+[MESZ (CEST)](#dcf77-signal "Mitteleuropäische Sommerzeit, UTC + 2h"). Also
+bekommen wir auch die Weltzeit 
+[UTC](#dcf77-signal "Coordinated Universal Time").
 
-Hence when adding a DCF77 receiver to a controller/computer within a 
-minute after start of receiving or reboot one has the standard time.
+Mithin bekommt unser Controller/Computer mit einem DCF77-Empfänger eine 
+Minute nach dem Einschalten Standardzeit.
  
-Any NTP server in Europe with any sense will in the end use PTB's atomic
-clocks and hence DCF77 time. A system with time set by DCF will be in quite
-good sync with a NTP used later and will not have make big jumps (or long
-adjustment times) to correct time.   
-The good accordance of DCF77 and NTP does not hold on an hour before a leap
-second *) if the NTP server uses the so called leap second
-smearing as most do. This means, intentionally (!), NTP servers then deliver
-the wrong time. As DCF77 delivers an announcement in the last hour before a
-leap second (xx:59:60) one will be informed about this shameful NTP clock
-quality without having to read
+Jeder NTP-Server in Europe mit etwas Verstand wird letztlich die Atomuhren
+der PTB (und somit DCF77) nutzen. Ein System das seine Zeit mit DCF77 
+synchronisiert, ist somit NTP-konform. Ein Umschalten auf NTP wird so 
+keine Sprünge oder lange Anpassungszeiten verursachen.
+   
+Die gute Übereinstimmung zwischen DCF77 und NTP fehlt in der letzten Stunde
+vor einer Schaltsekunde *), falls der betreffende Server wie viele das
+sogenannte "leap second smearing" machen (eine Idee 2011 von Google).
+Diese NTP-Server liefern dann 1000 s lang die falsche Zeit. Da DCF77 in der
+letzten Stunde vorher der Schaltsekunde (xx:59:60) diese ankündigt, ist
+man informiert, ohne das 
 [IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
-"Earth Rotation Services").[<img 
+"Earth Rotation Services") lesen zu müssen.[<img 
 src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
-title="DCF77 receiver, Canaduino module, full size (click)"
- alt="DCF77 receiver, Canaduino module, full size " class="imgonright" />](/assets/images/DCF77rec_0469.jpg
-"image full size")  
+title="DCF77-Empfänger, Canaduino module, full size (click)"
+ alt="DCF77-Empfänger, Canaduino module, full size  "class="imgonright" />](/assets/images/DCF77rec_0469.jpg "image full size")  
 <small>______________    
-Note *): Might the Brexit reduce the power of the British admiralty so,
-that the rest of the world can get rid of leap seconds.</small>
+Anm. *): Möge der Brexit die Macht der Britischen Admiralität soweit
+mindern, dass der Rest der Welt die Schaltsekunden loswerden kann.</small>
 
 
 ## DCF77-Empfänger
 
-As said for technical and financial reasons we will use 
-[AM](#dcf77-empfänger "amplitude modulation") receiver modules. You get ones
-for below 10€ and better quality ones for ~14€. Adding the cost for a small
-plastic (!) casing 5m cable -- for the freedom to find a good place for the 
-ferrite antenna -- etc. you can have a DCF77 receiver directly connectable
-to a Raspberry Pi or another controller for less than 30€.
+Wir betrachten nur
+[AM](#dcf77-empfänger "Amplitudenmodulation")-Empfängermodule. Man bekommt
+sie für unter 10€ und bessere ab 14€. Mit den Kosten für ein kleines
+Gehäuse aus Kunststoff (!) 5 m Kabel -- für eine freie gute Platzierung der 
+or Ferritantenne -- bekommt man eine direkt an beispielsweise einen 
+Raspberry Pi anschließbaren Empfänger für unter 30€.
 
-Properties:    
- &nbsp; o &nbsp; needs one digital port of the controller    
- &nbsp; - &nbsp;&nbsp; usually no OS support    
- &nbsp; - &nbsp;&nbsp; own DCF77 software / application needed (not rocket 
- science)        
- &nbsp; + &nbsp; no battery needed     
- &nbsp; + &nbsp; the module might be assembled together with *) and   
- &nbsp; + &nbsp; be supplied from the controller (a Raspberry Pi e.g.)    
- &nbsp; + &nbsp; the module might as well be put several meters away from
-   the controller.    
- &nbsp; + &nbsp; the signal from one receiver be distributed
-    to multiple **) controllers.
+Eigenschaften:    
+ &nbsp; o &nbsp; braucht (nur) einen beliebigen digitalen Eingang des 
+   Controllers    
+ &nbsp; - &nbsp;&nbsp; üblicherweise keine DCF77-Unterstützung des OS    
+ &nbsp; - &nbsp;&nbsp; eigene DCF77-Software / -Anwendung benötigt application needed (not rocket 
+   (durchaus machbar)
+ &nbsp; + &nbsp; es braucht keine Batterie
+ &nbsp; + &nbsp; das Modul kann mit dem Controller zusammengebaut*) und   
+ &nbsp; + &nbsp; von ihm (einem Raspberry Pi z.B.) versorgt werden    
+ &nbsp; + &nbsp; das Modul kann ebenso mehrere Meter vom Controller entfernt
+   platziert werden
+ &nbsp; + &nbsp; das Signal eines Empfängers kann auch an mehrere**)
+  Controller verteilt werden.
 
-There are AM receiver modules below 10€ from Pollin and other vendors. The
-have been used with success. To test them before use an oscilloscope or a 
-programme, like testOnPi. The log excerpt
+AM-Empfängermodule unter 10€ gibt es bei Pollin und einigen anderen. Sie
+wurden mit Erfolg eingesetzt. Man teste sie vorher mit einem Oszilloskop
+oder einem Program wie testOnPi. Der log-Auszug
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
 DCF77 2.630.290.551   110060   7: F.M 2020225  15:43:06.133 -.188   |o|
@@ -244,35 +249,37 @@ DCF77 2.632.860.417     6660   6: s#b   45240  15:43:10.575 -. 29   | |
 DCF77 2.632.996.258    28510   7: s#b  135841  15:43:10.642 -. 18   | |
 DCF77 2.633.033.588   130580   8: u#e 2120225  15:43:10.767 -. 17   | |
 ```
-shows delivering erroneous (e) and undefined (u) results 
-as well as short / spiky (b s) modulation pulses and periods. This happens
-with very bad receiving conditions (misdirected antenna or strong EMI) or
-with low grade receiver modules.      
-Those cheap module's circuit consists of an AM receiver chip (MAS6180 e.g.),
-a filter quartz and almost nothing else. The out pin is very sensitive to EMI
-seemingly acting as input. Some modules got broken (ending the joy on 
-the bargain) when connected a shielded cable (probe) was connected to an 
-output. Those "MAS6180 only" modules do always need an extra 
-<abbr title="open collector">OC</abbr> output stage and supply
-filters. Without you hardly get two minutes of fault free pulses.       
+zeigt fehlerhafte (erroneous e) und undefinierte (u) Resultate sowie 
+kurze / spitze (b s) Modulations-Pulse und Perioden. Dies passiert unter
+sehr schlechten Empfangsbedingungen (falsch ausgerichtete Antenne oder
+starke Störungen) oder mit schlechten EMpfänger-Modulen.      
+Derartige Module bestehen aus einem AM-Empfangs-Chip (MAS6180 z.B.), einem 
+Filter-Quarz und sonst praktisch nichts. Der Ausgangs-Pin ist sehr
+störempfindlich -- quasi ein Eingang. Manche Module gehen beim Anschließen
+eines abgeschirmten Kabels kaputt (was die Freude am Schnäppchen beendet).
+Diese "MAS6180 plus Nichts"-Module brauchen immer eine zusätzliche
+<abbr title="open collector">OC</abbr>-Ausgangsstufe und Filter für die 
+Versorgungsspannung. Ohne diese Maßnahmen sieht man selten 2 Minuten
+fehlerfreien Empfang.       
 <small>______________    
-Note *): It's wiser to put the receiver module and its ferrite
-antenna in an extra casing connected by a thin three wire (best shielded)
-cable to the Pi or whatever controller.         
-Note **): Here a decoupling by multiple NPN open collector output stages 
+Anm. *): Es ist klüger Empfangsmodul mit der Ferritantenne in ein extra 
+Gehäuse zu tun und diese mit einem dreipoligen (möglichst abgeschirmten)
+Kabel zum Controller zu versehen.   
+Anm. **): Here a decoupling by multiple NPN open collector output stages 
 would be necessary and probably extra considerations on the receiver's 
 supply.</small>
 
-In the end it is better to spend 12..16€ for a module which comes with 
-all that, like e.g. the CANADUINO DCF77 receiver kit
-[see image](/assets/images/DCF77rec_0469.jpg "Canaduino kit assembled"). It
-comes with all necessary extras to the AM receiver chip: output stages, 
-power supply circuitry and even extra LEDs to optionally watch the 
-operation. Nevertheless, we always recommend an extra OC output stage as it
-allows an independent power supply for the receiver (more than 3.3V and not
-from the PI) and the Pi.            
-The log Canaduino receiver excerpt was taken
-with ```testOnPi  --DCF77``` obviously on Mo, 2021-01-04, 15:08.
+Letztlich gibt man besser 12..16 € (oder mehr) für ein Modul aus, das von 
+Haus aus all dies mitbringt, wie z.B das CANADUINO DCF77 receiver kit,
+[siehe Abbildung](/assets/images/DCF77rec_0469.jpg "Canaduino kit aufgebaut").
+Es kommt mit allem notwendigen Extras zum AMEmpfangs-Chip: Ausgangsstufen, 
+Stromversorgung, und sogar LEDs zum optionalen Beobachten von Operation
+und Zustand. Trotzdem empfehlen wir auch hier (trotz der 
+push/pull-Ausgangsstufen) einen zusätzlichen OC-Ausgang, da dieser eine
+unabhängige Wahl und Schaltung der Versorgung (mehr als die 3,3V vom Pi) 
+von Empfänger (mehr als die 3,3V vom Pi) und Controller erlaubt.    
+Der Canaduino-Empfänger Log-Auszug wurde mit ```testOnPi  --DCF77```
+offensichtlich am Montag, 04.01., um 15:08 erstellt.
 
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
@@ -311,57 +318,60 @@ DCF77 0.584.292.262    89550   1: F.S 1002072  15:09:01.128 -.188   |o|
 DCF77 0.585.293.105   188381   2: T.S 1000843  15:09:02.229 -.185   |-|
 ```
 
-shows no errors for the Canaduino module and good timing values. Logging
-over days gave 3 errors per
-hour with much harder criteria where all but the first line of above
-excerpt for a cheap module would have been considered as erroneous. Three 
-errors per hour can easily be ignored and bypassed. 20 to more than 100 --
-as have been observed with cheap modules -- threaten the availability of the 
-time information. 
+Der Auszug zeigt keine Fehler beim Canaduino-Modul und gutes timing. Logs
+über drei Tage zeigten drei Fehler pro Stunde mit Zeitkriterien, bei denen
+billiger Module weitgehend versagten. Drei Fehler pro Stunde sind ohne
+weiteres tolerierbar. 20 oder gar mehr als 100 -- mit anderen Modulen 
+durchaus beobachtet -- gefährden die Verfügbarkeit der Zeitinformation.
 
-Rightfully it has to said: It is possible to use the cheap "MAS6180 only"
-modules with extra circuitry, meticulous antenna positioning and very "soft"
-timing criteria. One can even filter out one extra modulation spike
-within a second by a mildly clever algorithm.   
-But is that worthwhile?<img 
+Gerechterweise sei gesagt said: Man kann "MAS6180 plus Nichts"-Modulen
+mit zusätzlicher Beschaltung, sorgfältigster Antennenausrichtung und 
+sehr weichen Zeitkriterien (so dass der Unterschied von true und false
+verschwimmt) schon verwenden. Man könnte sogar versuchen Spikes innerhalb
+einer Sekunde mit gemäßigt intelligenten Algorithmen auszufiltern.   
+Aber ist es das wert?<img 
 src="/assets/images/klinke34DCF77.jpg" width="259" height="228" 
 title="3 or 4 pin jack connector"  alt="3 or 4 pin jack connector"
 class="imgonright" />
 
-Just take a good module and enjoy the results.
+Nimm einfach ein gutes Modul und genieße die Ergebnisse.
 
 ## Modulanschluss am µC 
 
-When having multiple receiving modules *) and/or some decoding devices
-(like in our case Pis) I recommend a three pin
-or even quadripolar 3.5mm jack connection -- male and cable at the receiver,
-female to the Pi. The (one) reasonable *) assignment is:    
+Wenn man mehrere Empfangs-Module *) und/oder Dekodierer (wie hier Pis)
+hat, empfehle ich einen dreipoligen oder gar vierpoligen 3,5mm Klinkenstecker
+-- männlich und Kabel am Empfänger, weiblich beim Pi. Die (eine)
+vernünftige Belegung ist:   
  &nbsp; 1 &nbsp; &nbsp; &nbsp; Ub +    
- &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77 signal     
- &nbsp; 3 / - &nbsp; AM receiver Off input **)    
- &nbsp; 4 / 3 &nbsp; Ground
+ &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77-Signal     
+ &nbsp; 3 / - &nbsp; AM "receiver Off" Eingang**)    
+ &nbsp; 4 / 3 &nbsp; Ground, -, Masse
  
-There are complete AM receiver module with (of course *)) compatible 3.5mm
-jacks commercially available under names like "Aktivantenne" or
-"Filterantenne". For still reasonable prices you are relieved from drilling
-and soldering. On the other hand, none of those tested outperformed
-the homemade Canaduino based device.    
+Es gibt kommerziell komplette AM-Empfangsgeräte mit (natürlich*)) 
+kompatiblen dreipoligen 3.5mm Klinkensteckern, unter Namen wie "Aktivantenne"
+oder "Filterantenne". Für immer noch vernünftige Preise sind Sie damit vom
+Bohren und Löten erlöst. Andererseits sind diese in den meisten Fällen
+kritischer Bedingungen (Störungen) den hausgemachten Canaduino-Geräten 
+unterlegen.      
 <small>______________    
-Note *): On plugging in and out this assignment won't endanger signal pins.  
-Plugging with power on is practically safe. With any other permutation it is
-not.     
-Note **): This is usually the PDN (power down) pin of the MAS6180C AM
- receiver IC. Hi or open means Off/ no operation. Usually (and with the 
- three pin connection) it would be tight to ground.    
- This will be done automatically when the receivers quadripolar male 
- jack is put in three pin female plug on the µC side.  
+Anm. *): Beim Stecken und Ziehen werden bei dieser Belegung keine 
+Signal-Pins gefährdet. Auch unter Spannung ist das praktisch sicher. Bei
+jeder anderen Permutation ist es das nicht.     
+Anm. **): Dies ist i.A. der PDN (power down) Pin des 
+ MAS6180C AM-Empfänger-IC. Plus oder offen bedeutet Aus/keine Operation.
+ Gewöhnlich schließt man diesen Eingang einfach an Masse an. Mit dem 
+ vierpoligen Klinkenstecker in der dreipoligen Buchse passiert das 
+ von selbst.  
 <hr />
 
 ## DCF77-Implementierung mit dem Pi
 
-Sofar we shared the considerations for choosing DCF77 instead 
-of battery powered "real time clocks" as an extra redundant time source for
-our embedded/distributed controller projects mostly with Raspberry Pis.
+Soweit betrachteten wir den Vorzug von DCF77 gegenüber batteriebetriebenen 
+sogenannten "Echtzeituhren" als redundante Zeitquelle für einen "Zoo" von
+Controllern -- in unseren Projekten vielfach Pis.
 
-Algorithms and tricks for implementing the DCF77 decoding in C will may be
+Über Algorithmen und Tricks für die DCF77-Dekodierung in C berichte ich 
+vielleicht in einem getrennten Beitrag (post).
+arg 
+ decoding in C will may be
 reported on later in a separate publication/post.

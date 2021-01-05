@@ -177,7 +177,7 @@ The AM signal gives a second start tick for all but the last seconds
 of a minute. These pulses yield a low frequency (1 bit /s) data stream. 
 The coding in the 59 telegram bits carries all time and date information,
 including [CET (MEZ)](#dcf77-signal "Central European Time, UTC + 1h") /
-[CEST (MESZ)](#dcf77-signal "CE summer Time, UTC + 2h"). Hence, we 
+[CEST (MESZ)](#dcf77-signal "CE summer Time, UTC + 2h"). Thus we 
 also get world time [UTC](#dcf77-signal "Coordinated Universal Time").
 
 Hence when adding a DCF77 receiver to a controller/computer within a 
@@ -189,7 +189,7 @@ good sync with a NTP used later and will not have make big jumps (or long
 adjustment times) to correct time.   
 The good accordance of DCF77 and NTP does not hold on an hour before a leap
 second *) if the NTP server uses the so called leap second
-smearing as most do. This means, intentionally (!), NTP servers then deliver
+smearing (a 2011 Google idea) as many do. This means, intentionally (!), NTP servers then deliver
 the wrong time. As DCF77 delivers an announcement in the last hour before a
 leap second (xx:59:60) one will be informed about this shameful NTP clock
 quality without having to read
@@ -262,7 +262,7 @@ would be necessary and probably extra considerations on the receiver's
 supply.</small>
 
 In the end it is better to spend 12..16€ for a module which comes with 
-all that, like e.g. the CANADUINO DCF77 receiver kit
+all that, like e.g. the CANADUINO DCF77 receiver kit,
 [see image](/assets/images/DCF77rec_0469.jpg "Canaduino kit assembled"). It
 comes with all necessary extras to the AM receiver chip: output stages, 
 power supply circuitry and even extra LEDs to optionally watch the 
@@ -309,11 +309,10 @@ DCF77 0.584.292.262    89550   1: F.S 1002072  15:09:01.128 -.188   |o|
 DCF77 0.585.293.105   188381   2: T.S 1000843  15:09:02.229 -.185   |-|
 ```
 
-shows no errors for the Canaduino module and good timing values. Logging
-over days gave 3 errors per
-hour with much harder criteria where all but the first line of above
-excerpt for a cheap module would have been considered as erroneous. Three 
-errors per hour can easily be ignored and bypassed. 20 to more than 100 --
+The excerpt shows no errors for the Canaduino module and good timing values. Logging over days gave 3 errors per
+hour with time criteria where most cheap modules would have failed
+completely. Three errors per hour can easily be ignored and bypassed. 20 
+to more than 100 --
 as have been observed with cheap modules -- threaten the availability of the 
 time information. 
 
@@ -342,8 +341,8 @@ female to the Pi. The (one) reasonable *) assignment is:
 There are complete AM receiver module with (of course *)) compatible 3.5mm
 jacks commercially available under names like "Aktivantenne" or
 "Filterantenne". For still reasonable prices you are relieved from drilling
-and soldering. On the other hand, none of those tested outperformed
-the homemade Canaduino based device.    
+and soldering. On the other hand, in most cases of critical (jamming)
+conditions they were outperformed by the homemade Canaduino based devices.    
 <small>______________    
 Note *): On plugging in and out this assignment won't endanger signal pins.  
 Plugging with power on is practically safe. With any other permutation it is
@@ -361,5 +360,5 @@ So far we shared the considerations for choosing DCF77 instead
 of battery powered "real time clocks" as an extra redundant time source for
 our embedded/distributed controller projects mostly with Raspberry Pis.
 
-Algorithms and tricks for implementing the DCF77 decoding in C will may be
+Algorithms and tricks for implementing the DCF77 decoding in C may be
 reported on later in a separate publication/post.

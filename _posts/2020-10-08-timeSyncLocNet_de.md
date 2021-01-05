@@ -1,15 +1,15 @@
 ---
 layout: weAutPost
-title: Sync time by &amp; and DCF77
-bigTitle: Same time for all
-headline: Time synchronisation in local nets
+title: Zeitsynchronisation mit NTP &amp; DCF77
+bigTitle: Gleiche Zeit für alle
+headline: Zeitsynchronisation im lokalen Netz
 permalink: /:title.html
 date:   2020-11-28
 categories: Raspberry Pi distributed time clock NTP DCF77
-lang: en
-dePage: timeSyncLocNet_de.html
-copyrightYear: 2020
-revision: 6
+lang: de
+enPage: timeSyncLocNet.html
+copyrightYear: 2021
+revision: 1
 reviDate: 2021-01-05
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -17,50 +17,50 @@ commentIssueId: 4
 commentShare:
 ---
 
-In a [LAN](/timeSyncLocNet.html "Local Area Network") 
-one should have the same time on all machines -- be them servers,
-workstations or small controllers, like Pis for real time control as
-described, e.g. in 
+In einem [LAN](/timeSyncLocNet.html "Local Area Network") sollten alle
+Maschinen die selbe Zeit haben -- egal ob Server, PC oder kleiner Controller,
+wie z.B. ein Pi für Echt&shy;zeit&shy;steuerung, wie in 
 ["Raspberry for remote services"](https://a-weinert.de/pub/raspberry4remoteServices.pdf "technical report (.pdf)")
-(see<!--more--> also 
-   [publications](http://a-weinert.de/publication_en.html "by A. Weinert")).   
-The rationale: You want
- - comparable file dates and
- - log file entries that can be put in order over several
-   systems. &nbsp; You have
- - distributed controller with co-ordinated timed actions.
+(siehe<!--more--> auch 
+   [Publikationen](http://a-weinert.de/publication.html "von A. Weinert")).  
+der Hintergrund: Sie wollen
+ - vergleichbare Zeiten von Dateien and
+ - Log-Dateieinträgen, die über mehrere Systeme hinweg eine korrekt
+   sortierbare Reihenfolge ergeben. &nbsp; Sie haben
+ - verteilte Steuerungen mit zeitlich koordinierten Aktionen.
  
-These time dependent features would fail if internal time of the 
-systems differs too much. Hence, we have a hard or soft real time 
-requirement on the synchronisation of those system times. And 
-"real time" does nothing say on absolute values. The maximum tolerable 
-system time difference of two of your systems might be something between
-50ns and 20s -- it depends. Anyway, if a system after reboot doesn't 
-know hour nor date abandon all hope.
+Diese zeitabhängigen Aktionen und Eigenschaften versagen, wenn die interne 
+Zeit dieser Systeme zu weit voneinander abweichen. Folglich haben wie eine
+(harte oder weiche) diesbezügliche Echt&shy;zeit&shy;anforderung. Und
+"Echt&shy;zeit" sagt auch hier nichts über absolute Zahlen. Die noch
+tolerierbare Abweichung
+zwischen zwei dieser Systeme kann zwischen 50ns and 20s liegen -- je nachdem.
+Falls aber ein System nach dem Neustart/Einschalten weder Datum noch Stunde
+kennt ist jede Hoffnung vergebens.
 
-## NTP server
+## NTP-Server
 
-The proven way to synchronous times is having all systems use the 
-same [NTP](#ntp-server "Net time protocol") server or the same ordered
-set of servers. At least one of them must be reachable for all controllers 
-via 
-[(W)LAN](#ntp-server "(Wireless) Local Area Network").   
-A good approach is having one or two NTP servers on the internal (W)LAN, 
-getting its own time by one or more external time sources. Reasons for 
-a common internal NTP server are probably more
-stable transmission times and reachability for all. Not all computers or
-embedded systems should have access to outside servers.
+Der bewährte Weg zu gleicher Zeit ist, alle diese System den gleichen
+[NTP](#ntp-server "Net time protocol")-Server oder den gleichen sortierten
+Satz von Servern nutzen zu lassen. Zumindest einer muss für alle diese 
+Rechner via [(W)LAN](#ntp-server "(Wireless) Local Area Network")
+erreichbar sein.   
+Ein guter Ansatz sind ein oder zwei eigene NTP-Servers in diesem internen
+(W)LAN, welche ihrerseits eine oder mehrere externe Zeitquellen nutzen.
+Gründe für einen gemeinsamen internen NTP-server sind die wahrscheinlich
+intern stabilere Übertragungszeit und Erreichbarkeit für alle. Nicht alle
+internen Computer und Steuerungen dürfen ja ins Internet.
 
-The NTP server role is often given to domain controllers usually having
-the internal IP p.r.v.1 to p.v.r.4.   
-In private homes or small companies 
-[DNS](#ntp-server "Domain name system") (and 
-[DHCP](#ntp-server "Dynamic host configuration protocol")) roles
-are often given the provider's or your own private router. In Germany this
-will often be a
-[fritz.box](#ntp-server "fritz.box is the name; FRITZ!Box is the product"),
-IP 192.168.178.1 by default. The following excerpt of
-/etc/ntp.conf sets the fritz.box as sole time server:
+Die interne Rolle NTP-Server bekommen oft die Domain Controller (DC), mit 
+üblicherweise internen IP-Adressen von p.r.v.1 bis p.v.r.4. In Privathäusern
+und kleinen Firmen werden die DC-Rollen 
+[DNS](#ntp-server "Domain name system") (und 
+[DHCP](#ntp-server "Dynamic host configuration protocol")) oft vom Router 
+des Internet-Providers oder dem privaten Router übernommen. In 
+Deutschland word dies oft eine 
+[fritz.box](#ntp-server "fritz.box = Netzname; FRITZ!Box = Produkt") sein,
+mit standardmäßig IP 192.168.178.1. Der folgende Auszuge aus
+/etc/ntp.conf setzt fritz.box als alleinigen Zeitserver ein:
 
 ```
 # I need to talk to one NTP server or two (or three).
@@ -70,20 +70,22 @@ server 192.168.178.1
 #pool 0.debian.pool.ntp.org iburst
 ```
 
-Note all pool entries being commented out, lest distract the client from
-the fritz.box. NTP clients may prefer other offers. A fritz.box handling
-dozens of telephones and some 100 active (W)LAN clients, USB drives and 
-sometimes more is often less attractive than a full grown NTP server in the
-Internet. If you really want an extra server or pool use fritz.box' time
-source: ``` ntp1.t-online.de; 2.europe.pool.ntp.org ``` e.g.
+Beachten Sie, dass alle pool-Einträge auskommentiert wurden, damit der 
+client nicht von der fritz.box weggelockt wird. Sie könnten sonst die
+anderen Angebote vorziehen. Eine fritz.box, die dutzente Telefone 100 aktive
+(W)LAN clients, USB-Laufwerke und manches mehr zu handhaben versucht, ist da 
+wohl unattraktiver als ein ausgewachsener NTP-Server im Internet. Wenn
+Sie extra Quellen oder pools wollen nutzen Sie indirekt die Zeitquelle der
+fritz.box: ``` ntp1.t-online.de; 2.europe.pool.ntp.org ```.
 
-The availability / usage of an NTP server may be checked by
-e.g.:
+Die Verfügbarkeit und Nutzung der eines NTP-Servers testet man z.B. mit:
 ```
 ntpstat  # Linux
 w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 &REM Windows
 ```
-## NTP with fritz.box and Raspberry Pi
+## NTP mit fritz.box und Raspberry Pi
+
+Sorry, noch nicht fertig übersetzt. Bitte noch etwas Geduld.
 
 On a FRITZ.Box 7490 with FRITZ!OS 7.21 we experienced a failure of its NTP
 server function for all clients (diagnosed by w32tm, ntpstat etc.) while the 
@@ -116,7 +118,7 @@ sudo ntpdate -u fritz.box  # force setting time on a very async client
 This restores the uniform world of Linux' NTP.
   
 
-## NTP failure
+## NTP-Ausfall
 
 If NTP fails in a local site the drift of the clients away from official time
 and from each other will start. A client rebooting in such situation may 
@@ -147,14 +149,14 @@ A good alternative might be using the **DCF77 signal** with an inexpensive
 **DCF77 receiver**. A receiver module could even be shared by some clients.
 
 
-## DCF77 signal
+## DCF77-Signal
 
 The German official/legal atomic time provided by the 
 [PTB](#dcf77-signal "Physikalisch-Technische Bundesanstalt, Braunschweig")
 is distributed by the long wave transmitter
 [DCF77](#dcf77-signal
  "the callsign of the long wave time transmitter in Mainflingen")
-near Aschaffenburg/Main. It can be received in large parts of Europe. Its
+near Aschaffenburg/Main. It can be received  in large parts of Europe. Its
 77,5 kHz carrier is both amplitude 
 ([AM](#dcf77-signal "amplitude modulation")) and phase
 ([PM](#dcf77-signal "phase modulation")) modulated.
@@ -204,10 +206,10 @@ Note *): Might the Brexit reduce the power of the British admiralty so,
 that the rest of the world can get rid of leap seconds.</small>
 
 
-## DCF77 receiver
+## DCF77-Empfänger
 
 As said for technical and financial reasons we will use 
-[AM](#dcf77-receiver "amplitude modulation") receiver modules. You get ones
+[AM](#dcf77-empfänger "amplitude modulation") receiver modules. You get ones
 for below 10€ and better quality ones for ~14€. Adding the cost for a small
 plastic (!) casing 5m cable -- for the freedom to find a good place for the 
 ferrite antenna -- etc. you can have a DCF77 receiver directly connectable
@@ -328,7 +330,7 @@ class="imgonright" />
 
 Just take a good module and enjoy the results.
 
-## Plugging the module to the µC 
+## Modulanschluss am µC 
 
 When having multiple receiving modules *) and/or some decoding devices
 (like in our case Pis) I recommend a three pin
@@ -355,9 +357,9 @@ Note **): This is usually the PDN (power down) pin of the MAS6180C AM
  jack is put in three pin female plug on the µC side.  
 <hr />
 
-## DCF77 implementation with a Pi
+## DCF77-Implementierung mit dem Pi
 
-So far we shared the considerations for choosing DCF77 instead 
+Sofar we shared the considerations for choosing DCF77 instead 
 of battery powered "real time clocks" as an extra redundant time source for
 our embedded/distributed controller projects mostly with Raspberry Pis.
 

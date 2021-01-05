@@ -9,7 +9,7 @@ layout: weAutDefault
   itemscope itemtype="http://schema.org/Person">{{ page.author }}</em> <br/>
 <em class="postdate" itemprop="datePublished">{{pageRevDatString}}</em></div>
 <h3><a href="{{ page.url }}" rel="bookmark" 
-title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>               
+title="Permanent Link to {{page.title}}">{{pageHeadline}}</a></h3>               
 </div><div class="entry">
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
@@ -44,7 +44,6 @@ title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>
  <div id="comments" issue="{{pageIssueId}}"></div>
 {% endif %}
 </div>
-
 <script type="text/javascript">
  function myPageStart(){
 	 var comDiv = document.getElementById("comments");
@@ -54,10 +53,7 @@ title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>
   // alert("myPageStart, commentIssueId = " + pageIssueId);
 	 }
    var commentsURL = "{{page.commentsAPI}}/{{page.commentIssueId}}/comments";
-  
-   if (pageIssueId > 0) {
-	     getComments();
-   }
+   if (pageIssueId > 0)  getComments();
   
    function loadComments(data){
      for (var i = 0; i < data.length; i++) {
@@ -69,7 +65,6 @@ title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>
        var cbody = jasCom.body;
        //  alert ("cuserlink= " + cuserlink + "\nclink=   " + clink
         	//	 + "\ncuser=   ." + cuser  + ".\ncbody=   " + cbody);
-
        var cavatarlink = jasCom.user.avatar_url;  //       0123456789x123456789
        var commDat = jasCom.updated_at;  // "created_at": "2019-04-17T19:08:34Z",
        var cdate = commDat.substring(0, 10) + ' ' + commDat.substring(11, 16);
@@ -87,23 +82,23 @@ title="Permanent Link to {{page.title}}">{{page.title}}</a></h3>
      } // for
    } // loadComments(jasonData)
 	    
-     function getComments(){
-      // alert("getComments: " + commentsURL);
-       var xhr = new XMLHttpRequest();
-       xhr.open('GET', commentsURL);
-       xhr.send(null);
-       xhr.onreadystatechange = function () {
-    	   var DONE = 4; // readyState 4 means the request is done.
-    	   var OK = 200; // status 200 is a successful return.
-    	   if (xhr.readyState === DONE) {
-    	     if (xhr.status === OK) {
-    	       console.log(xhr.responseText); // 'This is the returned text.'
-    	       loadComments(JSON.parse(xhr.responseText));
-    	     } else {
+   function getComments(){
+     // alert("getComments: " + commentsURL);
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', commentsURL);
+     xhr.send(null);
+     xhr.onreadystatechange = function () {
+    	 var DONE = 4; // readyState 4 means the request is done.
+    	 var OK = 200; // status 200 is a successful return.
+    	 if (xhr.readyState === DONE) {
+    	   if (xhr.status === OK) {
+    	     console.log(xhr.responseText); // 'This is the returned text.'
+    	     loadComments(JSON.parse(xhr.responseText));
+    	   } else {
     	     //  alert('Error: ' + xhr.status);
-    	     }
     	   }
-    	 };
-     } // getComments() 
+    	 }
+     };
+   } // getComments() 
  } // myPageStart()
 </script>

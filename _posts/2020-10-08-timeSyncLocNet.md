@@ -1,6 +1,6 @@
 ---
 layout: weAutPost
-title: Sync time by &amp; and DCF77
+title: Sync time by NTP & DCF77
 bigTitle: Same time for all
 headline: Time synchronisation in local nets
 permalink: /:title.html
@@ -20,7 +20,7 @@ commentShare:
 In a [LAN](/timeSyncLocNet.html "Local Area Network") 
 one should have the same time on all machines -- be them servers,
 workstations or small controllers, like Pis for real time control as
-described, e.g. in 
+described, e.g., in 
 ["Raspberry for remote services"](https://a-weinert.de/pub/raspberry4remoteServices.pdf "technical report (.pdf)")
 (see<!--more--> also 
    [publications](http://a-weinert.de/publication_en.html "by A. Weinert")).   

@@ -1,11 +1,11 @@
 ---
 layout: weAutPost
-title: Zeitsynchronisation mit NTP &amp; DCF77
+title: Zeitsynchronisation mit NTP & DCF77
 bigTitle: Gleiche Zeit für alle
 headline: Zeitsynchronisation im lokalen Netz
 permalink: /:title.html
 date:   2020-11-28
-categories: Raspberry Pi distributed time clock NTP DCF77
+categories: Raspberry Pi verteilt Zeit Uhr NTP DCF77
 lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
@@ -22,8 +22,9 @@ Maschinen die selbe Zeit haben -- egal ob Server, PC oder kleiner Controller,
 wie z.B. ein Pi für Echt&shy;zeit&shy;steuerung, wie in 
 ["Raspberry for remote services"](https://a-weinert.de/pub/raspberry4remoteServices.pdf "technical report (.pdf)")
 (siehe<!--more--> auch 
-   [Publikationen](http://a-weinert.de/publication.html "von A. Weinert")).  
-der Hintergrund: Sie wollen
+   [Publikationen](http://a-weinert.de/publication.html "von A. Weinert"))
+beschrieben.  
+Der Hintergrund: Sie wollen
  - vergleichbare Zeiten von Dateien and
  - Log-Dateieinträgen, die über mehrere Systeme hinweg eine korrekt
    sortierbare Reihenfolge ergeben. &nbsp; Sie haben

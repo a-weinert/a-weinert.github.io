@@ -10,7 +10,7 @@ lang: en
 dePage: timeSyncLocNet_de.html
 copyrightYear: 2020
 revision: 6
-reviDate: 2021-01-05
+reviDate: 2021-01-07
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4

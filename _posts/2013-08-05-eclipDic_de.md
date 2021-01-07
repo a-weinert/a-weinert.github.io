@@ -7,7 +7,7 @@ lang: de
 enPage: ./eclipDic.html 
 copyrightYear: 2013
 revision: 21
-reviDate: 2020-12-29
+reviDate: 2021-01-07
 date: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -19,7 +19,7 @@ Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-
 oder Doxygen-Kommentaren<!--more--> sowie in seinem XML und HTML hat,
 wird von Eclipses
 Rechtschreibhilfe oft eher gestört. Hier gibt es nun ein deutsches Wörterbuch
-mit etwa 26.700 deutschen Wortformen, das vor allem auch Fachbegriffe aus
+mit etwa 26.900 deutschen Wortformen, das vor allem auch Fachbegriffe aus
 Java, OO und (Leit-) Technik enthält.
 
 ### Holen und Installieren

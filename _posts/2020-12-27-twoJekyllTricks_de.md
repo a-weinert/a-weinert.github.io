@@ -8,7 +8,7 @@ lang: de
 enPage: twoJekyllTricks.html
 copyrightYear: 2020
 revision: 1
-reviDate: 2020-12-29
+reviDate: 2021-01-07
 date:   2020-12-29
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -106,7 +106,7 @@ Erste, aber gefunden habe ich zu diesem Ansatz bis jetzt (22.12.2020) nichts.
 
 ## Apaches "fancy indexing" mit Kopf und Fuß -- Trick Nr. 2
 
-Der Apache Wb-Server kann wirklich hübsche "fancy" Verzeichnislisten
+Der Apache Web-Server kann wirklich hübsche "fancy" Verzeichnislisten
 generieren
  - für Verzeichnisse, für die man dies ausdrücklich mit   
    Options +Indexes or Options +FancyIndexing z.B. erlaubt und 

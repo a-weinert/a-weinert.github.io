@@ -10,7 +10,7 @@ lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
 revision: 1
-reviDate: 2021-01-05
+reviDate: 2021-01-07
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -373,6 +373,4 @@ Controllern -- in unseren Projekten vielfach Pis.
 
 Über Algorithmen und Tricks für die DCF77-Dekodierung in C berichte ich 
 vielleicht in einem getrennten Beitrag (post).
-arg 
- decoding in C will may be
-reported on later in a separate publication/post.
+

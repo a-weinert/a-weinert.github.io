@@ -31,11 +31,11 @@
 weinert-automation<br />
 Prof. Dr.-Ing. Albrecht Weinert<br />
 <br />
-{% if pageLang == "de"  %}
+{%- if pageLang == "de"  %}
 entwicklung dienstleistung beratung<br />
-{% else %}
+{%- else %}
 development service consulting<br />
-{% endif %}
+{%- endif %}
 {{ page.bigTitle }}<br />
 <!-- sliderbuttons-lang Start -->
 {%- if pageLang == "de"  -%}
@@ -44,14 +44,13 @@ development service consulting<br />
    {% include sliderButtons-en.html %}
 {%- endif  -%}<!-- sliderbuttons End -->
 <!-- BigTitle end --></div>
-<div id="topnavbar"><!-- topNav-we (lang) Start --> 
+<div id="topnavbar">
 {%- if pageLang == "de"  -%}
    {% include topNav-blogWe-de.txt %}
 {%- else -%}
    {% include topNav-blogWe-en.txt %}
-{%- endif  -%} 
-
- <!-- topNav End --></div>
+{%- endif  -%}
+</div>
 <div id="spacer"><p><br /></p></div>
 <div id="sidebar">
 <p id="sidebartop"><!-- page head right start -->
@@ -71,9 +70,7 @@ Seiten
     title="{{ my_page.url}}">{{ my_page.title | escape }}</a></li>
  {%- endif -%}
 {%- endfor -%}
-</ul>
-</li>
-</ul>
+</ul></li></ul>
 {%- else -%}
 Pages
 <ul>{%- for path in pagePaths -%}
@@ -86,21 +83,18 @@ Pages
     title="{{ my_page.url}}">{{ my_page.title | escape }}</a></li>
  {%- endif -%}
 {%- endfor -%}
-</ul>
-</li>
-</ul>
+</ul></li></ul>
 {%- endif  -%}
-
-{% endif %}
+{%- endif %}
 </div>
 <div id="content">
 <div id="topwhere"><!--  where start -->
 <a href="/" title="blog home">{{ site.github_username }}.github.io/</a> 
 {% if page.isPost %}
   {% if pageLang == "de" %}
-<a title="Verzeichnisstruktur verborgen">posts/</a>
+<a title="Liste der Beiträge" href="/index_de.html">posts/</a>
   {% else %}
-<a title="hidden directory structure">posts/</a>
+<a title="List of posts" href="/index.html">posts/</a>
   {% endif %}
 {% endif %}
 <a href="{{page.url}}">{{pageName}}</a> &nbsp;  &nbsp;
@@ -141,9 +135,11 @@ Copyright &#160; © &#160; {{page.copyrightYear | default: "2019"}}
 class="hrf">E-Mail (webmaster)</a><br />
 {%- if page.lang == "de"  -%}
 Stand:&nbsp; {{page.revision | default: "neu"}}
-  ({{pageRevDatString}}) &#160; &#160;
+  ({{pageRevDatString}}){%- unless pageDateString == pageRevDatString%} 
+  &#160; &#160; &nbsp; (erstm. {{pageDateString}}){% endunless %}
 {%- else -%}
-Revision: {{pageRevision}} ({{pageRevDatString}})
+Revision: {{pageRevision}} ({{pageRevDatString}}){%- unless pageDateString == pageRevDatString%}
+&nbsp; (first {{pageDateString}}){% endunless %}
 {%- endif  -%} 
 </div>
 </div></div></div></body></html>

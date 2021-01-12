@@ -189,7 +189,7 @@ bekommen wir auch die Weltzeit
 
 Mithin bekommt unser Controller/Computer mit einem DCF77-Empfänger eine 
 Minute nach dem Einschalten Standardzeit.
- 
+
 Jeder NTP-Server in Europe mit etwas Verstand wird letztlich die Atomuhren
 der PTB (und somit DCF77) nutzen. Ein System das seine Zeit mit DCF77 
 synchronisiert, ist somit NTP-konform. Ein Umschalten auf NTP wird so 
@@ -202,15 +202,16 @@ Diese NTP-Server liefern dann 1000 s lang die falsche Zeit. Da DCF77 in der
 letzten Stunde vorher der Schaltsekunde (xx:59:60) diese ankündigt, ist
 man informiert, ohne das 
 [IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
-"Earth Rotation Services") lesen zu müssen.[<img 
-src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
-title="DCF77-Empfänger, Canaduino module, full size (click)"
- alt="DCF77-Empfänger, Canaduino module, full size  "class="imgonright" />](/assets/images/DCF77rec_0469.jpg "image full size")  
+"Earth Rotation Services") lesen zu müssen.   
 <small>______________    
 Anm. *): Möge der Brexit die Macht der Britischen Admiralität soweit
-mindern, dass der Rest der Welt die Schaltsekunden loswerden kann.</small>
-
-
+mindern, dass der Rest der Welt die Schaltsekunden loswerden
+kann.
+[<img 
+src="/assets/images/DCF77rec_0507.jpg" width="310" height="320" 
+title="DCF77 Empfänger mit Canaduino-Modul, aufgebaut (click: großes Bild)"
+ alt="DCF77 Empfänger, aufgebaut" class="imgonright" />](/assets/images/DCF77rec_0507.jpg
+ "image full size")
 ## DCF77-Empfänger
 
 Wir betrachten nur
@@ -250,7 +251,11 @@ DCF77 2.632.860.417     6660   6: s#b   45240  15:43:10.575 -. 29   | |
 DCF77 2.632.996.258    28510   7: s#b  135841  15:43:10.642 -. 18   | |
 DCF77 2.633.033.588   130580   8: u#e 2120225  15:43:10.767 -. 17   | |
 ```
-zeigt fehlerhafte (erroneous e) und undefinierte (u) Resultate sowie 
+[<img 
+src="/assets/images/DCF77rec_0493.jpg" width="310" height="226" 
+title="DCF77-Empfänger, Gehäuse und Canaduino-Modul (click: groß)"
+ alt="DCF77-Empfänger, Gehäuse" class="imgonright" />](/assets/images/DCF77rec_0493.jpg
+ "image full size")zeigt fehlerhafte (erroneous e) und undefinierte (u) Resultate sowie 
 kurze / spitze (b s) Modulations-Pulse und Perioden. Dies passiert unter
 sehr schlechten Empfangsbedingungen (falsch ausgerichtete Antenne oder
 starke Störungen) oder mit schlechten EMpfänger-Modulen.      
@@ -266,21 +271,23 @@ fehlerfreien Empfang.
 Anm. *): Es ist klüger Empfangsmodul mit der Ferritantenne in ein extra 
 Gehäuse zu tun und diese mit einem dreipoligen (möglichst abgeschirmten)
 Kabel zum Controller zu versehen.   
-Anm. **): Here a decoupling by multiple NPN open collector output stages 
-would be necessary and probably extra considerations on the receiver's 
-supply.</small>
+Anm. **): In dem Fall wären mehrere NPN-OC-Ausgangsstufen vorzusehen wie auch
+Maßnahmen bei der Versorgung des Empfängers.</small><br clear="right" />[<img 
+src="/assets/images/DCF77rec_0512.jpg" width="310" height="202" 
+title="DCF77-Empfänger Außenansicht, geschönt (click: groß)"
+ alt="DCF77 Empfänger, Canaduino module" class="imgonright" />](/assets/images/DCF77rec_0512.jpg
+ "image full size")
 
 Letztlich gibt man besser 12..16 € (oder mehr) für ein Modul aus, das von 
-Haus aus all dies mitbringt, wie z.B das CANADUINO DCF77 receiver kit,
-[siehe Abbildung](/assets/images/DCF77rec_0469.jpg "Canaduino kit aufgebaut").
-Es kommt mit allem notwendigen Extras zum AMEmpfangs-Chip: Ausgangsstufen, 
+Haus aus all dies mitbringt, wie z.B das auf den Abbildungen gezeigte
+CANADUINO DCF77 receiver kit. Es kommt mit allem notwendigen Extras zum
+AM-Empfangs-Chip: Ausgangsstufen, 
 Stromversorgung, und sogar LEDs zum optionalen Beobachten von Operation
-und Zustand. Trotzdem empfehlen wir auch hier (trotz der 
-push/pull-Ausgangsstufen) einen zusätzlichen OC-Ausgang, da dieser eine
-unabhängige Wahl und Schaltung der Versorgung (mehr als die 3,3V vom Pi) 
-von Empfänger (mehr als die 3,3V vom Pi) und Controller erlaubt.    
-Der Canaduino-Empfänger Log-Auszug wurde mit ```testOnPi  --DCF77```
-offensichtlich am Montag, 04.01., um 15:08 erstellt.
+und Zustand. Trotz ja vorhandener push/pull-Ausgangsstufen empfehlen wir 
+einen zusätzlichen OC-Ausgang, da dieser eine unabhängige Wahl und Schaltung
+der Versorgung von Empfänger und Controller erlaubt.    
+Der Log-Auszug für den Canaduino-Empfänger ist (mit ```testOnPi  --DCF77```)
+offensichtlich am 04.01.21 um 15:08 entstanden.
 
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
@@ -325,7 +332,7 @@ billiger Module weitgehend versagten. Drei Fehler pro Stunde sind ohne
 weiteres tolerierbar. 20 oder gar mehr als 100 -- mit anderen Modulen 
 durchaus beobachtet -- gefährden die Verfügbarkeit der Zeitinformation.
 
-Gerechterweise sei gesagt said: Man kann "MAS6180 plus Nichts"-Modulen
+Gerechterweise sei gesagt: Man kann "MAS6180 plus Nichts"-Modulen
 mit zusätzlicher Beschaltung, sorgfältigster Antennenausrichtung und 
 sehr weichen Zeitkriterien (so dass der Unterschied von true und false
 verschwimmt) schon verwenden. Man könnte sogar versuchen Spikes innerhalb

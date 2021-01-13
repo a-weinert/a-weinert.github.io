@@ -9,8 +9,8 @@ categories: Raspberry Pi verteilt Zeit Uhr NTP DCF77
 lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
-revision: 1
-reviDate: 2021-01-07
+revision: 3
+reviDate: 2021-01-13
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -31,7 +31,7 @@ Der Hintergrund: Sie wollen
  - verteilte Steuerungen mit zeitlich koordinierten Aktionen.
  
 Diese zeitabhängigen Aktionen und Eigenschaften versagen, wenn die interne 
-Zeit dieser Systeme zu weit voneinander abweichen. Folglich haben wie eine
+Zeit dieser Systeme zu weit voneinander abweichen. Folglich haben wir eine
 (harte oder weiche) diesbezügliche Echt&shy;zeit&shy;anforderung. Und
 "Echt&shy;zeit" sagt auch hier nichts über absolute Zahlen. Die noch
 tolerierbare Abweichung
@@ -48,25 +48,24 @@ Rechner via [(W)LAN](#ntp-server "(Wireless) Local Area Network")
 erreichbar sein.   
 Ein guter Ansatz sind ein oder zwei eigene NTP-Servers in diesem internen
 (W)LAN, welche ihrerseits eine oder mehrere externe Zeitquellen nutzen.
-Gründe für einen gemeinsamen internen NTP-server sind die wahrscheinlich
-intern stabilere Übertragungszeit und Erreichbarkeit für alle. Nicht alle
+Gründe für einen gemeinsamen internen NTP-server sind die intern stabilere
+Übertragungszeit und Erreichbarkeit für alle. Nicht alle
 internen Computer und Steuerungen dürfen ja ins Internet.
 
-Die interne Rolle NTP-Server bekommen oft die Domain Controller (DC), mit 
+Die interne Rolle "NTP-Server" bekommen oft die Domain Controller (DC), mit 
 üblicherweise internen IP-Adressen von p.r.v.1 bis p.v.r.4. In Privathäusern
 und kleinen Firmen werden die DC-Rollen 
 [DNS](#ntp-server "Domain name system") (und 
 [DHCP](#ntp-server "Dynamic host configuration protocol")) oft vom Router 
 des Internet-Providers oder dem privaten Router übernommen. In 
-Deutschland word dies oft eine 
+Deutschland wird dies oft eine 
 [fritz.box](#ntp-server "fritz.box = Netzname; FRITZ!Box = Produkt") sein,
 mit standardmäßig IP 192.168.178.1. Der folgende Auszug aus
 /etc/ntp.conf setzt fritz.box als alleinigen Zeitserver ein:
-
+ 
 ```
 # I need to talk to one NTP server or two (or three).
 server 192.168.178.1
-# 192.168.178.1 is fritz.box (the FRITZ!Box)
 # pool.ntp.org maps to ~1000 low-stratum NTP servers.
 #pool 0.debian.pool.ntp.org iburst
 ```
@@ -79,26 +78,26 @@ wohl unattraktiver als ein ausgewachsener NTP-Server im Internet. Wenn
 Sie extra Quellen oder pools wollen nutzen Sie indirekt die Zeitquelle der
 fritz.box: ``` ntp1.t-online.de; 2.europe.pool.ntp.org ```.
 
-Die Verfügbarkeit und Nutzung der eines NTP-Servers testet man z.B. mit:
-```
-ntpstat  # Linux
-w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 &REM Windows
-```
+Die Verfügbarkeit und Nutzung der eines NTP-Servers testet man z.B. mit:   
+&nbsp; ``` ntpstat  # Linux ```    
+&nbsp; ``` w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 & REM Windows ```
+
+
 ## NTP mit fritz.box und Raspberry Pi
 
 Mit einer FRITZ!Box 7490 mit FRITZ!OS 7.21 hatten wir einen Ausfall ihres 
 NTP-Servers für alle clients (diagnostiziert mit by w32tm, ntpstat etc.),
-wobei die NTP-Serverkonfiguration intakt war und die gesamte 
-(W)LAN-Kommunikation OK war. Schließlich half es
+wobei die NTP-Serverkonfiguration intakt und die gesamte 
+(W)LAN-Kommunikation OK waren. Schließlich half es
 (in Netzwerk -> Netzwerkeinstellungen) den Haken für die NTP-Serverrolle zu
-entfernen, OK drücken, bis 20 zählen und neu Setzen. Das Rücksetzen der 
-FRITZ!Box mit Netz Aus hätte wohl das selbe bewirkt war aber mitten an 
-einem Arbeitstag unzumutbar.
+entfernen, OK zu drücken und nach einem Schluck Kaffee wieder zu setzen. Das
+Rücksetzen der FRITZ!Box mit Netz Aus hätte wohl das selbe bewirkt war aber
+mitten an einem Arbeitstag unzumutbar.
 
-Wenn man NTP-Problemen nachgehen muss, ist das Vorhandensein von Linux- und
+Wenn man NTP-Problemen nachgehen muss, ist der Mix von Linux- und
 Windows-Systemen im Netz schon Mühsal genug. Dann aber gerade auf den
-neuesten Raspians (nun teilweise Raspberry Pi OS genannt) die 
-Standard-NTP-Linux-Werkzeuge und Vorgehensweisen nicht mehr zu haben,
+neuesten Raspians (nun teilweise Raspberry Pi OS genannt) auf einmal die 
+Standard-NTP-Linux-Werkzeuge und -Vorgehensweisen nicht mehr zu haben,
 ist schon eine überraschende Dreistigkeit.
 
 Natürlich wollten wir die Standardwerkzeuge mit ihrem Schatz an
@@ -122,7 +121,7 @@ Das stellt die Einheitlichkeit der unserer Linuxe bezüglich NTP wieder her.
 
 Wenn NTP in einem lokal Bereich ausfällt, beginnt das weg driften der clients
 von der offiziellen Zeit und voneinander. Ein client mit einem Neustart in
-dieser Situation hat dann evtl. sogar eine total blödsinnige Zeit. Nun 
+dieser Situation hat dann evtl. sogar eine total blödsinnige Zeit. Nun, 
 einige Linuxe und Rasbians garantieren mit einer
 Datei ```/etc/fake-hwclock.data``` wenigstens eine monotone Zeit 
 über Runterfahren und Wiederanlauf hinweg aber natürlich keine Korrektheit.
@@ -136,30 +135,29 @@ Hierfür werden oft sogenannte "Echtzeituhren" eingesetzt. Es sind
 batteriebetriebene Quarzuhren ohne Zeiger oder Anzeige aber mit einer
 Schnittstelle zum Prozessor zum Auslesen und Stellen. Sobald das NTP-basierte
 Stellen ausfällt, driften sie wie jede andere unsynchronisierte Uhr, und wenn
-ihre Batterie schwach wird, driften sie schneller oder fallen gar aus,
+ihre Batterie schwach wird, driften sie schneller oder fallen gar aus.
 
 Wenn Ihre Hardware vom Grund-Design her so eine "Echtzeituhr" hat, und 
 diese vom Betriebssystem ohne zusätzliche Konfiguration korrekt gehandhabt
 wird, so mag man dergleichen nutzen. Bei Standard-PCs ist das meist so.
 
 Aber zögern Sie, so was nur bedingt nützliches einem Embedded-Controller
-nachträglich hinzuzufügen. Es kann von vornherein oder nach updates
-schwierig zum Laufen zu bringen sein. Und ein Batteriewechsel kann an manchem
-Einbauort eines Controllers ein Albtraum sein.    
+hinzuzufügen. Es kann von vornherein oder nach updates schwierig zum Laufen
+zu bringen sein. Und ein Batteriewechsel wird an manchem
+Einbauort eines Controllers zum Albtraum.    
 Eine gute Alternative kann das Nutzen des **DCF77-Signals** mit einem 
-preiswerten **DCF77-Empfänger** sein. Gegebenenfalls können sich auch mehrere
-clients ein Empfangsmodul teilen.
+preiswerten **DCF77-Empfänger** sein.
 
 ## DCF77-Signal
 
-Die offizielle, gesetzliche Deutsche Zeit wird von der
+Die offizielle, gesetzliche deutsche Zeit wird von der
 [PTB](#dcf77-signal "Physikalisch-Technische Bundesanstalt, Braunschweig")
 mit weltweit synchronisierten Atomuhren dargestellt und über den
 Langwellensender 
 [DCF77](#dcf77-signal
  "the callsign of the long wave time transmitter in Mainflingen")
 in der Nähe von Aschaffenburg/Main verbreitet. Er kann in weiten Teilen 
-Europas empfangen werden. Sein 77,5 kHz-Träger ist sowohl amplituden-
+Europas empfangen werden. Sein 77,5kHz-Träger ist sowohl amplituden-
 ([AM](#dcf77-signal "amplitude modulation")) als auch phasenmoduliert
 ([PM](#dcf77-signal "phase modulation")).
 
@@ -188,7 +186,7 @@ bekommen wir auch die Weltzeit
 [UTC](#dcf77-signal "Coordinated Universal Time").
 
 Mithin bekommt unser Controller/Computer mit einem DCF77-Empfänger eine 
-Minute nach dem Einschalten Standardzeit.
+Minute nach dem Beginn des Empfangs Standardzeit.
 
 Jeder NTP-Server in Europe mit etwas Verstand wird letztlich die Atomuhren
 der PTB (und somit DCF77) nutzen. Ein System das seine Zeit mit DCF77 
@@ -216,23 +214,22 @@ title="DCF77 Empfänger mit Canaduino-Modul, aufgebaut (click: großes Bild)"
 
 Wir betrachten nur
 [AM](#dcf77-empfänger "Amplitudenmodulation")-Empfängermodule. Man bekommt
-sie für unter 10€ und bessere ab 14€. Mit den Kosten für ein kleines
-Gehäuse aus Kunststoff (!) 5 m Kabel -- für eine freie gute Platzierung der 
-or Ferritantenne -- bekommt man eine direkt an beispielsweise einen 
+Platine + Ferritantenne für unter 10€ und bessere ab 14€. Mit den Kosten für
+ein kleines Gehäuse aus Kunststoff (!) 5 m Kabel -- für eine freie gute 
+Platzierung der Antenne -- bekommt man einen direkt an beispielsweise einen 
 Raspberry Pi anschließbaren Empfänger für unter 30€.
 
 Eigenschaften:    
  &nbsp; o &nbsp; braucht (nur) einen beliebigen digitalen Eingang des 
    Controllers    
  &nbsp; - &nbsp;&nbsp; üblicherweise keine DCF77-Unterstützung des OS    
- &nbsp; - &nbsp;&nbsp; eigene DCF77-Software / -Anwendung benötigt application needed (not rocket 
-   (durchaus machbar)
+ &nbsp; - &nbsp;&nbsp; eigene DCF77-Software / -Anwendung benötigt (durchaus machbar)    
  &nbsp; + &nbsp; es braucht keine Batterie
- &nbsp; + &nbsp; das Modul kann mit dem Controller zusammengebaut*) und   
+ &nbsp; + &nbsp; das Modul kann mit dem Controller zusammengebaut *) und   
  &nbsp; + &nbsp; von ihm (einem Raspberry Pi z.B.) versorgt werden    
  &nbsp; + &nbsp; das Modul kann ebenso mehrere Meter vom Controller entfernt
-   platziert werden
- &nbsp; + &nbsp; das Signal eines Empfängers kann auch an mehrere**)
+   platziert werden    
+ &nbsp; + &nbsp; das Signal eines Empfängers kann auch an mehrere **)
   Controller verteilt werden.
 
 AM-Empfängermodule unter 10€ gibt es bei Pollin und einigen anderen. Sie
@@ -258,7 +255,7 @@ title="DCF77-Empfänger, Gehäuse und Canaduino-Modul (click: groß)"
  "image full size")zeigt fehlerhafte (erroneous e) und undefinierte (u) Resultate sowie 
 kurze / spitze (b s) Modulations-Pulse und Perioden. Dies passiert unter
 sehr schlechten Empfangsbedingungen (falsch ausgerichtete Antenne oder
-starke Störungen) oder mit schlechten EMpfänger-Modulen.      
+starke Störungen) oder mit schlechten Empfänger-Modulen.      
 Derartige Module bestehen aus einem AM-Empfangs-Chip (MAS6180 z.B.), einem 
 Filter-Quarz und sonst praktisch nichts. Der Ausgangs-Pin ist sehr
 störempfindlich -- quasi ein Eingang. Manche Module gehen beim Anschließen
@@ -285,7 +282,10 @@ AM-Empfangs-Chip: Ausgangsstufen,
 Stromversorgung, und sogar LEDs zum optionalen Beobachten von Operation
 und Zustand. Trotz ja vorhandener push/pull-Ausgangsstufen empfehlen wir 
 einen zusätzlichen OC-Ausgang, da dieser eine unabhängige Wahl und Schaltung
-der Versorgung von Empfänger und Controller erlaubt.    
+der Versorgung von Empfänger und Controller erlaubt:  NPN, hfe>200,
+Rbase 100k&Omega;; Rcoll 10..100k&Omega;, der pullup vom Pi reicht.
+
+  
 Der Log-Auszug für den Canaduino-Empfänger ist (mit ```testOnPi  --DCF77```)
 offensichtlich am 04.01.21 um 15:08 entstanden.
 
@@ -295,7 +295,6 @@ DCF77 0.522.295.426   183491 127: T.M 2001026  15:07:58.226 -. 83 mSrch
 DCF77 0.523.295.068    82340   0: F.S  999642  15:08:00.126 -.182 minute
 DCF77 0.524.293.681   182271   1: T.S  998613  15:08:01.225 -.185   |-|
 DCF77 0.525.294.905   183870   2: T.S 1001224  15:08:02.226 -.183   |-|
-
 :
 DCF77 0.537.294.503   182981  14: T.S  998632  15:08:14.228 -. 84   |-|
 DCF77 0.538.297.096    83881  15: F.S 1002593  15:08:15.126 -. 81 antOK
@@ -327,10 +326,10 @@ DCF77 0.585.293.105   188381   2: T.S 1000843  15:09:02.229 -.185   |-|
 ```
 
 Der Auszug zeigt keine Fehler beim Canaduino-Modul und gutes timing. Logs
-über drei Tage zeigten drei Fehler pro Stunde mit Zeitkriterien, bei denen
-billiger Module weitgehend versagten. Drei Fehler pro Stunde sind ohne
+über drei Tage zeigten drei Fehler pro Stunde. Dies ist ohne
 weiteres tolerierbar. 20 oder gar mehr als 100 -- mit anderen Modulen 
-durchaus beobachtet -- gefährden die Verfügbarkeit der Zeitinformation.
+durchaus beobachtet -- gefährden die Verfügbarkeit der Zeitinformation. 100
+oder mehr pro Stunde ist quasi ein Ausfall.
 
 Gerechterweise sei gesagt: Man kann "MAS6180 plus Nichts"-Modulen
 mit zusätzlicher Beschaltung, sorgfältigster Antennenausrichtung und 
@@ -340,22 +339,21 @@ einer Sekunde mit gemäßigt intelligenten Algorithmen auszufiltern.
 Aber ist es das wert?<img 
 src="/assets/images/klinke34DCF77.jpg" width="259" height="228" 
 title="3 or 4 pin jack connector"  alt="3 or 4 pin jack connector"
-class="imgonright" />
-
-Nimm einfach ein gutes Modul und genieße die Ergebnisse.
+class="imgonright" /> &nbsp; &nbsp; Nimm einfach ein gutes Modul 
+und genieße die Ergebnisse.
 
 ## Modulanschluss am µC 
 
 Wenn man mehrere Empfangs-Module *) und/oder Dekodierer (wie hier Pis)
 hat, empfehle ich einen dreipoligen oder gar vierpoligen 3,5mm Klinkenstecker
--- männlich und Kabel am Empfänger, weiblich beim Pi. Die (eine)
-vernünftige Belegung ist:   
+-- männlich und Kabel am Empfänger, weiblich beim Pi. Die einzig vernünftige
+Belegung ist:   
  &nbsp; 1 &nbsp; &nbsp; &nbsp; Ub +    
  &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77-Signal     
- &nbsp; 3 / - &nbsp; AM "receiver Off" Eingang**)    
+ &nbsp; 3 / - &nbsp; AM "receiver Off" Eingang **)    
  &nbsp; 4 / 3 &nbsp; Ground, -, Masse
  
-Es gibt kommerziell komplette AM-Empfangsgeräte mit (natürlich*)) 
+Es gibt kommerziell komplette AM-Empfangsgeräte mit (natürlich *)) 
 kompatiblen dreipoligen 3.5mm Klinkensteckern, unter Namen wie "Aktivantenne"
 oder "Filterantenne". Für immer noch vernünftige Preise sind Sie damit vom
 Bohren und Löten erlöst. Andererseits sind diese in den meisten Fällen
@@ -363,7 +361,8 @@ kritischer Bedingungen (Störungen) den hausgemachten Canaduino-Geräten
 unterlegen.      
 <small>______________    
 Anm. *): Beim Stecken und Ziehen werden bei dieser Belegung keine 
-Signal-Pins gefährdet. Auch unter Spannung ist das praktisch sicher. Bei
+Signal-Pins gefährdet. Auch unter (gleicher Versorgungs-) Spannung ist das
+praktisch sicher. Bei
 jeder anderen Permutation ist es das nicht.     
 Anm. **): Dies ist i.A. der PDN (power down) Pin des 
  MAS6180C AM-Empfänger-IC. Plus oder offen bedeutet Aus/keine Operation.

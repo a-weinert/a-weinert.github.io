@@ -9,8 +9,8 @@ categories: Raspberry Pi distributed time clock NTP DCF77
 lang: en
 dePage: timeSyncLocNet_de.html
 copyrightYear: 2020
-revision: 6
-reviDate: 2021-01-07
+revision: 7
+reviDate: 2021-01-13
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -46,59 +46,57 @@ set of servers. At least one of them must be reachable for all controllers
 via 
 [(W)LAN](#ntp-server "(Wireless) Local Area Network").   
 A good approach is having one or two NTP servers on the internal (W)LAN, 
-getting its own time by one or more external time sources. Reasons for 
-a common internal NTP server are probably more
-stable transmission times and reachability for all. Not all computers or
+getting their own time by one or more external time sources. Reasons for 
+a common internal NTP server are stable transmission times and reachability
+for all. Not all computers or
 embedded systems should have access to outside servers.
 
 The NTP server role is often given to domain controllers usually having
-the internal IP p.r.v.1 to p.v.r.4.   
+the internal IP p.r.v.1 to p.r.v.4.   
 In private homes or small companies 
 [DNS](#ntp-server "Domain name system") (and 
 [DHCP](#ntp-server "Dynamic host configuration protocol")) roles
 are often given the provider's or your own private router. In Germany this
 will often be a
-[fritz.box](#ntp-server "fritz.box is the name; FRITZ!Box is the product"),
+[fritz.box](#ntp-server "fritz.box is the address; FRITZ!Box is the product"),
 IP 192.168.178.1 by default. The following excerpt of
-/etc/ntp.conf sets the fritz.box as sole time server:
+/etc/ntp.conf sets [fritz.box](#ntp-server "192.168.178.1") as sole
+time server:
 
 ```
 # I need to talk to one NTP server or two (or three).
 server 192.168.178.1
-# 192.168.178.1 is fritz.box (the FRITZ!Box)
 # pool.ntp.org maps to ~1000 low-stratum NTP servers.
-#pool 0.debian.pool.ntp.org iburst
+# pool 0.debian.pool.ntp.org iburst
 ```
 
 Note all pool entries being commented out, lest distract the client from
 the fritz.box. NTP clients may prefer other offers. A fritz.box handling
 dozens of telephones and some 100 active (W)LAN clients, USB drives and 
-sometimes more is often less attractive than a full grown NTP server in the
+maybe mach more is often less attractive than a full grown NTP server in the
 Internet. If you really want an extra server or pool use fritz.box' time
 source: ``` ntp1.t-online.de; 2.europe.pool.ntp.org ``` e.g.
 
 The availability / usage of an NTP server may be checked by
-e.g.:
-```
-ntpstat  # Linux
-w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 &REM Windows
-```
+e.g.:   
+&nbsp; ``` ntpstat  # Linux ```    
+&nbsp; ``` w32tm /stripchart /computer:192.168.178.1 /dataonly /samples:5 & REM Windows ```
+
 ## NTP with fritz.box and Raspberry Pi
 
 On a FRITZ.Box 7490 with FRITZ!OS 7.21 we experienced a failure of its NTP
 server function for all clients (diagnosed by w32tm, ntpstat etc.) while the 
 box's NTP server configuration entries were still intact and all (W)LAN 
 communication was OK. In the end (at Netzwerk -> Netzwerkeinstellungen)
-un-ticking the NTP server role, pressing OK, counting to 20, ticking it ON
-with OK re-animated the function. Reseting the FRITZ!Box
-by power down and up probably would have the same effect, but this we
+un-ticking the NTP server role, pressing OK and (after a gulp of coffee) 
+re-ticking it ON re-animated the function. Reseting the FRITZ!Box
+by power down probably would have the same effect, but this we
 could not do on a busy working day.
 
 When tracking NTP problems the toil of having Windows and Linux in the net
 is enough. Not finding the standard NTP tools and services on just the
 most modern Raspians (some called Raspberry Pi OS now) came as a 
-surprising extra impertinence.
-
+surprising extra impertinence.   
 Well, we wanted the old NTP functions with the rich source of documentation
 and experiences back.
 ```
@@ -120,9 +118,9 @@ This restores the uniform world of Linux' NTP.
 
 If NTP fails in a local site the drift of the clients away from official time
 and from each other will start. A client rebooting in such situation may 
-even start with totally gaga time. Well, on some Linuxes and Rasbians a trick
-with the file ```/etc/fake-hwclock.data``` guarantees a monotonic 
-time over shutdown/reboot but, of course, no correctness.
+even start with a time totally gaga. Well, on some Linuxes and Rasbians a
+trick with the file ```/etc/fake-hwclock.data``` guarantees a
+monotonic time over shutdown/reboot but, of course, no correctness.
 
 To avoid such incorrectness on NTP service failure a redundant
 time source is necessary.
@@ -130,21 +128,21 @@ time source is necessary.
 ## Real time clocks
 
 Therefore often so called "real time clocks" are used. They are battery 
-powered quartz clocks without hands or display but with an interface
+powered quartz clocks without hands nor display but with an interface
 to the processor/controller to be read and set. As long as the setting by
 NTP fails they drift as every other non-synchronised clock and if the
 battery gets low they drift faster or fail totally.
 
 If by design such "real time clock" is incorporated in the hardware and
 known to the [OS](#real-time-clocks "Operating System")
-without any configuration (as with standard PCs) use it.
+without any configuration (as is with standard PCs) use it.
    
 But think twice before adding such thing to, e.g., an embedded controller.
-One might get troubles to get/keep the thing working from beginning or 
+One might havet troubles to get/keep the thing working from beginning or 
 after updates. And checking/replacing a battery in some places where
 those little systems have to dwell might be a nightmare.    
 A good alternative might be using the **DCF77 signal** with an inexpensive 
-**DCF77 receiver**. A receiver module could even be shared by some clients.
+**DCF77 receiver**.
 
 
 ## DCF77 signal
@@ -159,10 +157,11 @@ near Aschaffenburg/Main. It can be received in large parts of Europe. Its
 ([AM](#dcf77-signal "amplitude modulation")) and phase
 ([PM](#dcf77-signal "phase modulation")) modulated.
 
-At the begin of (most) seconds the amplitude is reduced to 15% for 100 ms
-(false) or 200 ms (true). From about 3ms before the begin of a second to 
-exactly 200 ms after the second's begin the phase is 0° and then 
-modulated &plusmn;13° in a way that the net phase shift is zero.   
+AM: At the begin of (most) seconds the amplitude is reduced to 15% for 100 ms
+(false) or 200 ms (true).   
+PM: From about 3ms before a second's begin to exactly 200 ms after the 
+phase is 0° and then modulated &plusmn;13° in a way that keeps the net
+phase shift zero.   
 
 The PM is much less prone to 
 [EMI](#dcf77-signal "electro-magnetic interference") and the time tick
@@ -173,26 +172,24 @@ The technique of an PM receiver and the decoding of the telegram bits is
 more complicated and quite expensive. Hence, notwithstanding PM's
 advantages, we will use AM receivers.
 
-The AM signal gives a second start tick for all but the last seconds 
+The AM signal gives a second start tick for all but the last second 
 of a minute. These pulses yield a low frequency (1 bit /s) data stream. 
 The coding in the 59 telegram bits carries all time and date information,
 including [CET (MEZ)](#dcf77-signal "Central European Time, UTC + 1h") /
 [CEST (MESZ)](#dcf77-signal "CE summer Time, UTC + 2h"). Thus we 
-also get world time [UTC](#dcf77-signal "Coordinated Universal Time").
-
+also get world time [UTC](#dcf77-signal "Coordinated Universal Time").   
 Hence when adding a DCF77 receiver to a controller/computer within a 
-minute after start of receiving or reboot one has the standard time.
+minute after start of receiving one has the standard time.
  
-Any NTP server in Europe with any sense will in the end use PTB's atomic
-clocks and hence DCF77 time. A system with time set by DCF will be in quite
-good sync with a NTP used later and will not have make big jumps (or long
-adjustment times) to correct time.   
+Every NTP server in Europe with any sense will in the end use PTB's atomic
+clocks and hence DCF77 time. A system with time set by DCF77 will not have 
+make big jumps (or long adjustment times) when switching (back) to NTP.
 The good accordance of DCF77 and NTP does not hold on an hour before a leap
 second *) if the NTP server uses the so called leap second
-smearing (a 2011 Google idea) as many do. This means, intentionally (!), NTP servers then deliver
+smearing (a 2011 Google idea) as many do. This means, intentionally (!),
+NTP servers then deliver
 the wrong time. As DCF77 delivers an announcement in the last hour before a
-leap second (xx:59:60) one will be informed about this shameful NTP clock
-quality without having to read
+leap second (xx:59:60) one will be informed and warned without having to read
 [IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
 "Earth Rotation Services").[<img 
 src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
@@ -207,23 +204,24 @@ that the rest of the world can get rid of leap seconds.</small>
 ## DCF77 receiver
 
 As said for technical and financial reasons we will use 
-[AM](#dcf77-receiver "amplitude modulation") receiver modules. You get ones
-for below 10€ and better quality ones for ~14€. Adding the cost for a small
-plastic (!) casing 5m cable -- for the freedom to find a good place for the 
-ferrite antenna -- etc. you can have a DCF77 receiver directly connectable
+[AM](#dcf77-receiver "amplitude modulation") receiver modules. You get
+little boards + feritte antenna for below 10€ and better quality ones for 
+~14€. Adding the cost for a small plastic (!) case 5m cable -- for
+the freedom to find a good place for the antenna -- etc. you can have a 
+DCF77 receiver directly connectable
 to a Raspberry Pi or another controller for less than 30€.
 
 Properties:    
- &nbsp; o &nbsp; needs one digital port of the controller    
+ &nbsp; o &nbsp; needs just one digital input port of the controller    
  &nbsp; - &nbsp;&nbsp; usually no OS support    
  &nbsp; - &nbsp;&nbsp; own DCF77 software / application needed (not rocket 
  science)        
  &nbsp; + &nbsp; no battery needed     
  &nbsp; + &nbsp; the module might be assembled together with *) and   
  &nbsp; + &nbsp; be supplied from the controller (a Raspberry Pi e.g.)    
- &nbsp; + &nbsp; the module might as well be put several meters away from
+ &nbsp; + &nbsp; the module might as well be put several meters away *) from
    the controller.    
- &nbsp; + &nbsp; the signal from one receiver be distributed
+ &nbsp; + &nbsp; the signal from one receiver can be distributed
     to multiple **) controllers.
 
 There are AM receiver modules below 10€ from Pollin and other vendors. The
@@ -258,17 +256,21 @@ Note *): It's wiser to put the receiver module and its ferrite
 antenna in an extra casing connected by a thin three wire (best shielded)
 cable to the Pi or whatever controller.         
 Note **): Here a decoupling by multiple NPN open collector output stages 
-would be necessary and probably extra considerations on the receiver's 
-supply.</small>
+would be necessary and probably extra considerations on supply and
+grounding etc. (But a stack of Pis with common supply and ground could
+easily share one receiver.)</small>
 
 In the end it is better to spend 12..16€ for a module which comes with 
 all that, like e.g. the CANADUINO DCF77 receiver kit,
 [see image](/assets/images/DCF77rec_0469.jpg "Canaduino kit assembled"). It
 comes with all necessary extras to the AM receiver chip: output stages, 
 power supply circuitry and even extra LEDs to optionally watch the 
-operation. Nevertheless, we always recommend an extra OC output stage as it
-allows an independent power supply for the receiver (more than 3.3V and not
-from the PI) and the Pi.            
+operation.   
+Nevertheless, as it allows an independent power supply for the receiver 
+(more than 3.3V and not from the PI) and the Pi, we always recommend an 
+extra <abbr title="open collector">OC</abbr> output stage: NPN, hfe>200,
+Rbase 100k&Omega;; Rcoll 10..100k&Omega;, Pi's input pullup is OK.
+     
 The log Canaduino receiver excerpt was taken
 with ```testOnPi  --DCF77``` obviously on Mo, 2021-01-04, 15:08.
 
@@ -278,7 +280,6 @@ DCF77 0.522.295.426   183491 127: T.M 2001026  15:07:58.226 -. 83 mSrch
 DCF77 0.523.295.068    82340   0: F.S  999642  15:08:00.126 -.182 minute
 DCF77 0.524.293.681   182271   1: T.S  998613  15:08:01.225 -.185   |-|
 DCF77 0.525.294.905   183870   2: T.S 1001224  15:08:02.226 -.183   |-|
-
 :
 DCF77 0.537.294.503   182981  14: T.S  998632  15:08:14.228 -. 84   |-|
 DCF77 0.538.297.096    83881  15: F.S 1002593  15:08:15.126 -. 81 antOK
@@ -309,22 +310,20 @@ DCF77 0.584.292.262    89550   1: F.S 1002072  15:09:01.128 -.188   |o|
 DCF77 0.585.293.105   188381   2: T.S 1000843  15:09:02.229 -.185   |-|
 ```
 
-The excerpt shows no errors for the Canaduino module and good timing values. Logging over days gave 3 errors per
-hour with time criteria where most cheap modules would have failed
-completely. Three errors per hour can easily be ignored and bypassed. 20 
-to more than 100 --
-as have been observed with cheap modules -- threaten the availability of the 
-time information. 
+The excerpt shows no errors for the Canaduino module and good timing values.
+Logging over days gave 3 errors per hour. This can easily be ignored and 
+bypassed. But 20 to more than 100 -- as have been observed with cheap 
+modules -- threaten the availability of the time information. 100/h or more
+are a total failure. 
 
 Rightfully it has to said: It is possible to use the cheap "MAS6180 only"
 modules with extra circuitry, meticulous antenna positioning and very "soft"
-timing criteria. One can even filter out one extra modulation spike
-within a second by a mildly clever algorithm.   
+or forgiving timing criteria. One could even filter out one extra modulation
+spike within a second by a mildly clever algorithm.   
 But is that worthwhile?<img 
 src="/assets/images/klinke34DCF77.jpg" width="259" height="228" 
 title="3 or 4 pin jack connector"  alt="3 or 4 pin jack connector"
-class="imgonright" />
-
+class="imgonright" /> &nbsp; &nbsp;
 Just take a good module and enjoy the results.
 
 ## Plugging the module to the µC 
@@ -345,8 +344,8 @@ and soldering. On the other hand, in most cases of critical (jamming)
 conditions they were outperformed by the homemade Canaduino based devices.    
 <small>______________    
 Note *): On plugging in and out this assignment won't endanger signal pins.  
-Plugging with power on is practically safe. With any other permutation it is
-not.     
+Plugging with (same source) power on is practically safe. With any other
+permutation it is not.     
 Note **): This is usually the PDN (power down) pin of the MAS6180C AM
  receiver IC. Hi or open means Off/ no operation. Usually (and with the 
  three pin connection) it would be tight to ground.    

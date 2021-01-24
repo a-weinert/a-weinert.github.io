@@ -9,12 +9,12 @@ categories: Raspberry Pi distributed time clock NTP DCF77
 lang: en
 dePage: timeSyncLocNet_de.html
 copyrightYear: 2020
-revision: 7
-reviDate: 2021-01-13
+revision: 8
+reviDate: 2021-01-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
-commentIssueId: 4
-commentShare:
+commentIssueId: 9
+commentShare: /dcf77decOnPi.html
 ---
 
 In a [LAN](/timeSyncLocNet.html "Local Area Network") 
@@ -359,5 +359,6 @@ So far we shared the considerations for choosing DCF77 instead
 of battery powered "real time clocks" as an extra redundant time source for
 our embedded/distributed controller projects mostly with Raspberry Pis.
 
-Algorithms and tricks for implementing the DCF77 decoding in C may be
-reported on later in a separate publication/post.
+Algorithms and tricks for implementing the DCF77 decoding in C will be
+reported in the post 
+[Handling DCF77 AM signal with Raspberry Pi](/dcf77decOnPi.html "not finished yet").

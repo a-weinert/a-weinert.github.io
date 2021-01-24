@@ -9,12 +9,12 @@ categories: Raspberry Pi verteilt Zeit Uhr NTP DCF77
 lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
-revision: 3
-reviDate: 2021-01-13
+revision: 4
+reviDate: 2021-01-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
-commentIssueId: 4
-commentShare:
+commentIssueId: 9
+commentShare: /timeSyncLocNet.html
 ---
 
 In einem [LAN](/timeSyncLocNet.html "Local Area Network") sollten alle
@@ -377,6 +377,7 @@ Soweit betrachteten wir den Vorzug von DCF77 gegenüber batteriebetriebenen
 sogenannten "Echtzeituhren" als redundante Zeitquelle für einen "Zoo" von
 Controllern -- in unseren Projekten vielfach Pis.
 
-Über Algorithmen und Tricks für die DCF77-Dekodierung in C berichte ich 
-vielleicht in einem getrennten Beitrag (post).
+Zu Algorithmen und Tricks für die DCF77-Dekodierung in C siehe den Beitrag 
+[Handling DCF77 AM signal with Raspberry Pi](/dcf77decOnPi.html 
+"Leider nur Englisch und noch nicht fertig").
 

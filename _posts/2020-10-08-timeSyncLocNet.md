@@ -10,7 +10,7 @@ lang: en
 dePage: timeSyncLocNet_de.html
 copyrightYear: 2020
 revision: 8
-reviDate: 2021-01-24
+reviDate: 2021-01-25
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 9
@@ -184,21 +184,53 @@ minute after start of receiving one has the standard time.
 Every NTP server in Europe with any sense will in the end use PTB's atomic
 clocks and hence DCF77 time. A system with time set by DCF77 will not have 
 make big jumps (or long adjustment times) when switching (back) to NTP.
+
+## Leap seconds
+
 The good accordance of DCF77 and NTP does not hold on an hour before a leap
-second *) if the NTP server uses the so called leap second
+second if the NTP server uses the so called leap second
 smearing (a 2011 Google idea) as many do. This means, intentionally (!),
 NTP servers then deliver
 the wrong time. As DCF77 delivers an announcement in the last hour before a
-leap second (xx:59:60) one will be informed and warned without having to read
+leap second one will be informed and warned without having to read
 [IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
-"Earth Rotation Services").[<img 
+"Earth Rotation Services").
+
+The rationale of leap seconds is to sync the reliable standard time with the
+imprecise rotation of the Earth. In the 1950ies the 
+<abbr title="universal time co-ordinated">UTC</abbr> constituded that the 
+Bureau of Earth rotation can dictate twice a year minutes having 58, 59, 61
+or 62 seconds.
+
+This nonsense -- sorry, my humble opinion*) inspired by sail ship 
+navigation with sextant, paper and pencil -- was perfected by world standard
+Posix/Unix time not being able to represent extra seconds\*\*).
+It just counts seconds from a starting date **and** dictates the a day 
+having 84600 s for the interpretation and a common year 31536000. The system
+UTC+Posix simply violates the principle
+["Law of noncontradiction"](https://en.wikipedia.org/wiki/Law_of_noncontradiction).   
+The excerpt of 
+[IERS Bulletin C 52](https://datacenter.iers.org/data/16/bulletinc-052.txt) with
+NTP time stamps added shows the problem:
+```
+      3692217599         2016 December 31, 23h 59m 59s
+      3692217???         2016 December 31, 23h 59m 60s
+      3692217600         2017 January   1,  0h  0m  0s
+```
+
+DCF77 delivers not UTC but
+[TAI](https://en.wikipedia.org/wiki/International_Atomic_Time "temps atomique international")
+as MEZ(CET)/MESZ(CEST) by a reversible function. Hence, of course, DCF77 is
+OK while UTC-based NTP is not.[<img 
 src="/assets/images/DCF77rec_0469.jpg" width="310" height="431" 
 title="DCF77 receiver, Canaduino module, full size (click)"
  alt="DCF77 receiver, Canaduino module, full size " class="imgonright" />](/assets/images/DCF77rec_0469.jpg
 "image full size")  
 <small>______________    
-Note *): Might the Brexit reduce the power of the British admiralty so,
-that the rest of the world can get rid of leap seconds.</small>
+Note *):&nbsp; Might the Brexit reduce the power of the British admiralty so,
+that the rest of the world can get rid of leap seconds.   
+Note **): The UTC people forgot to standardise a representation as seconds
+count in the 50ies and the Posix people did it wrong in the 70ies.</small>
 
 
 ## DCF77 receiver

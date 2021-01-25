@@ -9,8 +9,8 @@ categories: Raspberry Pi verteilt Zeit Uhr NTP DCF77
 lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
-revision: 4
-reviDate: 2021-01-24
+revision: 5
+reviDate: 2021-01-25
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 9
@@ -116,7 +116,6 @@ sudo ntpdate -u fritz.box  # force setting time on a very async client
 ```
 Das stellt die Einheitlichkeit der unserer Linuxe bezüglich NTP wieder her.
   
-
 ## NTP-Ausfall
 
 Wenn NTP in einem lokal Bereich ausfällt, beginnt das weg driften der clients
@@ -192,24 +191,58 @@ Jeder NTP-Server in Europe mit etwas Verstand wird letztlich die Atomuhren
 der PTB (und somit DCF77) nutzen. Ein System das seine Zeit mit DCF77 
 synchronisiert, ist somit NTP-konform. Ein Umschalten auf NTP wird so 
 keine Sprünge oder lange Anpassungszeiten verursachen.
+
+## Schaltsekunden
    
 Die gute Übereinstimmung zwischen DCF77 und NTP fehlt in der letzten Stunde
-vor einer Schaltsekunde *), falls der betreffende Server wie viele das
+vor einer Schaltsekunde, falls der betreffende Server wie viele das
 sogenannte "leap second smearing" machen (eine Idee 2011 von Google).
 Diese NTP-Server liefern dann 1000 s lang die falsche Zeit. Da DCF77 in der
-letzten Stunde vorher der Schaltsekunde (xx:59:60) diese ankündigt, ist
-man informiert, ohne das 
+letzten Stunde davor Schaltsekunden ankündigt, ist man informiert, ohne das 
 [IERS bulletin C](https://www.iers.org/SharedDocs/News/EN/BulletinC.html
-"Earth Rotation Services") lesen zu müssen.   
-<small>______________    
-Anm. *): Möge der Brexit die Macht der Britischen Admiralität soweit
-mindern, dass der Rest der Welt die Schaltsekunden loswerden
-kann.
-[<img 
+"Earth Rotation Services") lesen zu müssen.
+
+Der Zweck von Schaltsekunden ist es, die hochgenaue Standard-Atomzeit mit
+der unpräzisen Erdrotation in Übereinstimmung zu bringen. In den 1950ern
+dekretierte die Norm <abbr title="universal time co-ordinated">UTC</abbr>,
+dass das Büro der Erdrotation zweimal im Jahr Minuten mit 58, 59, 61
+oder 62 seconds international verbindlich anordnen kann.
+
+Dieser vom [Mittagsbesteck](https://de.wikipedia.org/wiki/Mittagsbesteck)
+nehmen inspirierte  Unsinn -- Entschuldigung, meine unmaßgebliche Meinung*)
+-- wurde vom Posix/Unix-Zeitstandard gekrönt, der die Extra-Sekunden
+nicht darstellen kann\*\*).
+Er zählt die Sekunden ab einem Startdatum (epoch) **und** legt 84600&nbsp;s/Tag
+für diese Zählung (stamp) fest bzw. 31536000 s für's Standardjahr. Das System
+UTC+Posix verletzt das Prinzip 
+["ausgeschlossenen Widerspruch"](https://de.wikipedia.org/wiki/Satz_vom_Widerspruch).   
+Der Auszug aus dem 
+[IERS Bulletin C 52](https://datacenter.iers.org/data/16/bulletinc-052.txt)
+mit ergänzten NTP Zeitstempeln zeigt das Problem:
+```
+      3692217599         2016 December 31, 23h 59m 59s
+      3692217???         2016 December 31, 23h 59m 60s
+      3692217600         2017 January   1,  0h  0m  0s
+```
+
+Nu liefer DCF77 nicht UTC sondern
+[TAI](https://en.wikipedia.org/wiki/International_Atomic_Time "temps atomique international")
+als MEZ(CET)/MESZ(CEST) mit einen eineindeutigen Funktion
+(bzw. umkehrbaren Abbildung). Somit ist DCF77 natürlich korrekt und 
+widerspruchsfrei im Gegensatz zum UTC-basierten NTP.[<img 
 src="/assets/images/DCF77rec_0507.jpg" width="310" height="320" 
 title="DCF77 Empfänger mit Canaduino-Modul, aufgebaut (click: großes Bild)"
  alt="DCF77 Empfänger, aufgebaut" class="imgonright" />](/assets/images/DCF77rec_0507.jpg
- "image full size")
+ "Bild in voller Größe")   
+<small>______________    
+Anm. *):&nbsp; Möge der Brexit die Macht der Britischen Admiralität soweit
+mindern, dass der Rest der Welt die Schaltsekunden loswerden
+kann.   
+Anm **): Die Schöpfer von UTC vergaßen die Normung einer (Sekunden-) 
+Zählerdastellung in den 1950ern, und die Posix-Leute machten dies dann
+in den 1970ern -- wenn nun auch falsch.</small>
+
+
 ## DCF77-Empfänger
 
 Wir betrachten nur

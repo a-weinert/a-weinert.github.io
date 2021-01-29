@@ -6,8 +6,8 @@ categories: eclipse German dictionary Wörterbuch Deutsch
 lang: de
 enPage: ./eclipDic.html 
 copyrightYear: 2013
-revision: 21
-reviDate: 2021-01-07
+revision: 22
+reviDate: 2021-01-29
 date: 2020-10-06
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -19,8 +19,8 @@ Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-
 oder Doxygen-Kommentaren<!--more--> sowie in seinem XML und HTML hat,
 wird von Eclipses
 Rechtschreibhilfe oft eher gestört. Hier gibt es nun ein deutsches Wörterbuch
-mit etwa 26.900 deutschen Wortformen, das vor allem auch Fachbegriffe aus
-Java, OO und (Leit-) Technik enthält.
+mit etwa 27.000 deutschen Wortformen, das neben der Alltagssprache vor allem
+auch Fachbegriffe aus Java, OO und (Leit-) Technik enthält.
 
 ### Holen und Installieren
 Download: [weinert-automation.de/software/eclipse/de_DE.dic](https://weinert-automation.de/software/eclipse/de_DE.dic).<br />
@@ -74,3 +74,8 @@ Dieses Tool erleichtert die Erstellung und Ergänzung einer solchen
 .dic-Datei erheblich: Ohne Rücksicht auf Zeilenstruktur und bereits
 Vorhandenes ergänzt man beliebige korrekt (!) geschriebene Wortformen und 
 lässt dann UCopy mit der -eclipdic Option darüber laufen.
+
+Im Übrigen sollte man ab und zu beim [Download-Link](#holen-und-installieren)
+schauen, da immer mal neue Wortformen ergänzt werden.
+
+

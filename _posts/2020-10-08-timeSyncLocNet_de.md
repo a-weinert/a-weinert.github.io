@@ -267,7 +267,7 @@ Eigenschaften:
 
 AM-Empfängermodule unter 10€ gibt es bei Pollin und einigen anderen. Sie
 wurden mit Erfolg eingesetzt. Man teste sie vorher mit einem Oszilloskop
-oder einem Program wie testOnPi. Der log-Auszug
+oder einem Program wie dcf77onPi (vorher testOnPi). Der log-Auszug
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
 DCF77 2.630.290.551   110060   7: F.M 2020225  15:43:06.133 -.188   |o|
@@ -319,8 +319,8 @@ der Versorgung von Empfänger und Controller erlaubt:  NPN, hfe>200,
 Rbase 100k&Omega;; Rcoll 10..100k&Omega;, der pullup vom Pi reicht.
 
   
-Der Log-Auszug für den Canaduino-Empfänger ist (mit ```testOnPi  --DCF77```)
-offensichtlich am 04.01.21 um 15:08 entstanden.
+Der Log-Auszug für den Canaduino-Empfänger ist offensichtlich 
+am 04.01.21 um 15:08 entstanden.
 
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode

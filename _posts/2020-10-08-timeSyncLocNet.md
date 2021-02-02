@@ -258,7 +258,7 @@ Properties:
 
 There are AM receiver modules below 10€ from Pollin and other vendors. The
 have been used with success. To test them before use an oscilloscope or a 
-programme, like testOnPi. The log excerpt
+programme, like dcf77onPi. The log excerpt
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode
 DCF77 2.630.290.551   110060   7: F.M 2020225  15:43:06.133 -.188   |o|
@@ -303,8 +303,8 @@ Nevertheless, as it allows an independent power supply for the receiver
 extra <abbr title="open collector">OC</abbr> output stage: NPN, hfe>200,
 Rbase 100k&Omega;; Rcoll 10..100k&Omega;, Pi's input pullup is OK.
      
-The log Canaduino receiver excerpt was taken
-with ```testOnPi  --DCF77``` obviously on Mo, 2021-01-04, 15:08.
+The log Canaduino receiver excerpt was taken obviously
+on Mo, 2021-01-04, 15:08.
 
 ```
 test      µs stamp  pulse µs  sec res period µs    stamp  -  corr decode

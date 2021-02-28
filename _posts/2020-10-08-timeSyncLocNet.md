@@ -10,7 +10,7 @@ lang: en
 dePage: timeSyncLocNet_de.html
 copyrightYear: 2020
 revision: 8
-reviDate: 2021-01-25
+reviDate: 2021-02-28
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 9
@@ -378,11 +378,13 @@ conditions they were outperformed by the homemade Canaduino based devices.
 Note *): On plugging in and out this assignment won't endanger signal pins.  
 Plugging with (same source) power on is practically safe. With any other
 permutation it is not.     
-Note **): This is usually the PDN (power down) pin of the MAS6180C AM
- receiver IC. Hi or open means Off/ no operation. Usually (and with the 
- three pin connection) it would be tight to ground.    
+Note **a): This is usually the PDN (power down) pin of the MAS6180C AM
+ receiver IC. Hi or open means Off/ no operation.   
+ Usually (and with the  three pin connection) it would be tight to ground.
  This will be done automatically when the receivers quadripolar male 
- jack is put in three pin female plug on the µC side.  
+ jack is put in three pin female plug on the µC side.   
+Note **b): When using a Pi output to control receiver Off/On it is wise to
+use an open collector output stage with a protective Rc of about 220 Ohm.
 <hr />
 
 ## DCF77 implementation with a Pi

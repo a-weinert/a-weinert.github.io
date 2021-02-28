@@ -10,7 +10,7 @@ lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
 revision: 5
-reviDate: 2021-01-25
+reviDate: 2021-02-28
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 9
@@ -397,11 +397,14 @@ Anm. *): Beim Stecken und Ziehen werden bei dieser Belegung keine
 Signal-Pins gefährdet. Auch unter (gleicher Versorgungs-) Spannung ist das
 praktisch sicher. Bei
 jeder anderen Permutation ist es das nicht.     
-Anm. **): Dies ist i.A. der PDN (power down) Pin des 
+Anm. **a): Dies ist i.A. der PDN (power down) Pin des 
  MAS6180C AM-Empfänger-IC. Plus oder offen bedeutet Aus/keine Operation.
  Gewöhnlich schließt man diesen Eingang einfach an Masse an. Mit dem 
  vierpoligen Klinkenstecker in der dreipoligen Buchse passiert das 
- von selbst.  
+ von selbst.     
+Anm. **b): Wenn ein Pi-GPIO-Pin dieses Empfänger-Aus-An steuern soll,
+ empfiehlt sich an (auch) dieses Stelle eine open collector-Ausgangsstufe 
+ mit einem kleinen Schutz-Rc von etwa 220 Ohm.  
 <hr />
 
 ## DCF77-Implementierung mit dem Pi

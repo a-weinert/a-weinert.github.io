@@ -9,14 +9,17 @@ lang: de
 enPage: getopt_longAbbreviation.html
 copyrightYear: 2020
 revision: 1
-reviDate: 2020-10-14
+reviDate: 2021-02-28
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 commentShare:
 ---
-Gestern (13.10.2020) verdeutlichte ich eine eine Programmoption von --DCF
-auf --DCF77 und musste feststellen, dass die vorherige immer noch ging.
+Gestern (13.10.2020) verdeutlichte ich eine eine Programmoption von 
+```--DCF``` auf
+[```--DCF77```](/dcf77decOnPi.html "Handling DCF77 AM signals with a Pi")
+und musste 
+feststellen, dass die vorherige immer noch ging.
 Die C-Bibliotheksfunktion getopt_long akzeptiert also<!--more--> auch Abkürzungen.
 Wenn Ihre  ```struct option```
 (getopt.h) eine Option cons definiert wird diese
@@ -26,8 +29,8 @@ getriggert aber nicht durch ```--c```.
 Als alter [Entwickler](http://a-weinert.de/cv-pub.html) hochverfügbarer
 und sicherer Automatisierungssysteme 
 kam ich nicht umhin, meine Entdeckung als potentiell gefährlichen Bug
-anzusehen. Stellen sie sich eine Option ```scharfeMunition```
-vor, für die auch das unschuldige ```-sc```
+anzusehen. Stellen sie sich eine Option ```--scharfeMunition```
+vor, für die auch das unschuldige ```--sc```
 genügt.
 
 ## Das manual
@@ -42,8 +45,8 @@ ist nicht dokumentiert, dass eine Einbuchstabenabkürzung nicht reicht.
 
 ## Was Andere dazu sagen
 
-Weiteres Lesen ergab, dass auch andere Kollegen das Akzeptieren solcher 
-Abkürzungen, immer oder als default, als bug ansehen. Die Entwickler
+Weiteres Lesen ergab, dass auch andere Kollegen das standardmäßige 
+Akzeptieren solcher Abkürzungen als bug ansehen. Die Entwickler
 von glibc wollten dies allerdings nie akzeptieren.
 
 Gefundene Reparaturen:
@@ -56,25 +59,24 @@ Gefundene Reparaturen:
 Gut solche Lösungen zu finden -- doch ich mochte beide nicht.   
 Lösung **2** würde den gesamten vorhandenen Kode zur Handhabung der 
 Startoptionen umwerfen. Und mit dem Verlassen des weitverbreiteten 
-Ansatzes (getopt.h) würde man das Erkennen auf den ersten Blick der meisten
-Programmierer verlieren.   
+Ansatzes (getopt.h) würde man das Erkennen auf den ersten Blick durch die
+sehr viele erfahrene Programmierer verlieren.   
 Lösung **1** ist diesbezüglich OK. Aber sie trennt die Definition einer
 Option in ```struct option```
 vom Verbot, sie auch abgekürzt zu akzeptieren. Darüberhinaus muss man den
 betreffenden String mit vorgesetzten Minuszeichen an der anderen Stelle
 wiederholen. Und wenn man man beispielsweise eine Option
 von ```besilent```
-nach ```beSilent``` ändern, muss man an diese andere Stelle denken.
-Auch mag der auf den ersten Blick einleuchtende Ansatz (mit
-"false positive") versagen, falls
-ein Nutzer die Syntax ```--besilent=stupid``` 
+nach ```beSilent``` ändert, muss man an diese andere (entfernte) Stelle
+denken. Auch versagt der (auf den ersten Blick einleuchtende Ansatz mit
+"false positive"), falls ein Nutzer die Syntax ```--besilent=stupid``` 
 verwendet.
       
 ## Meine Lösung 
 
 Direkt hinter die Definition einer Option, die ich nicht abgekürzt haben 
-mag, setze ich eine um ein Zeichen kürzere Pseudo-Option, welche zur 
-Hilfeausgabe (+Programmende) leitet.
+mag, setze ich eine um ein oder auch mehrere Zeichen kürzere Pseudo-Option,
+welche zur Hilfeausgabe (+Programmende) leitet.
 Ein beispielhafter ```struct option```-Auszug zeigt das besser als
 viele Worte:
 ```c

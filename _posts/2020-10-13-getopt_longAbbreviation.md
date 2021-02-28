@@ -9,7 +9,7 @@ lang: en
 dePage: getopt_longAbbreviation_de.html
 copyrightYear: 2020
 revision: 2
-reviDate: 2020-10-14
+reviDate: 2021-02-28
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
@@ -24,8 +24,8 @@ As a [developer](http://a-weinert.de/cv-pub_en.html) of reliable and
 safe automation systems I couldn't help
 considering this as a potentially dangerous bug. Accordingly, I was shocked
 by my discovery. Consider an
-option ```destroyMyShipInSightOfEnemy```
-triggered by innocent ```-de```.
+option ```--destroyMyShipInSightOfEnemy```
+triggered by innocent ```--de```.
 
 ## What the manual says
 
@@ -40,9 +40,9 @@ won't suffice.
 
 ## What others say
 
-Still further reading showed that some colleagues consider accepting
-abbreviations always or even by default as bug, too. And the glibc
-developers, constantly, won't accept it.
+Still further reading showed that other colleagues consider accepting
+abbreviations by default as bug, too. And the glibc
+developers, constantly, won't accept the criticism.
 
 Remedies found are:
  1. On the place acting upon the option get the triggering option 
@@ -52,7 +52,7 @@ Remedies found are:
       of ```getopt_long()```.
  
 So it is good to have solutions at hand; but I didn't like both.    
-Solution **2** would change all own code code handling options. 
+Solution **2** would change all own code handling options. 
 And leaving the main stream (getopt.h) means loosing a broad recognition
 of the semantic at first sight.   
 Solution **1** is OK in this respect. But is separates the prohibiting
@@ -60,9 +60,10 @@ of abbreviating a certain option from its definition in
 the ```struct option```. 
 Additionally one has to repeat the option string in question prepended
 by two Minus there. If one changes an option (from ```besilent```
-to ```beSilent```, e.g.) one has to remember ...
-And, when using the ```--besilent=stupid``` syntax, the approach may
-fail with a false positive.   
+to ```beSilent```, e.g.) one has to remember that a string has to changed
+consistently on a very other place.  
+And, when user/customer uses ```--besilent=stupid``` syntax, the 
+approach may fail with rejecting a correct full option.   
       
 ## My solution 
 

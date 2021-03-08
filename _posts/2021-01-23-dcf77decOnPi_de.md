@@ -1,132 +1,142 @@
 ---
 layout: weAutPost
-title: DCF77 decoding on Pi
-bigTitle: DCF77 with Raspberry
-headline: Handling DCF77 AM signals with a Pi
+title: DCF77 mit dem Pi dekodieren
+bigTitle: DCF77 mit Raspberry
+headline: Dekodieren der DCF77 AM-Signale mit einem Pi
 permalink: /:title.html
-date:   2021-01-23
+date:   2021-03-08
 categories: Raspberry Pi DCF77 decoder pigpoid
-lang: en
-dePage: dcf77decOnPi_de.html 
+lang: de
+enPage: dcf77decOnPi.html
 copyrightYear: 2021
-revision: 2
-reviDate: 2021-03-08
+revision: 1
+reviDate: 2021-01-24
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 published: true
 commentIssueId: 9
-commentShare: timeSyncLocNet.html
+commentShare: timeSyncLocNet_de.html
 ---
-In the [post "Time synchronisation in local nets"](/timeSyncLocNet.html)
-I described the uses of 
-<abbr title="the callsign of the long wave time transmitter in Mainflingen">DCF77</abbr>
-receivers to get the standard time from 
-<abbr title="Physikalisch-Technische Bundesanstalt, Braunschweig">PTB</abbr>'s
-atomic clocks. The choice of 
-<abbr title="amplitude modulation">AM</abbr> receiver modules was commented
-on as well as their connection to a µController like a Raspberry Pi.
+Im [Beitrag "Zeitsynchronisation im lokalen Netz"](/timeSyncLocNet_de.html)
+beschrieb ich die Nutzung von
+<abbr title="Rufzeichen des Langwellensenders in Mainflingen">DCF77</abbr>-Empfängern
+als Quelle der (Atom-)  Standardzeit der 
+<abbr title="Physikalisch-Technischen Bundesanstalt, Braunschweig">PTB</abbr>.
+Die Wahl von <abbr title="Amplitudenmodulation">AM</abbr>-Empfängermodulen
+wurde ebenso behandelt wie ihr Anschluss an einen  µ-Controller wie den
+Raspberry Pi.
 
-Here we discuss the decoding of the DCF77 AM signal by C software on a 
-Raspberry Pi. 
+Hier nun geht es um die Dekodierung des AM-Signals mit C-Software auf einem  Pi. 
 
-## The nature of the AM signal
+## Die Natur des AM-Signals
 
-At the begin of all seconds of a minute but the last one
-the amplitude is reduced to 15% for either 100 or 200 ms.
-For the rest of the one second or two second period the full (100%)
-amplitude is transmitted.
+Zu Beginn einer jeden Sekunde einer Minute mit Ausnahme der letzten wird die
+Amplitude für 100 oder 200 ms auf 15% abgesenkt. Für den Rest der einen bzw.
+zwei Sekunden wird die volle Amplitude (100%) gesendet.
 
-The AM receivers' modules digital output is usually[<img 
+Der Digitalausgang von AM-Empfängermodulen ist üblicherweise[<img 
 src="/assets/images/goodDCF77sig_0466sm.jpg" width="426" height="248" 
-title="a good DCF77 signal; click: large"  alt="a good DCF77 signal"
-class="imgonright" />](/assets/images/goodDCF77sig_0466.jpg "click: large")    
+title="ein gutes DCF77 signal; click: groß"  alt="gutes DCF77 signal"
+class="imgonright" />](/assets/images/goodDCF77sig_0466.jpg "click: groß")    
   &nbsp; &bull; &nbsp; HI (1, true)&nbsp; 
-      for the 15% modulation time &nbsp; and   
-  &nbsp; &bull; &nbsp; LO (0, false) for the rest of the 1 or 2 s 
-period.  
-But it can be the other way round -- what the software should handle by,
-e.g. an option -&nbsp;-&nbsp;invert.
+      für die Zeit mit 15% Amplitude &nbsp; und   
+  &nbsp; &bull; &nbsp; LO (0, false) für den Rest der Modulationsperiode von
+      1 bzw. 2s.    
+Aber es gibt es auch umgekehrt -- was die Software mit einer Option,
+à la  -&nbsp;-&nbsp;invert&nbsp; handhaben sollte.
 
-For the modulation time    
-  &nbsp; &bull; &nbsp; 200ms means true &nbsp; and     
-  &nbsp; &bull; &nbsp; 100ms means false.
+Für die Modulationsdauer gilt    
+  &nbsp; &bull; &nbsp; 200ms bedeutet true &nbsp; und     
+  &nbsp; &bull; &nbsp; 100ms bedeutet false.
 
-Hence, the information we must acquire and decode is   
-  &nbsp; a) &nbsp; an 58 bit **telegram** in every minute &nbsp; and  
-  &nbsp; b) &nbsp; the **start time** of the modulation period.
+Es gilt also, folgende Informationen zu erlangen und zu 
+dekodieren   
+  &nbsp; a) &nbsp; ein 58-Bit-**Telegram** in jeder Minute &nbsp; und  
+  &nbsp; b) &nbsp; die **Startzeiten** der Modulationsperioden.
   
-a): The telegram starts with 14 bits of secret commercial information. The
-remaining 44 relevant bits contain all time and date
-information. The code is simple and well published.
+a): Das Telegramm beginnt mit 14  Bit kommerzieller Geheiminformation. Die 
+übrigen relevanten 44 Bits enthalten alle Zeit- und Datumsinformationen.
+Der Kode ist sehr einfach und gut publiziert.
 
-b): The time should be captured as exactly as possible, best as µs time stamp
-with 20..50µs accuracy. With the time stamp of the modulation flank and their
-DCF77 time we get the correction respectively setting of our system time --
-for the use of DCF77 as our system's redundant or only time source.
+b): Die Zeit sollte so exakt wie möglich erfasst werden -- am besten als ein
+µs-Zeitstempel mit 20..50µs Genauigkeit. Mit einem solchen Zeitstempel und
+der zugehörigen Zeit können wir die Systemzeit setzen bzw. korrigieren oder
+Zeit&shy;signale bzw. -antworten generieren -- also DCF77 als 
+redundante oder auch
+einzige Zeit&shy;quelle nutzen.
 
-So in the end, it's all about getting the **time** (time stamps) of
-the modulation flanks.
+So kommt es letztendlich auf das genaue Erfassen der **Startzeiten** an.
 
-## Sampling the AM signal
+## Erfassen (sampling) des AM-Signals
 
-We can think of three approaches    
-  &nbsp; A) &nbsp; read the receiver signal in the 1 ms cycle,    
-  &nbsp; B) &nbsp; have an interrupt handler for both signal flanks or    
-  &nbsp; C) &nbsp; exploit the abilities of pigpiod.
+Drei Wege sind denkbar   
+  &nbsp; A) &nbsp; Eingabe des Empfängersignals im 1ms-Zyklus,    
+  &nbsp; B) &nbsp; eine Interrupt-Prozedur für beide Signalflanken oder    
+  &nbsp; C) &nbsp; das Ausnutzen der Fähigkeiten von pigpiod.
   
-Having a runtime or framework providing 
-PLC like cycles, as described in
+Mit einem Laufzeitsystem oder Framework mit SPS-artigen Zyklen, wie in
 [Raspberry for remote services](https://a-weinert.de/pub/raspberry4remoteServices.pdf
 "Raspberry for remote services (.pdf, download)")
-(see [publications](https://a-weinert.de/publication_en.html)) and used in
-most of our controller projects, approach A is feasible. On the other hand,
-when wanting DCF77 as substitute or redundancy for NTP the sync would have 
-to be at least one order of magnitude better than the fastest 
-cycle's timing: a reason to exclude A).
+(see [publications](https://a-weinert.de/publication_en.html)) 
+beschrieben und in allen unseren µC-Steuerungsprojekten eingesetzt, ist der
+Ansatz A) möglich. Andererseits möchten wir letztlich DCF77 als Ersatz von
+oder Redundanz zu NTP einsetzen. Hier muss die Genauigkeit und ggf. die 
+Synchronität um mindestens eine Größenordnung besser sein als der jeweils
+schnellste Zyklus. Diesen zur Zeit&shy;er&shy;fassung einzu&shy;setzen 
+verbietet sich im
+Allgemeinen. (Für eine DCF77-Uhr für Menschen würde es genügen.)
 
-Generating sequence of time stamped events to be handled later in in an
-other thread or process is per se a good approach. And an interrupt handler
-(B) could do this. Raspberry processors have an interrupt system
-allowing flank interrupts for
-any <abbr title="general purpose input/output">GPIO</abbr>. But the
-handling is complicated and the application requires sudo privileges.
+Eine Sequenz von zeitgestempelten Ereignissen für die spätere Auswertung
+in einem eigenen thread aufzuzeichnen ist per se ein guter Ansatz. Und ein
+Interrupt-Handler (B) könnte dies. Die Raspberry-Prozessoren haben ein
+Interrupt-System, das Flanken-Interrupts für jeden
+<abbr title="general purpose input/output">GPIO</abbr> bietet. Die
+Handhabung aber ist nicht einfach und die enthaltende (organisierende) 
+Anwendung braucht sudo-Privilegien.
 
-A comprehensible C solution with GPIO interrupts is hardly found. Some 
-libraries or frameworks employ a fast sampling thread +
-interthread/interprocess communication -- and call it "interrupt".   
-Well the approach is OK. It's what what A) does too slow (what could be 
-mended by an extra asynchronous fast cycle) and what C) (see below) supports
-perfectly. But selling it as interrupt is label fraud.
+Ein eingängliche, verständliche  C-Lösung mit Pi-GPIO-Interrupts ist kaum
+zu finden. Einige Bibliotheken oder Frameworks verwenden einen schnellen
+Abtast-thread + interthread/interprocess-Kommunikation -- und nennen
+das Ganze "interrupt".    
+Nun, der Ansatz ist OK. Es ist ein bisschen A) "in schneller" und  das, was C)
+perfekt und nahtlos unterstützt. Es als Interrupt zu verkaufen, ist jedoch 
+Etikettenschwindel.
 
-Well I'm an aficionado of Joan N.N.'s pigpiod library. See the chapter 
-in question and the literature list in above mentioned 
-[publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf
-"Raspberry for remote services (.pdf, download"). So, not surprisingly,
-I exploit special abilities of a library used anyway.
+Ich bin ein großer Fan der pigpiod library von Joan N.N. Siehe die 
+betreffenden Kapitel und die Literaturliste in der oben erwähnten
+[Publikation](https://a-weinert.de/pub/raspberry4remoteServices.pdf
+"Raspberry for remote services (.pdf, download"). Wenig überraschend nutze
+ich auch hier die Fähigkeiten einer Bibliothek, die ich eh auf jedem Pi
+einsetze.
 
 
-## Capturing modulation flanks with pigpiod
+## Erfassen der Modulationsflanken mit pigpiod
 
-As said, pigpiod is our preferred approach to Raspberry IO and the only
-one we use for real control applications. It defines a server or daemon
-which does all initialisations and has control over all functions of the
-GPIOs used. This server has to be started with sudo to run forever in 
-background. On all Raspberry Pis where we installed it we start it at boot
-by a (sudo) crontab entry:   
+pigpiod ist wie gesagt unser bevorzugter Ansatz für IO mit dem Raspberry
+und auch der einzige den wir hier für echte Steuerungsanwendungen nutzen.
+pigpiod definiert einen Server oder daemon, der alles initialisiert und (nur)
+die verwendeten GPIOs mit all ihren möglichen Funktionen steuert. Dieser 
+Server muss mit sudo gestartet werden und kann dann unbegrenzt laufen. Auf
+allen Raspberry Pis, wo wir dies installierten, erledigen wir den Start 
+ab Einschalten mit einem (sudo) crontab-Eintrag:   
 ```bash
 @reboot  /usr/local/bin/pigpiod  -s 10
 ```
-The ```-s 10``` means pigpiod running ia 10µs cycle instead of a 
-default 5µs one. For all our applications sofar a 20µs delay, time stamp and
-signal generation accuracy was sufficient. (The fastest would be 1µs.)
+Die Option ```-s 10``` lässt pigpiod in einem 10µs-Zyklus, statt
+default 5µs, laufen. Für alle unsere bisherigen Anwendungen waren
+20µs Verzögerung bzw. Genauigkeit von Signalen und Zeitstempeln ausreichend.
+(Die schnellste Einstellung wäre 1µs.)
 
-Programs doing (process) IO just communicate with the daemon by   
-  &nbsp; &bull; &nbsp; socket  (as in the 
-  [GPIO with Java](/raspiGPIOjava.html "Raspberry Pi IO with Java") project),   
-  &nbsp; &bull; &nbsp; pipe    (never used here) or by    
-  &nbsp; &bull; &nbsp;  a set of C functions.
+Programme, die (process) IO machen, kommunizieren einfach mit dem 
+daemon über   
+  &nbsp; &bull; &nbsp; socket  (wie im Projekt 
+  [GPIO mit Java](/raspiGPIOjava.html "Raspberry Pi Ein- und Ausgabe mit Java"),   
+  &nbsp; &bull; &nbsp; pipe    (hier nie genutzt) oder     
+  &nbsp; &bull; &nbsp;  mit einem Satz von C-Funktionen (die das socket
+   interface nutzen).
 
-pigpiod allows to set a callback function for the flank(s) of an input pin:
+Bei pigpiod kann man eine callback-Funktion für die Flanke(n) eines 
+Eingangs-GPIO setzen:
 ```c
 set_mode(thePi, dcfGpio, PI_INPUT);             // make dcfGpio input
 if (dcfPUD <=PI_PUD_UP) // Raspberry Pi's pull up is sufficient for open
@@ -134,6 +144,7 @@ if (dcfPUD <=PI_PUD_UP) // Raspberry Pi's pull up is sufficient for open
 dcf77callbackID = callback(thePi,            // register dcf77receiveRec
    dcfGpio, EITHER_EDGE, &dcf77receiveRec); // as callback function
 ```
+**Entschuldigung noch nicht fertig übersetzt.**    
 Semantically this is not so far from interrupts. But we avoid all interrupt
 complications (and dangers) and get 32 bit system time stamp for every
 signal flank in 1µs resolution and about 15µs accuracy as extra.

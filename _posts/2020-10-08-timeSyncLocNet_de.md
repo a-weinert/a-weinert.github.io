@@ -109,7 +109,7 @@ sudo apt-get install ntp ntp-doc
 sudo nano  /etc/ntp.conf # see changes above
 sudo apt-get install ntpstat
 sudo apt-get install openntpd
-sudo apt-get install ntpctl
+sudo apt-get install ntpctl # may not work ntpstat suffices
 sudo timedatectl set-ntp True
 sudo systemctl restart ntp # it might take 3 min until sync
 sudo ntpdate -u fritz.box  # force setting time on a very async client 

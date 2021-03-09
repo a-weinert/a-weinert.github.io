@@ -123,10 +123,7 @@ Pages
    {% include downBar-de.html %}
 {%- else -%}
    {% include downBar-en.html %}
-{%- endif  -%}<!-- sliderbuttons End -->
-
-<!-- downBar End --></div>
-
+{%- endif  -%}<!-- downBar End --></div>
 <div id="downtext">
 Copyright &#160; © &#160; {{page.copyrightYear | default: "2019"}} 
  &nbsp;{{pageAuthor}}&#160; &#160; 
@@ -134,13 +131,19 @@ Copyright &#160; © &#160; {{page.copyrightYear | default: "2019"}}
 "mailto:webmaster@weinert-automation.de" 
 class="hrf">E-Mail (webmaster)</a><br />
 {%- if page.lang == "de"  -%}
-Stand:&nbsp; {{page.revision | default: "neu"}}
-  ({{pageRevDatString}}){%- unless pageDateString == pageRevDatString%} 
-  &#160; &#160; &nbsp; (erstm. {{pageDateString}}){% endunless %}
+Stand:&nbsp; {{page.revision | default: "neu"}} ({{pageRevDatString}}){%- unless pageDateString == pageRevDatString -%} 
+  &#160; &#160; &nbsp; (erstm. {{pageDateString}}){%- endunless -%}
 {%- else -%}
 Revision: {{pageRevision}} ({{pageRevDatString}}){%- unless pageDateString == pageRevDatString%}
 &nbsp; (first {{pageDateString}}){% endunless %}
-{%- endif  -%} 
+{%- endif  -%} &nbsp; &nbsp; {% if pageLang != "en" -%}
+  {%- if page.enPage -%}
+ &nbsp; &nbsp; [<a href="{{page.enPage}}" title="English version">en</a>]
+  {%- endif %} 
+{%- endif -%}  
+{%- if pageLang != "de" and page.dePage %}
+ &nbsp; &nbsp; [<a href="{{page.dePage}}">de</a>]
+{% endif %} 
 </div>
 </div></div></div></body></html>
   

@@ -9,8 +9,8 @@ categories: Raspberry Pi verteilt Zeit Uhr NTP DCF77
 lang: de
 enPage: timeSyncLocNet.html
 copyrightYear: 2021
-revision: 5
-reviDate: 2021-02-28
+revision: 6
+reviDate: 2021-03-09
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 9
@@ -382,8 +382,8 @@ hat, empfehle ich einen dreipoligen oder gar vierpoligen 3,5mm Klinkenstecker
 -- männlich und Kabel am Empfänger, weiblich beim Pi. Die einzig vernünftige
 Belegung ist:   
  &nbsp; 1 &nbsp; &nbsp; &nbsp; Ub +    
- &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77-Signal     
- &nbsp; 3 / - &nbsp; AM "receiver Off" Eingang **)    
+ &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77-Signal **)  
+ &nbsp; 3 / - &nbsp; AM "receiver Off" Eingang *\*\*)    
  &nbsp; 4 / 3 &nbsp; Ground, -, Masse
  
 Es gibt kommerziell komplette AM-Empfangsgeräte mit (natürlich *)) 
@@ -394,15 +394,21 @@ kritischer Bedingungen (Störungen) den hausgemachten Canaduino-Geräten
 unterlegen.      
 <small>______________    
 Anm. *): Beim Stecken und Ziehen werden bei dieser Belegung keine 
-Signal-Pins gefährdet. Auch unter (gleicher Versorgungs-) Spannung ist das
-praktisch sicher. Bei
-jeder anderen Permutation ist es das nicht.     
-Anm. **a): Dies ist i.A. der PDN (power down) Pin des 
- MAS6180C AM-Empfänger-IC. Plus oder offen bedeutet Aus/keine Operation.
- Gewöhnlich schließt man diesen Eingang einfach an Masse an. Mit dem 
+ Signal-Pins gefährdet.  
+ &nbsp; Auch unter (gleicher Versorgungs-) Spannung ist das praktisch
+ sicher. Bei jeder anderen Permutation ist es das nicht.     
+Anm. **): Falls frei ordnen Sie den AM-Ausgang des Empfängers beim PI GPIO 15
+ (PIN10, UART in) zu.   
+ &nbsp; Dies könnte die Verwendung von sog. "raw DCF77 input drivers"  für
+ NTP Server erlauben. 
+ Deren Programmierer legten sich auf einen UART [sic!] anstelle eines simplen
+ Binäreingangs für das binäre AM-Signal fest.       
+Anm. *\*\*a): Dies ist i.A. der PDN (power down) Pin des 
+ MAS6180C AM-Empfänger-IC. Plus oder offen bedeutet Aus/keine Operation.    
+ &nbsp; Gewöhnlich schließt man diesen Eingang einfach an Masse an. Mit dem 
  vierpoligen Klinkenstecker in der dreipoligen Buchse passiert das 
  von selbst.     
-Anm. **b): Wenn ein Pi-GPIO-Pin dieses Empfänger-Aus-An steuern soll,
+Anm. *\*\*b): Wenn ein Pi-GPIO-Pin dieses Empfänger-Aus-An steuern soll,
  empfiehlt sich an (auch) dieses Stelle eine open collector-Ausgangsstufe 
  mit einem kleinen Schutz-Rc von etwa 220 Ohm.  
 <hr />
@@ -414,6 +420,6 @@ sogenannten "Echtzeituhren" als redundante Zeitquelle für einen "Zoo" von
 Controllern -- in unseren Projekten vielfach Pis.
 
 Zu Algorithmen und Tricks für die DCF77-Dekodierung in C siehe den Beitrag 
-[Handling DCF77 AM signal with Raspberry Pi](/dcf77decOnPi.html 
-"Leider nur Englisch und noch nicht fertig").
+[Dekodieren der DCF77 AM-Signale mit einem Pi](/dcf77decOnPi_de.html 
+"Dekodieren der DCF77 AM-Signale mit einem Pi").
 

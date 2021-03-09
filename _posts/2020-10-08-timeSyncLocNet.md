@@ -9,8 +9,8 @@ categories: Raspberry Pi distributed time clock NTP DCF77
 lang: en
 dePage: timeSyncLocNet_de.html
 copyrightYear: 2020
-revision: 8
-reviDate: 2021-02-28
+revision: 9
+reviDate: 2021-03-09
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 9
@@ -345,8 +345,8 @@ DCF77 0.585.293.105   188381   2: T.S 1000843  15:09:02.229 -.185   |-|
 The excerpt shows no errors for the Canaduino module and good timing values.
 Logging over days gave 3 errors per hour. This can easily be ignored and 
 bypassed. But 20 to more than 100 -- as have been observed with cheap 
-modules -- threaten the availability of the time information. 100/h or more
-are a total failure. 
+modules -- threaten the availability of the time information. 100 per hour
+or more are a total failure. 
 
 Rightfully it has to said: It is possible to use the cheap "MAS6180 only"
 modules with extra circuitry, meticulous antenna positioning and very "soft"
@@ -363,10 +363,10 @@ Just take a good module and enjoy the results.
 When having multiple receiving modules *) and/or some decoding devices
 (like in our case Pis) I recommend a three pin
 or even quadripolar 3.5mm jack connection -- male and cable at the receiver,
-female to the Pi. The (one) reasonable *) assignment is:    
+female to the Pi. The (one) reasonable *) contact assignment is:    
  &nbsp; 1 &nbsp; &nbsp; &nbsp; Ub +    
- &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77 signal     
- &nbsp; 3 / - &nbsp; AM receiver Off input **)    
+ &nbsp; 2 &nbsp; &nbsp; &nbsp; DCF77 signal **)    
+ &nbsp; 3 / - &nbsp; AM receiver Off input *\*\*)    
  &nbsp; 4 / 3 &nbsp; Ground
  
 There are complete AM receiver module with (of course *)) compatible 3.5mm
@@ -376,14 +376,20 @@ and soldering. On the other hand, in most cases of critical (jamming)
 conditions they were outperformed by the homemade Canaduino based devices.    
 <small>______________    
 Note *): On plugging in and out this assignment won't endanger signal pins.  
-Plugging with (same source) power on is practically safe. With any other
-permutation it is not.     
-Note **a): This is usually the PDN (power down) pin of the MAS6180C AM
+ &nbsp; Plugging with (same source) power on is practically safe.
+ With any other permutation it is not.     
+Note **): When available assign the receiver signal output to GPIO 15
+ (PIN10, UART in) as Pi input.   
+ &nbsp; This might enable the use of raw DCF77 input drivers for NTP servers. 
+ Their implementors chose to use a UART [sic!] instead of a simple binary
+ input for the pure binary AM signal.      
+Note *\*\*a): This is usually the PDN (power down) pin of the MAS6180C AM
  receiver IC. Hi or open means Off/ no operation.   
- Usually (and with the  three pin connection) it would be tight to ground.
+ &nbsp; Usually (and with the  three pin connection) it would be tight
+ to ground.
  This will be done automatically when the receivers quadripolar male 
  jack is put in three pin female plug on the µC side.   
-Note **b): When using a Pi output to control receiver Off/On it is wise to
+Note *\*\*b): When using a Pi output to control receiver Off/On it is wise to
 use an open collector output stage with a protective Rc of about 220 Ohm.
 <hr />
 
@@ -395,4 +401,4 @@ our embedded/distributed controller projects mostly with Raspberry Pis.
 
 Algorithms and tricks for implementing the DCF77 decoding in C will be
 reported in the post 
-[Handling DCF77 AM signal with Raspberry Pi](/dcf77decOnPi.html "not finished yet").
+[Handling DCF77 AM signal with Raspberry Pi](/dcf77decOnPi.html "Handling DCF77 AM signal with Raspberry Pi").

@@ -144,15 +144,15 @@ if (dcfPUD <=PI_PUD_UP) // Raspberry Pi's pull up is sufficient for open
 dcf77callbackID = callback(thePi,            // register dcf77receiveRec
    dcfGpio, EITHER_EDGE, &dcf77receiveRec); // as callback function
 ```
-**Entschuldigung noch nicht fertig übersetzt.**    
-Semantically this is not so far from interrupts. But we avoid all interrupt
-complications (and dangers) and get 32 bit system time stamp for every
-signal flank in 1µs resolution and about 15µs accuracy as extra.
+Das ist semantisch ganz nahe an Interrupts. Aber hierbei vermeiden wir
+sämtliche Komplikationen (und Gefahren) von Interrupts und bekommen 
+einen 32 Bit Zeistempel für jede Flanke mit 1µs Auflösung und
+etwa 15µs Genauigkeit (mit ```-s 10```, s.o.) als Extra:
 ```c
-/*  The actual respectively last modulation period data received. */
+/**  The actual respectively last modulation period data received. */
 dcf77recPerData_t dfc77actRecPer;
    
-/*  DCF77 receive recorder.
+/**  DCF77 receive recorder.
  *
  *  This is a pigpiod callback function for .... (in other file)
  */
@@ -174,10 +174,11 @@ void dcf77receiveRec(int pi, unsigned gpio, unsigned level, uint32_t tick){
 } // dcf77receiveRec(int, 2*unsigned, uint32_t)
 ```
 
-For every modulation period the callback function shown fills a record of
-dfc77actRecPer of type dcf77recPerData_t and fills it in a 
+Die gezeigte call back-Funktion erzeugt für jede Modulationsperiode eine
+Aufzeichnung (record) dfc77actRecPer vom Typ dcf77recPerData_t und tut ihn
+in einen 
 <abbr title="first in first out, queue">FiFo</abbr> (ring buffer).   
-The structure is (excerpt with comments shortened):
+Die Struktur (struct) sieht so aus (Auszug mit gekürzten Kommentaren):
 ```c
 /** Data for one received DCF77 AM period. */
 typedef struct {
@@ -202,17 +203,18 @@ typedef struct {
 } dcf77recPerData_t;
 ```
 
-With   
- &nbsp; &bull; &nbsp; start time .tic, ideally every real atomic second,   
- &nbsp; &bull; &nbsp; period .per, ideally either 1s or 2s,  and     
- &nbsp; &bull; &nbsp; modulation time .tim, ideally either 100ms or 200ms,   
-recorded over a minute we got all needed to decode and use DCF77 time.
+Mit  
+ &nbsp; &bull; &nbsp; der Startzeit .tic, idealerweise zu jeder "Atom-" Sekunde,   
+ &nbsp; &bull; &nbsp; der Periode .per, idealerweise entweder 1s oder 2s,  und     
+ &nbsp; &bull; &nbsp; der Modulationszeit .tim, idealerweise entweder 100ms oder 200ms,   
+aufgezeichnet über eine Minute haben wir alles um die DCF77-Zeit zu
+dekodieren und zu nutzen.
 
-## Remarks on discriminating and decoding
+## Anmerkung zum Diskriminieren und Dekodieren
 
-With the chain of records -- one for each modulation period, spoiled or 
-correct -- the first step is to discriminate the values .tim and .per.    
-We define a stucture for a (uint32_t) value range:
+Mit der Kette von records  -- einer pro Modulationsperiode, gestört oder 
+korrekt -- ist der erste Schritt die Werte .tim und .per. zu diskriminieren.    
+Wir definieren hierzu eine Struktur für (uint32_t) Wertbereiche:
 ```c
 /** Values for discrimination of duration. */
 typedef struct {
@@ -233,8 +235,9 @@ typedef struct {
   char c;
 } durDiscrPointData_t;
 ```
-For modulation period (.per) and modulation time (.tim) we define five ranges
-each two of them good and three bad (below, in beetween and above):
+Für die Modulationsperiode (.per) und die Modulationszeit (.tim) definieren 
+wir damit jeweils fünf Bereiche, davon zwei gute und drei schlechte
+(darunter, undefiniert dazwischen und darüber):
 ```c
 /*  Discrimination values for the 15% modulation time. */
 durDiscrPointData_t timDiscH[5] = {
@@ -251,10 +254,11 @@ durDiscrPointData_t perDiscH[5] = {
     {3, 2040000, "minTk", 'M'}, // end minute tick (last two seconds)
     {4,  MXUI32, "error", 'e'}    };
 ```
-Depending on the receivers, their quality and perhaps filters extra sets with
-other values are provided. In any case, obviously, the array length is 5. So
-one optimal discriminating function getting the array and a value returning 
-the entry:
+Abhängig von den eingesetzten AM-Empfängern, ihrer Qualität, ggf.
+zusätzlichen Filtern (nicht empfohlen) usw. können weitere Sätze mit 
+anderen Grenzen bereitgestellt werden. Die Array-Länge ist aber
+offensichtlich immer 5. Die ermöglicht eine optimale
+Driskriminator-Funktion, die den zum Wert passenden Eintrag liefert:
 ```c
 /*  Discriminating a value.
  *  @param table discrimination table of length 5. With other lengths the
@@ -274,61 +278,67 @@ durDiscrPointData_t * disc5(durDiscrPointData_t table[], uint32_t const value){
   return & table[4]; // Note: table[4].v (MXUI32 above) is never used
 } // disc5(durDiscrPointData_t const *, uint32_t const)
 ```
-When discrimination both the modulation time (.tim) and the period (.per)
-we get four good outcomes:   
-  &nbsp; &bull; &nbsp; F.S &nbsp;false . second tick    
-  &nbsp; &bull; &nbsp; T.S &nbsp;true&nbsp; . second tick   
-  &nbsp; &bull; &nbsp; F.M &nbsp;false . end minute tick (2 seconds)      
-  &nbsp; &bull; &nbsp; T.M &nbsp;false . end minute tick (2 seconds)       
-All other combinations are bad. Without bad ones we have a chain of true 
-and false only, we can put indices respectively second numbers 0 .. 58 on
-and we can decode.
-And ideally each time stamp .tic of a modulation period would mark a "real"
-atomic second.
+Nach der Diskrimierung von Modulationszeit (.tim) und -periode (.per)
+gibt es vier mögliche gute Ergebnisse:   
+  &nbsp; &bull; &nbsp; F.S &nbsp;false . Sekunden-Tick   
+  &nbsp; &bull; &nbsp; T.S &nbsp;true&nbsp; . Sekunden-Tick   
+  &nbsp; &bull; &nbsp; F.M &nbsp;false . Minuten-End-Tick  (2 s)      
+  &nbsp; &bull; &nbsp; T.M &nbsp;false . Minuten-End-Tick (2 s)       
+Alle anderen Kombinationen sind schlecht bzw. gestört. Ohne Störungen
+haben wir eine Kette logischer Werte (true oder false), denen wir Indizes
+bzw. Sekunden-Nummern von 0 bis 58 zuordnen und dekodieren können.
+Und idealerweise würde jeder jeder Zeitstempel (.tic) einer 
+Modulationsperiode eine "echte- Atom-" Sekunde markieren.
 
-But, alas, we get outages and spikes of all sorts leading to over 100 instead
-of 59 modulation periods per minute. With good receiver modules and antenna
-positioning you get very few disturbance. But yet, they occur.  
-   
+Aber leider sehen wir Ausfälle Störungen aller Arten, die auch schon mal
+mehr als 59 Modulationsperioden pro Minute vortäuschen. Mit guten
+Empfängern und geeigneten Antennenstandorten sind Störungen recht selten --
+aber dennoch, sie passieren.
 
-## Filtering spikes with pigpiod
+## Störungen mit pigpiod filtern
 
-On common sort of (AM) disturbances are short -- often sub millisecond --
-spikes either as outage of the full modulation signal or as bursts appearing
-as full signal instead of 15% amplitude. Both disturbances can get in the
-range of 40 ms and more.
+Die gewöhnliche Störung bei AM-Rundfunk sind kurze -- oft unter 1 ms --
+Störungen entweder als Signalausfall oder Störsignale anderer Sender oder 
+elektrischer/elektronischer Geräte. Im Fall von DCF77 täuschen letztere 
+i.a. anstelle der 15% Modulation volles Signal vor. Neben kurzen Spikes 
+kommen auch länger anhaltende Störungen (40 ms und mehr) vor.
 
-Spikes could be wiped away with a simple de-bouncing algorithm ignoring all 
-signal changes below a minimal duration. And, fortunately, pigpiod offers 
-this feature for any input captured by call back function.
+Kurze Spikes bei binären Signalen können mit einfachen "de-bouncing"
+Algorithmen ausgefiltert werden, die alle Signalwechsel unterhalb einer
+minimalen Dauer ignorieren. Und, dankenswerterweise, bietet pigpiod genau
+diese Fähigkeit für Eingänge, die man mit call back-Funktionen überwacht.
 ```c
    if (dcfGlitch > 30000) dcfGlitch = 0;
    set_glitch_filter(thePi, dcfGpio, dcfGlitch);
 ```
-With glitch filtering the signal change call back, of course, would come 
-later, but the time stamp is still correct.
+Mit dem Einsatz dieser glitch-Filter kommt der Aufruf der call back-Funktion
+natürlich später, aber pigpiod setzt den Zeitstempel -- wie nicht
+ anders zu erwarten -- immer noch korrekt.
   
-The spike or glitch filter value can be in the range of 0 (no filter) to
-30000 µs. After many experiments (over weeks) we keep it below 10ms.   
- &nbap; &nbsp; ``` dcf77onPi --glitch 9999 >> logs/dcf77test32cAnG.log & ```
+Der Wert für den Spike- bzw. glitch-Filter kann zwischen  0 (kein Filter) 
+und 30.000 µs gesetzt werden. Nach vielen Experimenten (über Wochen) halten 
+wir ihn unter 10ms.   
+ &nbsp; &nbsp; ``` dcf77onPi --glitch 9999 >> logs/dcf77test32cAnG.log & ```
 
-It emerged that higher values might filter out many seconds periods in
-sequence. Hence, one might detect "no reception at all" respectively 
-"receiver off" wrongly. 
+Es zeigte sich, dass höhere Werte gelegentlich über viele Sekunden hinweg 
+ausfiltern. Also könnte man fälschlicher zur Diagnose "Gar kein Empfang" 
+oder "Empfänger Aus" kommen.
 
-## An extra filter for modulation disturbances
+## Zusätzliches Filter für Modulationsstörungen
 
-The extra gain of a 30ms (maximum) glitch/spike filter compared with 10 ms
-is marginal with good receivers. And anyway, the shortening of a period 
-below e.g. 400ms by a spike could not be handled by pigpiod's glitch filter.
-These cases do occur and in most cases they lead to two periods where one 
-should be. Without extra measures all counting and decoding hence on ist lost
-for the rest of the minute.
+Der zusätzliche Nutzen von 30ms (das Maximum) Filterzeit verglichen mit
+den bevorzugten 10 ms ist bei guten Empfängern marginal. Und außerdem könnte
+beispielsweise die Verkürzung einer Modulationsperiode unter z.B. 400ms durch
+einen Spike mit dem glitch-Filter von pigpiod sowieso nicht ausgefiltert 
+erden. Genau so etwas kommt durchaus vor und führt dann meistens zu
+zwei Perioden, wo eine sein sollte. Ohne Zusatzmaßnahmen ist dann alles 
+Indizieren und Dekodieren für die betroffene Minute verloren.
 
-A relatively simple extra filter therefore is holding back the first 
-occurrence of ?.b and add this period correctly to next. By this 
-most of those cases could be repaired. The log (Fr, 29.01.2021 14:16) 
-shows a minute otherwise spoiled in second 41:
+Ein recht einfaches zusätzliches Filter (Software) hiergegen ist es, das 
+erste Vorkommen von ?.b zurückzuhalten und diese (zu kurze) Periode
+in korrekter Weise zur nächsten hinzu zu addieren. Hiermit können die
+meisten solchen Fälle repariert werden. Der Log-Auszug (Fr, 29.01.2021 14:16) 
+zeigt eine Minute, die man ansonsten in Sekunde 41 verloren hätte:
 ```c
 ###        .tic       .tim    sec dis    .per  system time  -cbck decode
 DCF77 1.839.060.809   184080  36: T.S 1000492  14:17:35.138 -.185
@@ -347,28 +357,29 @@ DCF77 1.850.063.357    74190  47: F.S  997652  14:17:46.134 -. 75
 DCF77 1.851.061.009    82901  48: F.S 1002913  14:17:47.131 -. 83
 DCF77 1.852.063.922    78590  49: F.S  997822  14:17:48.136 -. 79 dd.01.
 ```
-This moderately "intelligent" filter rescues most of those cases -- quite 
-seldom with good receiver modules. There are some samples where this 
-algorithm failed while adding the spiky period to the one before would have
-saved that case. Well implementing that is feasible but according to our 
-data not worth the effort -- an the reduced readability of the program. 
+Diese "gemäßigt intelligente" Filter rettet die meisten solcher Fälle
+(welche mit guten Empfängern eh schon selten sind). Es kommt vor, dass dieser 
+Algorithmus versagt, wo das Addieren der gestörten Periode zur vorangehenden
+geholfen hätte. Nun wäre es möglich auch das noch zu implementieren. Aber
+nach unseren Beobachtungen ist das weder der Mühe noch der verminderten 
+Lesbarkeit des Programms wert.
 
+## Schlussbemerkung
 
-## Final remarks
+Das Empfangen und Dekodieren von DCF77 haben wir auf einem Pi mit
+preiswerten AM-Empfängermodulen implementiert. Mit dem Empfangs-Tick und 
+dem zugehörigen Paar "call back-Tick + call back-Systemzeit" haben wir die 
+Werte zur Korrektur bzw. dem Setzen der Systemzeit beieinander. Somit haben
+wir eine (redundante) Zeitquelle, die NTP ersetzen oder ergänzen kann. Damit
+kann man auch verteilte Systeme in einem abgeschlossenen Netz synchronisieren
+oder dort einen (zusätzlichen) NTP-Server bereitsetellen.
 
-On a Pi we implemented receiving and decoding DCF77 with inexpensive AM
-receiver modules. With the reception tick, call back tick and call back
-system time we have all data to correct or set the system time. Hence,
-we have a (redundant) time source to replace or substitute NTP. As well as
-NTP it would synchronise distributed systems, albeit -- with AM receivers --
-with less precision as NTP. 
-
-The full code can be found in the SVN repository
+Der ungekürzten Kode findet sich im SVN-Repository
 [weinert-automation.de/svn/](https://weinert-automation.de/svn/rasProject_01/ "guest:guest").
 
-## References
+## Literatur
 
-Weinert, Albrecht,  &nbsp;"[Time synchronisation in local nets](/timeSyncLocNet.html)", 
+Weinert, Albrecht,  &nbsp;"[Zeitsynchronisation im lokalen Netz](/timeSyncLocNet_de.html)", 
  &nbsp;2021 [post](https://a-weinert.github.io/index.html "blog content") 
 
 Weinert, Albrecht,  &nbsp;"[Raspberry for remote services](https://a-weinert.de/pub/raspberry4remoteServices.pdf "(.pdf, download)")", 

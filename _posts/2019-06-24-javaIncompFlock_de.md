@@ -3,7 +3,7 @@ layout: weAutPost
 title: Javas nicht kompatible Dateisperre
 bigTitle: Java&amp;flock
 permalink: /:title.html
-date:   2019-06-24
+date:   2021-04-24
 categories: Java Linux flock Raspberry
 lang: de
 enPage: javaIncompFlock.html
@@ -25,16 +25,16 @@ existierenden C-Steuerungsprogrammen verwenden müssen. Wie seit langem
 bei C und auf Linux-Plattformen Usus benutzen die C-Programme hierfür flock().
 
 ```c
-/*  Lock file handle. */
+/** Lock file handle. */
 int lockFd;
 
-/* Common path to a lock file for GpIO use */
+/** Common path to a lock file for GpIO use */
 char const  * const lckPiGpioPth = "/home/pi/bin/.lockPiGpio";
 
-/*  Basic start-up function failure. */
+/** Basic start-up function failure. */
 int retCode;
 
-/*  Open and lock the lock file.
+/** Open and lock the lock file.
  *
  *  @param lckPiGpioFil   lock file path name
  *  @return 0: OK, locked; 97: lckPiGpioFil does not exist;
@@ -135,14 +135,14 @@ und [PiUtil.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de
 
 Abgesehen davon, dass es ein bisschen länger als mit C ist, scheint das
 Java-Äquivalent zu funktionieren: Von zwei oder mehr Java-Applikationen,
-die die selbe Sperrdatei haben wollen, gewinnt auf diese jeweils nur eine.
+die die selbe Sperrdatei haben wollen, gewinnt auf diese Weise jeweils
+nur eine.
 
 ## Nicht kompatible Dateisperre 
 
 Aber leider zeigte es sich, das das Sperren einer Datei (as random access
 file fully and exclusively) mit Java auf einer Linux-Plattform nicht mit
-Linux' 
-flock() &mdash; _dem_ Standardvorgehen &mdash; kompatibel ist! Von 
+Linux' flock() &mdash; _dem_ Standardvorgehen &mdash; kompatibel ist! Von 
 allen C-Programmen oder Programminstanzen (Prozessen) im Wettbewerb 
 um eine Sperrdatei gewinnt das erste, und die anderen müssen warten 
 oder aufhören. Und genau dasselbe kann über Java-Applikationen mit
@@ -156,13 +156,14 @@ den Beispielen hier Prozess-IO. Das ist ein Unding mit hohem
 Schadenspotential. Das muss gelöst werden, bevor man Java-Anwendungen
 auf beispielsweise einem Prozesskontrollmodul verwendet. 
 
-### Der Fehler liegt bei Java
+### Der Fehler liegt bei Java*)
 
 Wenn man die Übermacht von C auf kleinen (eingebetteten) Systemen
 sieht und wenn man in Betracht zieht, dass wir auf einem Linux-System
-sind, erkennen wir eindeutig die älteren Rechte von Flock() an. Die
+sind, erkennen wir eindeutig die älteren Rechte von flock() an. Die
 Java8-Portierung nach Linux hat eine fehlerhafte Implementierung
-von FileLock. 
+von FileLock.    
+Anm. *): Hiermit hatte ich Unrecht. Der Fehler liegt _nicht_ bei Java; s.u.
 
 ### Lösung gesucht
 
@@ -172,9 +173,6 @@ Plattformabhängigkeit und damit eines der dicksten Pfunde, die Java
 beim Cross-Übersetzen und -Bauen hat.
 (Es mag ein Vorurteil sein. Aber, wann immer ich JNI einsetzen musste,
 habe ich es verabscheut.)
-
-Andersherum, nämlich FileLock für C verpacken, sollte man aus
-vielen Gründen ablehnen.
 
 Für die letztlich verwirklichte, getestete und benutzte Variante
 muss man ein bisschen 'um die Ecke' denken.
@@ -216,8 +214,8 @@ Wenn man das kleine Programm
 direkt von der Konsole bzw. mit putty ausführt und dies gleichzeitig mit
 der Java-Applikation 
 [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed)")
-tut, bekommt man zwei Sperren zur selben Zeit auf die selbe Datei. [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") nutzt Javas eigene Dateisperre mit java.nio.channels.FileLock, welche von Dateisperren des Betriebssystems offensichtlich nichts weiß.
-
+tut, bekommt man zwei Sperren zur selben Zeit auf die selbe Datei. [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") nutzt Javas eigene Dateisperre mit java.nio.channels.FileLock, welche
+von Dateisperren des Betriebssystems offensichtlich nichts weiß.
 
 ## Repositories
 
@@ -226,4 +224,41 @@ Finden Sie bitte die meisten Quellen im GitHub repository
 [SVN Entwicklungs-Repositorys](https://weinert-automation.de/svn/ "guest:guest"),
 welche für dieses Projekt essentiell sind. Für Kommentare und Probleme
 [dieses Projekts](https://github.com/a-weinert/weAut/) nutzen Sie bitte die
-Kommentarfunktion dieses Beitrags, die übrigens ein "GitHub issue" ist.   
+Kommentarfunktion dieses Beitrags, die übrigens ein "GitHub issue" ist.
+
+## Korrigierendes Nachwort (April 2021)
+
+Rückmeldungen von Lesern und Anwendern machten mir klar, dass es nicht 
+_das eine_ file lock (flock()) von C gibt, zu dem der Java-Ansatz dummerweise
+nicht passt. Nein bei C unter Linux gibt es mindestens drei unterschiedliche
+Ansätze &mdash; und fleißiges Suchen ergäbe wohl noch ein paar mehr. Einer davon
+passt zu Java's Ansatz.
+
+Hätte ich das weiland gewusst, hätte ich die passende C-Lösung
+(statt flock()) genommen und Alles wäre gut?   
+Nun: Ja zu meiner Unwissenheit. Und, Nein nichts ist Gut!
+Es ist alles viel schlimmer.
+
+Die mindestens drei file lock Ansätze, die es in C unter Linux gibt sind
+untereinander inkompatibel. Drei C-Programme können ein lock auf die selbe 
+Datei erhalten. Dies verletzt jede vernünftige Auffassung der Semantik eines
+file lock &mdash; und es hat mit C versus Java nichts zu tun.
+
+Wenn es a) eine historisch erste und verbreitete file lock Lösung
+im C-Unix-Universum gibt und b) jemand erfindet später eine zweite, dann
+darf es unter keinen
+Umständen passieren, dass die zweite Lösung ein lock auf eine Datei erhält,
+die mit der ersten bereits blockiert ist und umgekehrt. Man denke an
+"Den exklusiven Zugriff auf Signal xsi, Weiche xwe und Gleissperre xsp schützt der
+Lock auf die Datei /siglsp_x.lck." als Beispiel einer systemweiten 
+Regel.   
+
+Und wenn c) jemand noch eine weitere Dateisperrlösung erfindet, in der man
+gar einzelne Bytes und Bereiche (sogar solche, die es gar nicht gibt) sperren
+kann, so darf es unter keinen Umständen passieren, dass so was auch nur ein
+byte sperrt, wenn eine bisherige Lösung die ganze Datei sperrt. Und natürlich
+auch umgekehrt.
+
+Da eine Datei ein sprachunabhängiges Konstrukt ist, müsste diese 
+Sperrsemantik sprachübergreifend gelten und nicht schon in der Basissprache
+vieler Systeme C kaputt sein.    

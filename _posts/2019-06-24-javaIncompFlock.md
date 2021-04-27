@@ -3,13 +3,13 @@ layout: weAutPost
 title: Java's incompatible file lock
 bigTitle: Java&amp;flock
 permalink: /:title.html
-date:   2019-06-24
+date:   2021-04-24
 categories: Java Linux flock Raspberry
 lang: en
 dePage: javaIncompFlock_de.html
 copyrightYear: 2019
-revision: 2
-reviDate: 2020-10-06
+revision: 4
+reviDate: 2021-04-17
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 5
@@ -25,16 +25,16 @@ machine. As usual since decades with Unix/Linux the C programmes know the
 path of an existing (empty) lock file and use flock() to compete for it.
 
 ```c
-/*  Lock file handle. */
+/** Lock file handle. */
 int lockFd;
 
-/* Common path to a lock file for GpIO use */
+/** Common path to a lock file for GpIO use */
 char const  * const lckPiGpioPth = "/home/pi/bin/.lockPiGpio";
 
-/*  Basic start-up function failure. */
+/** Basic start-up function failure. */
 int retCode;
 
-/*  Open and lock the lock file.
+/** Open and lock the lock file.
  *
  *  @param lckPiGpioFil   lock file path name
  *  @return 0: OK, locked; 97: lckPiGpioFil does not exist;
@@ -149,39 +149,57 @@ Java to a real life control module. You can not, for example, allow a process
 control program going in cyclic run mode and having a Java calibration /
 service application touching parts of the sensors or actuators. 
 
-### It is Java's fault
+### It is Java's*) fault
 
 Considering the prevalence C on small embedded systems and considering being 
-on Linux one has to judge all rights thereto accrue to flock(). The Java 8 port to Linux has a buggy FileLock implementation. 
+on Linux one has to judge all rights thereto accrue to flock().
+The Java 8 port to Linux has a buggy FileLock implementation.   
+Note*): Here I was wrong. It is _not_ Java's fault. Please see below.
 
 ### Looking for a solution 
 
-Wrapping flock() etc. with JNI seems an obvious approach. But besides being outright ugly it impedes Java's platform independence, one of its best features when it comes to cross developing and building. (It might be prejudice. Whenever I had to use JNI, I simply loathed it.)
+Wrapping flock() etc. with JNI seems an obvious approach. But besides
+being outright ugly it impedes Java's platform independence, one of its
+best features when it comes to cross developing and building.   
+(It might be prejudice. Whenever I had to use JNI, I simply loathed it.)
 
-The other way round, wrapping FileLock for C, can be ruled out for several reasons.
-
-For the solution implemented, tested and used in the end one may need to 'think outside the box' a bit: 
+For the solution implemented, tested and used in the end one may need
+to 'think outside the box' a bit: 
 
 ### Holding a process instead of locking a file
 
 A nice pure C and pure Java solution arises when
  - stopping to bring a Linux/C compatible file lock to Java<br />
-   and substitute the file lock (where Java is bad at) with
+   and substitute the file lock (where Java is incompatible to flock()) with
  - starting a program and holding the running (!) process and
  - finish &mdash; i.e. unlock &mdash; by killing the process held.
  
-Well, starting programs and handling processes, does work with pure Java on all platforms used so far. The program is a little C helper program 
-[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c). When started this program tries to open and lock (by flock(), of course) the given lock file. When it gets the lock it will
-run endlessly, i.e. until being killed. It will then unlock the file in its shut down hook. When the file in question does not exist or can't be locked, the program will exit with an error code. In the end [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c) is a C process control program stripped from all control (IO) functions.
+Well, starting programs and handling processes, does work with pure Java
+on all platforms used so far. The program is a little C helper program 
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c).
+When started this program tries to open and lock (by flock(), of course)
+the given lock file. When it gets the lock it will
+run endlessly, i.e. until being killed. It will then unlock the file
+in its shut down hook. When the file in question does not exist or
+can't be locked, the program will exit with an error code. In the end
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)
+is a C process control program stripped from all control (IO) functions.
 
-The handling of [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c) will be done by two lock methods (openLock() and closeLock) in
-[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()"). Hence, the flock() compatible file lock for Java is almost as simple as 
-in C.
+The handling of 
+[justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)
+will be done by two lock methods (openLock() and closeLock) in
+[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()").
+Hence, the flock() compatible file lock for Java is almost as simple as in C.
 
 ### Demonstrating the incompatibility
 
-Running this little program ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) directly from the shell or putty as well as the 
-Java application [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") at the same time will demonstrate the double lock on the same file. [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") uses Java's own file lock by java.nio.channels.FileLock.
+Running this little program
+([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c))
+directly from the shell or putty as well as the Java application
+[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed")
+at the same time will demonstrate the double lock on the same file.
+[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed")
+uses Java's own file lock by java.nio.channels.FileLock.
 
 
 ## Repositories
@@ -191,4 +209,37 @@ Find most of the sources on the GitHub repository
 [SVN development repositories](https://weinert-automation.de/svn/ "guest:guest")
 essential for this project. For comments and
 issues on [this project](https://github.com/a-weinert/weAut/) use this 
-post's comment function, which by the way is a GitHub issue.   
+post's comment function, which by the way is a GitHub issue.
+
+## Amendment (April 2021)
+
+Readers and users feedback made it clear to me that there's not _the one_ 
+file lock (flock()) in C, which Java's is, alas, incompatible to.
+No, at C there are at least three different approaches &mdash; and an eager
+search might reveal more. One of those fits Java' approch.
+
+Had I known in those days, I'd picked the fitting one (en lieu de flock())
+and all would have been perfect?   
+Well: Yes to my ignorance. But no, nothing is good!
+All is much worse.
+
+C on Linux' at least three file lock approaches are mutually incompatible.
+Three C programs can get a lock to the very same file. This violates every 
+reasonable semantic perception of a file lock; and is has nothing to do
+with Java vs. C.
+
+If a) there is &mdash; in the C Unix universe &mdash; a historically first 
+and widely used file lock solution and if b) somebody invents a second one
+later, then under no circumstances the second one may get a lock to a file
+locked by the first. And, of course, vice versa. Think of
+"Exclusive access to main signal xsi, switch xwe and derailer xsp is bound
+to the lock of file /siglsp_x.lck." as example of a system rule.   
+
+And if c) somebody invents a third file lock with the luxury of locking
+single bytes and ranges (even non existent ones) it must not be feasible to
+lock a single byte of a file another one has a complete lock by one of the
+existing solutions. And, of course, vice versa.
+
+As a file is a construct independent of languages the lock semantics outlined
+should hold spanning all languages and not having already been spoiled in 
+the base language C of many systems.

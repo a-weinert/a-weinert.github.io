@@ -160,4 +160,14 @@ on the Linux (web server) machine and the Windows (development) workstation.
 csplit is a Linux tool, but will be available on Windows, too, when you
 have WinRaspi, WinAVR or the like installed and their tools on the PATH.  
 All other details may get clear by reading the (real) 
-[example files](https://weinert-automation.de/software/jekyll/). 
+[example files](https://weinert-automation.de/software/jekyll/).
+
+## Hyphenation
+
+For many tools and editors this is no bright story even when the language
+is mere English -- and Jekyll is no exception here.   
+Another [post](/webHyhenation.html) presents a tool able to add 
+conditional ("soft" &amp;shy;) breaks to the (markdown) texts and (html)
+layouts or to remove them.  
+In this respect that is no (third) Jekyll trick, but the appropriate use 
+of a tool in the site's development and deployment.

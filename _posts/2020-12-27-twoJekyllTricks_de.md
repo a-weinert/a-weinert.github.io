@@ -178,4 +178,15 @@ andere), falls Sie WinRaspi, WinAVR oder dergleichen installiert haben und
 deren Werkzeuge im "PATH".     
 Alle weiteren Details mögen sich aus den (echten, so verwendeten) 
 [Beispieldateien](https://weinert-automation.de/software/jekyll/) 
-erschließen. 
+erschließen.
+
+## Silbentrennung
+
+Dies ist für viele Werkzeuge und Editoren ein düsteres Kapitel, selbst wenn
+die Sprache bloß Englisch ist. Jekyll mach da keine Ausnahme.    
+Ein anderer [Beitrag](/webHyhenation_de.html) zeigt ein Werkzeug, mit dem man
+die (markdown) Texte und 
+(html) layouts mit bedingten ("weichen" &amp;shy;) Trennstrichen versehen
+oder diese wieder entfernen kann.   
+Insofern ist dies kein (dritter) Jekyll-Trick, sondern der gezielte Einsatz
+eines Werkzeugs im Entwicklungs- und Auslieferungsprozess. 

@@ -166,7 +166,7 @@ All other details may get clear by reading the (real)
 
 For many tools and editors this is no bright story even when the language
 is mere English -- and Jekyll is no exception here.   
-Another [post](/webHyhenation.html) presents a tool able to add 
+Another [post](/webHyphenation.html) presents a tool able to add 
 conditional ("soft" &amp;shy;) breaks to the (markdown) texts and (html)
 layouts or to remove them.  
 In this respect that is no (third) Jekyll trick, but the appropriate use 

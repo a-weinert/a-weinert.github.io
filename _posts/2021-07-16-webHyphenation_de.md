@@ -15,38 +15,42 @@ isPost: true
 commentIssueId: 4
 commentShare:
 ---
-Die Leser von [Jekyll-Tricks](/twoJekyllTricks_de.html) wissen, dass ich
+Die Leser von [Jekyll-Tricks](/twoJekyllTricks_de.html) und 
+[Fort von Typo3](/leaveTypo3_de.html "Aus für Typo3") wissen, dass ich
 ein engagierter Befür&shy;worter der statischen Generierung von Web-Bereichen
 bin. Über zwölf Jahre habe ich statische Generierung von Web-Bereichen mit
 [Frame4](https://frame4j.de/index.html "ein Java (8) framework")-Tools
 betrieben. 2019 habe ich meine sowie die mir anvertrauten
-Web-Bereiche auf Jekyll/Liquid umgestellt.
+Web-Bereiche auf Jekyll (/Liquid) umgestellt.
 
 ## Silbentrennung
 
-Dies ist für viele Werkzeuge und Editoren ein düsteres Kapitel, selbst wenn
-die Sprache bloß Englisch ist. Jekyll mach da keine Ausnahme.    
+Eine großzügige Dosis von von bedingten -- oder "weichen" (soft) --
+Trennstrichen (<code>"&amp;shy;"</code>) kann das Erscheinungsbild  eines
+Webbereichs sehr verbessern insbesondere bei variablen Abmessungen und 
+abschaltbaren Menus. Andererseits ist das Einbringen der von "&amp;shy;s"
+mühselig und fehlerträchtig, und es beeinträchtigt die Lesbarkeit für
+Entwickler und Autoren. Ein bisschen Werkzeugunterstützung und Automatismen
+wären willkommen. 
+
+Aber die Silbentrennung ist leider für viele Werkzeuge und Editoren ein
+eher düsteres Kapitel -- und das oft selbst dann, wenn die Sprache
+bloß Englisch ist. Jekyll mach da keine Ausnahme.    
 Diese Beitrag zeigt ein Werkzeug, mit dem man die (markdown) Texte und 
 (html) layouts mit bedingten ("weichen" &amp;shy;) Trennstrichen versehen
 oder diese wieder entfernen kann.
 
-Entschuldigung! Noch nicht übersetzt -- 
- lesen Sie bitte die [Englische Version](./webHyphenation.html).   
-Sorry no German translation, yet.
+Man benötigt lediglich ein aktuelles (implementation version >= 1.21.06)
+[Frame4](https://frame4j.de/index_en.html "a Java (8) framework"), am besten
+als "installed extension" unter Java8 sowie eine Definitionsdatei der
+gewünschten Trennungen in einer einfachen Syntax gemäß
+[dieses Beispiels](https://weinert-automation.de/software/jekyll/hyphDef_de.txt),
+passend zu Sprache und Themenbereichen Ihrer Texte.
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-All needed is an actual (implementation version >= 1.21.05)
-[Frame4](https://frame4j.de/index_en.html "a Java (8) framework") best as
-installed extension on a Java8 and an hyphenation definition file in the 
-form of
-[this example](https://weinert-automation.de/software/jekyll/hyphDef_de.txt),
-appropriate for your texts' topic and language.
-
-For all that follows you need the tool 
+Für alles Folgende brauchen Sie nur die Applikation
 [de.frame4j.FuR](https://weinert-automation.de/java/docs/frame4j/de/frame4j/FuR.html).   
-If you can start it to see the online help e.g. by one of the following 
-commands you got it perfectly.
+Falls Sie diese mit einem der folgenden Kommandos zum Angucken der Hilfe
+starten können, haben Sie es.
 
 ```bash
 java de.frame4j.FuR -help -de # show help in German (de)
@@ -54,10 +58,10 @@ java FuR -help -de # show help with comfort starter in English
 
 ```
 
-## Definition file
+## Die Trennungsdatei
 
-The excerpt of the hyphenation definition file example mentioned above
-shows the "one word per line with the hyphenation wanted" grammar:
+Der Auszug aus der oben erwähnten Beispieldatei zeigt die
+"ein Wort pro Zeile mit der gewünschten bedingten Trennung"-Grammatik:
 
 ```markdown
 ---
@@ -79,12 +83,12 @@ Ent&shy;scheidungen
 ent&shy;wor&shy;fen
 er&shy;hielt
 Er&shy;zie&shy;hungs&shy;be&shy;rech&shy;tigte
-...   and so on and so forth
+...   und so weiter und so fort
 ```
 
-For better readability -- and for giving the file to a linguist for 
-checking / correcting -- use the tool FuR to replace 
-<code>&shy;</code> <code>&shy;</code>.
+Für eine bessere Lesbarkeit -- und um die Datei der Germanistin Ihres
+Vertrauens zur Korrektur zu geben -- nutzen Sie das Tool FuR um 
+<code>&amp;shy;</code> durch <code>-</code> zu ersetzen.
 
 ```bash
 D:\eclips...>java FuR hyphDef_de.txt -omitFrntM  "&shy;" "-"
@@ -92,10 +96,10 @@ D:\eclips...>java FuR hyphDef_de.txt -omitFrntM  "&shy;" "-"
   157 occurrences of search texts
 ```
 
-The first parameter names the (only one in this case) file to work on, the
-option <code>-omitFrntM</code> says "Don't touch a front matter" and the 
-second and third parameter define the pattern to find and its replacement.
-The result is
+Der erste Parameter benennt die (in diesem Fall einzige) zu bearbeitende
+Datei. Die Option <code>-omitFrntM</code> sagt "Lass die Finger vom
+sog. front matter", während der zweite und dritte Parameter das 
+Suchmuster und und seinen Ersatz definieren. Das Ergebnis ist
 
 ```markdown
 ---
@@ -117,127 +121,140 @@ Ent-scheidungen
 ent-wor-fen
 er-hielt
 Er-zie-hungs-be-rech-tigte
-...   and so on and so forth
+...   und so weiter und so fort
 ```
 
-After having done the copy editing in this form do not forget to restore 
-the form usable for [de-] hyphenation by 
+Nach der in dieser Form durchgeführten Schlussredaktion vergessen Sie nicht 
+die fürs Einfügen und Entfernen von bedingten Trennungen verwendbare From
+wieder herzustellen:
 
 ```bash
 D:\eclips...>java FuR hyphDef_de.txt -omitFrntM  "-" "&shy;"
   D:\eclipse18-09WS\web-hansibo\factory\hyphDef_de.txt
   157 occurrences of search texts
 ```
+Außer der Vertauschung von Suchmuster und Ersatz ist es dasselbe Kommando
+wie eben. Nur so herum wird die Option <code>-omitFrntM</code> wichtig, da
+man sonst die Kommentare am Anfang verdirbt.
 
-Except for the interchange of search pattern and replacement it is the same
-as for the other way round. But here the option <code>-omitFrntM</code> is
-crucial lest to spoil the file's starting comment.
 
+## Das Trennen von Jekylls markdown Quelltexten
 
-## Hyphenate Jekyll's markdown
-
-To hyphenate a Jekyll generated web site best go to respective sources
-root by   
+Um einen von Jekyll generierten Web-Bereich mit bedingten Trennungen zu 
+versehen, geht man am besten in's Wurzelverzeichnis der betreffenden Quellen
+mit beispielsweise   
  &nbsp; &nbsp;<code>  cd /D D:\eclipse18-09WS\web-hansibo\hansiboDE </code>
- &nbsp; &nbsp; , e.g.
    
-For an realistic examples sake I assume we want to add hyphenation to
-all texts (extension .md for markdown) as well as to all Liquid templates
-(extension .html or .htm as not to confuse them with "real" pure HTML). 
-We want do do this recursively in all sub directories excluding
-<code>.jekyll-cache</code>, <code>_data</code> and <code>_site</code>.
+In einem realistischen Beispiel würden wir zu allen Texten (Erweiterung
+.md für markdown) ebenso wie zu allen Liquid templates (Erweiterung
+.html oder .htm)  bedingte Trennungen zufügen. Wir möchten dies auch in 
+allen Unterverzeichnissen tun, aber die Verzeichnisse
+<code>.jekyll-cache</code>, <code>_data</code> and <code>_site</code>
+und deren Unterverzeichnisse ausschließen.
 
-### Step 0: Remove all &amp;shy;s
+### Schritt 0: Alle bisherigen &amp;shy;s entfernen
 
-Before inserting &amp;shy;s according to your favourite hyphenation
-definition file you might remove all &amp;shy;s randomly inserted by hand.
-At the root of the site's Jekyll sources    
+Bevor wir &amp;shy;s gemäß unserer Definitionsdatei einfügen, mag man meist
+das bisher "Handgemachte" entfernen. Im erwähnten Wurzelverzeichnis der 
+der Jekyll-Quellen macht     
  &nbsp; &nbsp;<code> java FuR -r .md;.html;.htm -filUTF8 -OmitDirs _site;.jekyll-cache;_data -omitFrntM </code>&amp;shy<code>;" -v</code>  
-would do the trick.   
-<code>FuR: </code> The top most liked / used applications in
-[Frame4](https://frame4j.de/index_en.html "a Java (8) framework") have a 
-starter application in the unnamed package. <code>FuR</code> just delegates
-to  <code>de.frame4j.FuR</code> .   
-<code>-r .md;.html;.htm -filUTF8 </code> Recursively (from the 
-current directory) visit all files of the given three extensions and assume
-their encoding be UTF-8.   
-<code>-OmitDirs _site;.jekyll-cache;_data </code> While visiting the 
-sub-directory tree (starting from . ) omit directories + their children
-with the three names given.
-<code>-omitFrntM</code> In the (text) files visited omit a front matter in
-the process of searching patterns and replacing their occurrences.    
-<code>"&amp;shy;" </code> (and no further parameter): Search the pattern
-<code>&amp;shy;</code> and replace it by nothing (i.e. just remove it).
-<code>-v: </code> verbose output (optional). That option list all files
-visited with the number of finds (and replaces).
+genau das.   
+<code>FuR : </code> Die beliebtesten / am meisten genutzten
+[Frame4](https://frame4j.de/index_en.html "a Java (8) framework")-Tools 
+haben eine Start-Applikation im unbenannten Verzeichnis. <code>FuR</code>
+delegiert schlicht und einfach an 
+[de.frame4j.FuR](https://weinert-automation.de/java/docs/frame4j/de/frame4j/FuR.html).   
+<code>-r .md;.html;.htm -filUTF8 : </code> Rekursiv (vom aktuellen
+Verzeichnis aus) besuche alle Dateien mit den gegebenen Endungen (Typen)
+und nimm als deren Textkodierung UTF-8 an.
+<code>-OmitDirs _site;.jekyll-cache;_data : </code> Beim Besuchen des (Unter-)
+Verzeichnisbaums (bei . beginnend) lass die benannten Verzeichnisse und
+ihre Kinder aus.
+<code>-omitFrntM : </code> In den besuchten Textdateien ändere nichts an einem 
+ggf. "front matter" im Laufe des Findens und Ersetzens.    
+<code>"&amp;shy;" </code> (und kein weiterer Parameter): Suche das Muster
+<code>&amp;shy;</code> und ersetze es durch nichts.
+<code>-v: </code> Ausführlichere Ausgaben (optional).
 
-### Step 1: Hyphenate by definition file
+### Schritt 1: Trennungen gemäß der Definitionsdatei
 
-Using the same file and directory criteria as in the "Step 0" example
-and being in the same directory the command is:    
+Unter Verwendung derselben Kriterien für Dateien und Verzeichnisse wie im 
+Beispiel "Schritt 0" ist der Befehl hierfür:    
  &nbsp; &nbsp;<code> java FuR -r .md;.html;.htm -filUTF8 -OmitDirs _site;.jekyll-cache;_data -omitFrntM -hyphen ..\factory\hyphDef_de.txt</code>
 
-<code>-hyphen ..\factory\hyphDef_de.txt </code> hyphenate all files in
-question by the definitions found in the file (<code>hyphDef_de.txt</code)
-named after the option.   
-all other options and parameters: As explained for "Step 0".
+<code>-hyphen ..\factory\hyphDef_de.txt </code> trenne alle betreffenden
+Dateien bzw. Texte gemäß den Definitionen der nach der option genannten
+Datei (<code>hyphDef_de.txt</code im Beispiel)..   
+alle anderen Optionen und Parameter: Wie für den "Schritt 0" erklärt.
 
-Technically for every line in the hyphenation file FuR generates a 
-search pattern (without the <code>&amp;shy;</code>s) and a replacement (with
-them). Then in a wide sense the same procedures are taken as when defining
-multiple search and replace definitions in an extra property file -- which 
-over the years was FuR's primary work on servers.
+Technisch gesehen erzeugt jede Zeile in der "Trennungsdatei" ein Suchmuster
+(jeweils ohne die <code>&amp;shy;</code>s) und einen Ersatztext (mit ihnen).
+dann laufen im weitesten Sinne die gleichen Vorgänge ab, als hätte man mit
+einer gesonderten .properties-Datei viele "Finde und ersetze"-Definitionen
+vorgegeben -- was über viele Jahre FuR's Hauptbeschäftigung auf einigen
+Servern war.
 
-Note 1: At present (18.07.2021)
-up to 999 search and replace definitions are generated from the hyphenation
-definition file. may be risen in future.   
-Note 2: Those past and present n patterns * m files task with those numbers
-in order of 100s and 1000s  would not go well with Java's standard String
-search. As other 
-[Frame4](https://frame4j.de/index_en.html "a Java (8) framework") tools
+Anm. 1: Zur Zeit  (19.07.2021) sind so bis 1024 Trennungsdefinitionen 
+möglich. (Könnte erhöht werden.)    
+Anm. 2: Diese früheren und neuen Aufgaben mit n Mustern * m Dateien, wobei
+diese Zahlen in der Größenordnung 100 bzw. 1000 (und mehr) liegen, würden mit
+Javas String-Suche nicht so gut laufen. Wie auch andere
+[Frame4](https://frame4j.de/index_en.html "a Java (8) framework")-Tools 
+nutzt auch
 [de.frame4j.FuR](https://weinert-automation.de/java/docs/frame4j/de/frame4j/FuR.html)
-uses 
-[Frame4](https://frame4j.de/index_en.html "a Java (8) framework")'s
-implementation of the Rabin-Karp algorithms. Rabin-Karp brings the search 
-from O(t*s) (naive String.indexOf() and consorts) to less than O(t), where
-t is the length of the text and s is length of the substring to spot.
-Note 4: Step 1 is the main step -- the one where all this was done for. We
-generate and (ftp) deploy web sites by Jekyll on the SVN (subversion) server
-in a post commit hook. And we very well may put <code>FuR -hyphen ...</code>
-there.
+[Frame4](https://frame4j.de/index_en.html "a Java (8) framework")s
+Implementierung der Rabin-Karp-Algorithmen. Rabin-Karp bringt die Suche 
+eines Sub-Texts in einem String von O(t*s) (naive String.indexOf()
+und Konsorten) auf deutlich weniger als O(t), wobei t die Länge des Texts
+und s die Länge des zu findenden Teiltexts  ist.
+Anm. 3 : Schritt 1 ist der wichtigste Vorgang -- hierfür wurde diese
+Erweiterung gemacht.  Wir generieren Web-Bereich auf einem SVN-Server mit
+Jekyll im post commit hook und verbreiten (deploy) sie dann (mit FTP) zum
+jeweiligen Web-Server. Dieser "Schritt 1" wird Teil dieser post commit hooks
+werden.
 
-### Step 2: De-Hyphenate by definition file
+### Schritt 2: Die Trennungen (wieder) beseitigen
 
-With a command very similar to the one in "Step 1" FuR can remove (only)
-the hyphenations applied:
+Mit einem ganz ähnlichen Kommando wie in "Schritt 1" kann FuR genau die dort
+applizierten Trennungen entfernen:     
  &nbsp; &nbsp;<code> java FuR -r .md;.html;.htm -filUTF8 -OmitDirs _site;.jekyll-cache;_data -omitFrntM -dehyphen ..\factory\hyphDef_de.txt</code>
 
-<code>-dehyphen ..\factory\hyphDef_de.txt </code> de-hyphenate all files in
-question by the definitions found in the file (<code>hyphDef_de.txt</code)
-named after the option. The procedure is the same as explained ion "Step 1"
-except for the reversal of the find pattern and the replacement.      
-all other options and parameters: As explained for "Step 0".
+<code>-dehyphen ..\factory\hyphDef_de.txt </code> beseitige die in der nach
+Option genannten Trennungsdatei (<code>hyphDef_de.txt</code>) definierten
+Trennungen.  
+Alle anderen Optionen und Parameter: Wie in "Schritt 0" erklärt.
 
+Das Anwenden von "Schritt 1" und dann das Anwenden von "Schritt 2" auf
+einen von vornherein (oder nach "Schritt 0") "trennungslosen" Satz von
+Dateien / Texten sollte diesen in den ursprünglichen
+Zustand zurück versetzen. Oder mit anderen Worten: die eine Operation ist
+die Inverse der anderen.   
 
-Applying "Step 1" to a set of "hyphen-less" (by "Step 0", e.g.) files and 
-then applying "Step 2" should bring the set of files respectively texts 
-back in the previous state -- or in other word one should be the inverse 
-operation of the other.  
-Note 1: Well, almost. There may be some exotic order of operation / definition
-effects especially with compound words like (German) runter, gekommen
-und runtergekommen that would be defined as
+Anm. 4: Seien Sie sich gewisser "Abschattungseffekte" bewusst, insbesondere 
+bei Wortverbindungen, wie runter, gekommen und runtergekommen, deren
+Trennungen beispielsweise so definiert würden:
 ```markdown
 run&shy;ter&shy;ge&shy;kom&shy;en
 run&shy;ter
 ge&shy;kom&shy;en
 kom&shy;en
 ```
-Note 2: If this causes real practical problems we'll see to it. The first
-step will be reversing the definition order when <code>-dehyphen</code>.   
-Note 3: When writing or editing a hyphenation definition file always have 
-<code>-hyphen</code> in mind. Rule of thump: compounds and longer words 
-one gets by adding to shorter ones first.      
-Mathematical question to the learned readers:   
-Would just length on the non hyphenated word be the right sorting criterion?
+Wenn Sie hier die Reihenfolge ändern und beispielsweise
+<code>"kom&amp;shy;men"</code> nach vorne setzten, würde dies alle weiteren
+Trennungen bei <code>"gekommen"</code> und
+<code>"runtergekommen"</code> verhindern.    
+Anm. 5: Weil 
+[de.frame4j.FuR](https://weinert-automation.de/java/docs/frame4j/de/frame4j/FuR.html)
+die Reihenfolge der "Finden-und-ersetzen"-Aufträge
+bei <code>-dehyphen</code> gegenüber derjenigen bei <code>-hyphen</code>
+umkehrt, sollte die "inverse Operationen"-Eigenschaft zugesichert sein.   
+Anm. 6: Wenn Sie "[Trennungsdateien](#die-trennungsdatei)" schreiben oder 
+bearbeiten, haben Sie immer <code>-hyphen</code> auf dem Schirm.
+Daumenregel: Zusammensetzungen und durch Vor- oder Nachsilben verlängerte
+Worte nach vorn.   
+Mathematische Frage an die schlauen Leser: Wäre ein Sortieren der
+Trennungsdatei nach Wortlänge -- ohne die <code>&amp;shs;</code>s genommen
+-- hinreichend?
 
-Happy automatic hyphenation.
+Glückliche (automatische) Trennung
+

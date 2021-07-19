@@ -7,16 +7,17 @@ categories: Jekyll html markdown hyphention
 lang: en
 dePage: webHyphenation_de.html
 copyrightYear: 2021
-revision: 1
-reviDate: 2021-07-16
+revision: 2
+reviDate: 2021-07-17
 date:   2021-07-16
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 commentShare:
 ---
-As became clear from [Jekyll Tricks](/twoJekyllTricks.html) I 
-am a strong proponent of static web sites.    
+As became clear from from the posts [Jekyll Tricks](/twoJekyllTricks.html) and
+[Dispose of Typo3](/leaveTypo3.html "Out of Typo3") I 
+am a strong proponent of static web sites generated with tools.    
 
 I've used static site generation for over twelve years with 
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework")
@@ -25,13 +26,19 @@ charge of to Jekyll / Liquid.
 
 ## Hyphenation
 
-For many tools and editors this is no bright story even when the
-language is mere English -- and Jekyll is no exception here.   
+A generous dose of conditional or soft hyphens (<code>"&amp;shy;"</code>)
+on the site's texts can greatly enhance the appearance especially with
+variable sizes and menus. On the other hand, putting the "&amp;shy;s" in
+by hand is troublesome and the spoils the readability for the 
+developer or author. Some tool support or automatism would be welcome.  
+
+But alas, for many tools and editors, hyphenation is no bright story
+even when the language is mere English -- and Jekyll is no exception here.   
 This post presents a tool able to add conditional ("soft" &amp;shy;) 
 breaks to the (markdown) texts and (html) layouts or to remove them for sake 
-of readability.  
+of source readability.  
 
-All needed is an actual (implementation version >= 1.21.05)
+All needed is an actual (implementation version >= 1.21.06)
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework") best as
 installed extension on a Java8 and an hyphenation definition file in the 
 form of
@@ -79,7 +86,7 @@ Er&shy;zie&shy;hungs&shy;be&shy;rech&shy;tigte
 
 For better readability -- and for giving the file to a linguist for 
 checking / correcting -- use the tool FuR to replace 
-<code>&shy;</code> <code>&shy;</code>.
+<code>&amp;shy;</code> by <code>-</code>.
 
 ```bash
 D:\eclips...>java FuR hyphDef_de.txt -omitFrntM  "&shy;" "-"
@@ -152,18 +159,19 @@ would do the trick.
 <code>FuR: </code> The top most liked / used applications in
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework") have a 
 starter application in the unnamed package. <code>FuR</code> just delegates
-to  <code>de.frame4j.FuR</code> .   
-<code>-r .md;.html;.htm -filUTF8 </code> Recursively (from the 
+to
+[de.frame4j.FuR](https://weinert-automation.de/java/docs/frame4j/de/frame4j/FuR.html).    
+<code>-r .md;.html;.htm -filUTF8 : </code> Recursively (from the 
 current directory) visit all files of the given three extensions and assume
 their encoding be UTF-8.   
-<code>-OmitDirs _site;.jekyll-cache;_data </code> While visiting the 
+<code>-OmitDirs _site;.jekyll-cache;_data : </code> While visiting the 
 sub-directory tree (starting from . ) omit directories + their children
 with the three names given.
-<code>-omitFrntM</code> In the (text) files visited omit a front matter in
+<code>-omitFrntM : </code> In the (text) files visited omit a front matter in
 the process of searching patterns and replacing their occurrences.    
-<code>"&amp;shy;" </code> (and no further parameter): Search the pattern
-<code>&amp;shy;</code> and replace it by nothing (i.e. just remove it).
-<code>-v: </code> verbose output (optional). That option list all files
+<code>"&amp;shy;" </code> (and no further parameter): Search the 
+pattern <code>&amp;shy;</code> and replace it by nothing.
+<code>-v : </code> verbose output (optional). That option list all files
 visited with the number of finds (and replaces).
 
 ### Step 1: Hyphenate by definition file
@@ -180,12 +188,12 @@ all other options and parameters: As explained for "Step 0".
 Technically for every line in the hyphenation file FuR generates a 
 search pattern (without the <code>&amp;shy;</code>s) and a replacement (with
 them). Then in a wide sense the same procedures are taken as when defining
-multiple search and replace definitions in an extra property file -- which 
+multiple search and replace definitions in an extra .properties file -- which 
 over the years was FuR's primary work on servers.
 
-Note 1: At present (18.07.2021)
-up to 999 search and replace definitions are generated from the hyphenation
-definition file. may be risen in future.   
+Note 1: At present (19.07.2021)
+up to 1024 search and replace definitions are generated from the hyphenation
+definition file (may be risen in future).   
 Note 2: Those past and present n patterns * m files task with those numbers
 in order of 100s and 1000s  would not go well with Java's standard String
 search. As other 
@@ -196,7 +204,7 @@ uses
 implementation of the Rabin-Karp algorithms. Rabin-Karp brings the search 
 from O(t*s) (naive String.indexOf() and consorts) to less than O(t), where
 t is the length of the text and s is length of the substring to spot.
-Note 4: Step 1 is the main step -- the one where all this was done for. We
+Note 3: Step 1 is the main step -- the one where all this was done for. We
 generate and (ftp) deploy web sites by Jekyll on the SVN (subversion) server
 in a post commit hook. And we very well may put <code>FuR -hyphen ...</code>
 there.
@@ -204,11 +212,11 @@ there.
 ### Step 2: De-Hyphenate by definition file
 
 With a command very similar to the one in "Step 1" FuR can remove (only)
-the hyphenations applied:
+the hyphenations applied:    
  &nbsp; &nbsp;<code> java FuR -r .md;.html;.htm -filUTF8 -OmitDirs _site;.jekyll-cache;_data -omitFrntM -dehyphen ..\factory\hyphDef_de.txt</code>
 
 <code>-dehyphen ..\factory\hyphDef_de.txt </code> de-hyphenate all files in
-question by the definitions found in the file (<code>hyphDef_de.txt</code)
+question by the definitions found in the file (<code>hyphDef_de.txt</code>)
 named after the option. The procedure is the same as explained ion "Step 1"
 except for the reversal of the find pattern and the replacement.      
 all other options and parameters: As explained for "Step 0".
@@ -216,20 +224,24 @@ all other options and parameters: As explained for "Step 0".
 
 Applying "Step 1" to a set of "hyphen-less" (by "Step 0", e.g.) files and 
 then applying "Step 2" should bring the set of files respectively texts 
-back in the previous state -- or in other word one should be the inverse 
-operation of the other.  
-Note 1: Well, almost. There may be some exotic order of operation / definition
-effects especially with compound words like (German) runter, gekommen
-und runtergekommen that would be defined as
+back in the previous state -- or in other word one operation is the inverse
+of the other.  
+Note 4: Be aware of shadowing effects especially with compound words like
+(German) runter, gekommen und runtergekommen that would be defined as e.g.
 ```markdown
 run&shy;ter&shy;ge&shy;kom&shy;en
 run&shy;ter
 ge&shy;kom&shy;en
 kom&shy;en
 ```
-Note 2: If this causes real practical problems we'll see to it. The first
-step will be reversing the definition order when <code>-dehyphen</code>.   
-Note 3: When writing or editing a hyphenation definition file always have 
+If you change the order here by, e.g., setting <code>"kom&amp;shy;men"</code>
+(kommen) before the others, this would inhibit the extra hyphenations 
+of gekommen and runtergekommen.    
+Note 5: As
+[de.frame4j.FuR](https://weinert-automation.de/java/docs/frame4j/de/frame4j/FuR.html)
+reverses the order of find and replace on <code>-dehyphen</code> to the one
+used for <code>-hyphen</code> the "inverse operation" property should hold.
+Note 6: When writing or editing a hyphenation definition file always have 
 <code>-hyphen</code> in mind. Rule of thump: compounds and longer words 
 one gets by adding to shorter ones first.      
 Mathematical question to the learned readers:   

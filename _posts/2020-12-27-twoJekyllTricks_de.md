@@ -184,7 +184,7 @@ erschließen.
 
 Dies ist für viele Werkzeuge und Editoren ein düsteres Kapitel, selbst wenn
 die Sprache bloß Englisch ist. Jekyll mach da keine Ausnahme.    
-Ein anderer [Beitrag](/webHyhenation_de.html) zeigt ein Werkzeug, mit dem man
+Ein anderer [Beitrag](/webHyphenation_de.html) zeigt ein Werkzeug, mit dem man
 die (markdown) Texte und 
 (html) layouts mit bedingten ("weichen" &amp;shy;) Trennstrichen versehen
 oder diese wieder entfernen kann.   

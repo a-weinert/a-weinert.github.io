@@ -21,7 +21,7 @@ am a strong proponent of static web sites generated with tools.
 
 I've used static site generation for over twelve years with 
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework")
-based tools. 2019 I switched my web sites as well as those I'm in 
+based <!--more-->tools. 2019 I switched my web sites as well as those I'm in 
 charge of to Jekyll / Liquid.
 
 ## Hyphenation

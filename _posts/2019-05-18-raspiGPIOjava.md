@@ -2,13 +2,13 @@
 layout: weAutPost
 title: Raspberry Pi IO with Java
 bigTitle: PiGpioJava
-date:   2019-06-11
+date:   2021-06-11
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
 revision: 11
-reviDate: 2020-10-06
+reviDate: 2021-07-20
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -38,7 +38,8 @@ Problems start &mdash; on any platform by the way &mdash; when wanting
 process control with Java. To get the know how for Raspberry Pi I ported a 
 [rasProject_01](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")
 C demo program 
-[rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo"). All of a sudden I had a growing
+[rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo").
+All of a sudden I had a growing
 [project](https://github.com/a-weinert/weAut/) and a German
 [publication](https://a-weinert.de/publication_en.html) on Java Magazin.
 
@@ -55,24 +56,32 @@ as do the real control programs. (See all in above mentioned
 [publication](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")).
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo")
 with all its behaviour was ported to
-[rdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnJPiGpioDBlink.java "Java GPIO demo"). 
+[RdGnPiGpioDBlink.java](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/RdGnPiGpioDBlink.html "RdGnPiGpioDBlink docu")
+([source](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/doc-files/RdGnPiGpioDBlink.java "RdGnPiGpioDBlink.java")). 
 
-For the IO part this port uses a part of Neil Kolban's
+For the IO part this very first port uses a part of Neil Kolban's
 [library](https://github.com/nkolban/jpigpio "interface to pigpio[d]")
 that also uses 
 [pigpio's](http://abyz.me.uk/rpi/pigpio/sif.html "socket interface docu") 
 socket interface. Hence we have all the advantages of 
-Joan N.N.'s [approach](http://abyz.me.uk/rpi/pigpio/index.html "pigpio library"). On 
-the other hand Neil Kolban's
+Joan N.N.'s [approach](http://abyz.me.uk/rpi/pigpio/index.html "pigpio library").
+Additionally Neil Kolban's
 [library](https://github.com/nkolban/jpigpio "interface to pigpio[d]") 
-includes a JNI implementation plus its C layer for pigpiod's non socket 
-interface. The library is nowhere written with the aspect of avoiding throw
-away objects.
+includes among others also a JNI implementation plus its C layer for 
+pigpiod's non socket interface pigpiod. These extras obfuscate and complicate
+things a bit, and the library is nowhere written with the aspect of
+avoiding throw away objects.
 
-Considering that and some other points, I started to implement a compact 
-pure Java pigpio[d] socket solution. The base functionality
-is implemented and demonstrated by another port from C
-[RdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnPiGpioDBlink.java "compact pure Java").
+Considering that and some other points a compact pure Java solution 
+to connect to the pigpioD socket interface was implemented and -- in between
+-- made an integral part of [Frame4J][f4j_en]{: class="bbi"}. That means 
+no matter if on a PC, Laptop, server or on a Pi one has Pi IO with Java --
+be the IO on a PI (with the control application) itself or on any (other)
+Pi in the same (private) [W]LAN. The application
+[TestOnPi](https://weinert-automation.de/java/docs/frame4j/de/weAut/TestOnPi.html "TestOnPi docu")
+let you show or test binary input and output,
+<abbr title="pulse width modulation">PWM</abbr> and servos on all IO pins 
+of a Pi.
 
 ## Side problems with Java GPIO or process control
 ### Incompatible file lock 
@@ -97,18 +106,19 @@ run mode while a Java calibration / service application (e.g.) is touching
 parts of the sensors or actuators. 
 
 The compatible solution are two lock methods (openLock() and closeLock) in
-[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") 
+[Frame4J: de.weAut.PiUtil](https://weinert-automation.de/java/docs/frame4j/de/weAut/PiUtil.html "openLock() and closeLock()") 
 using a C helper program 
 [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c). Running this little program ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) directly and the 
-Java application [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs [Frame4J][f4j_en]{: class="bbi"}
-installed") at the same time will demonstrate the double lock on the same file.
+Java application [JustNotFLock](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html "de.weAut.demos.JustNotFLock") at the same time will demonstrate the double lock on the same file.
 
 ### Throw away objects
 With OO languages and Java the garbage collector is widely seen as a risk for a real time behaviour otherwise assessed theoretically and experimentally. A WG on automating critical processes with OO languages demanded no objects to be created while in cyclic run mode. Even if one would perhaps not be such strict, it is a good principle. It relieves you from the risks of garbage collection and of memory administration.
 
 And all demo examples here and the corresponding Java applications adhere to it. Mutable classes are used instead of making new immutable objects, like StringBuilder en lieu de String and (own) Container classes instead of Long.
 
-By constantly using mutable objects garbage collection and memory allocation etc. go out of the job. But, the widely used Linux approach "file as device" does not go well with Java. The listing (excerpt from [Pi1WireThDemo](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/Pi1WireThDemo.java "de.weAut.tests.Pi1WireThDemo")) shows one reading of a 1-wire thermometer. They are available in a stainless casing, too, and, by standard dimensions, suitable for boilers, e.g..  
+By constantly using mutable objects garbage collection and memory allocation etc. go out of the job. But, the widely used Linux approach "file as device" does not go well with Java. The listing (excerpt from 
+[Pi1WireThDemo](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/Pi1WireThDemo.html "de.weAut.tests.Pi1WireThDemo"))
+shows one reading of a 1-wire thermometer. They are available in a stainless casing, too, and, by standard dimensions, suitable for boilers, e.g..  
 ```java
   String line1;
   String line2;

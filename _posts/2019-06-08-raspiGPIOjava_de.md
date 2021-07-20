@@ -2,13 +2,13 @@
 layout: weAutPost
 title: Raspberry Pi Ein- und Ausgabe mit Java
 bigTitle: PiGpioJava
-date:   2019-06-08
+date:   2021-06-08
 categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: de
 enPage: raspiGPIOjava.html
 copyrightYear: 2019
 revision: 5
-reviDate: 2020-10-06
+reviDate: 2021-07-20
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -46,7 +46,7 @@ ein C-Demoprogramm
 [Veröffentlichung](https://a-weinert.de/publication.html) im Java Magazin.
 
 ## Native (JNI) oder pure Java
-Diese C-Pprogramm nutzt die Bibliothek
+Dieses C-Programm nutzt die Bibliothek
 [pigpio](http://abyz.me.uk/rpi/pigpio/index.html) in der 
 Dämon/Server Variante und das Linux/C Standardvorgehen mit Sperrdateien (lock
 files; flock()), um einen exklusiven (singleton) Zugang zu Prozess-IO und dem
@@ -58,31 +58,40 @@ in der erwähnten
 [Publikation](https://a-weinert.de/pub/raspberry4remoteServices.pdf "Raspberry for remote services")).
 [rdGnPiGpioDBlink.c](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/rdGnPiGpioDBlink.c "C GPIO demo")
 wurde mit all diesem Verhalten nach 
-[rdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnJPiGpioDBlink.java "Java GPIO demo") portiert. 
+[RdGnPiGpioDBlink.java](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/RdGnPiGpioDBlink.html "RdGnPiGpioDBlink Doku")
+([Quelle](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/doc-files/RdGnPiGpioDBlink.java "RdGnPiGpioDBlink Quelle"))
+portiert. 
 
-Für die IO nutzt diese erste Portierung Neil Kolbans
+Die allererste Portierung nutzte noch Neil Kolbans
 [Bibliothek](https://github.com/nkolban/jpigpio "interface to pigpio[d]")
 welche u.a. auch die Socket-Schnittstelle von  
 [pigpio](http://abyz.me.uk/rpi/pigpio/sif.html "socket interface docu") 
 benutzt. So haben wir alle Vorteile des
 [Ansatzes](http://abyz.me.uk/rpi/pigpio/index.html "pigpio library")
-von Joan N.N.. Andererseits enthält Neil Kolbans
+von Joan N.N.. Zusätzlich enthält Neil Kolbans
 [Bibliothek](https://github.com/nkolban/jpigpio "interface to pigpio[d]") 
-auch eine JNI-Implementierung mit ihrer C-Schicht um die Nicht-Socket-Schnittstelle
-von pigpiod; das macht es nicht übersichtlicher. Die Bibliothek versucht an 
-keiner Stelle Wegwerfobjekte zu vermeiden.
+u.a. auch eine JNI-Implementierung mit ihrer C-Schicht für die 
+Nicht-Socket-Schnittstelle von pigpiod. Das macht sie nicht übersichtlicher,
+und an keiner Stelle wird versucht Wegwerfobjekte zu vermeiden.
 
 Wegen dieser und anderer Gesichtspunkte wurde eine kompakte reine Java 
-Lösung zum Anschluss an die pigpio[d] Socket-Schnittstelle begonnen. Die
-wichtigen Basisfunktionen sind da und werden mit einem anderen Port von C
-nach Java,
-[RdGnPiGpioDBlink.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/RdGnPiGpioDBlink.java "compact pure Java"), demonstriert.
+Lösung zum Anschluss an die pigpioD Socket-Schnittstelle implementiert
+und inzwischen in [Frame4J][f4j_en]{: class="bbi"} integriert. Das heißt,
+egal ob auf dem PC, dem Laptop oder einem Pi: Mit 
+[Frame4J][f4j_en]{: class="bbi"} hat man dort PI IO mit Java -- 
+sei die IO auf dem betreffenden Pi selbst oder auf einem anderen Pi im selben
+(privaten) [W]LAN. Das Programm 
+[TestOnPi](https://weinert-automation.de/java/docs/frame4j/de/weAut/TestOnPi.html "TestOnPi Doku")
+testet und demonstriert binäre Ein- und Ausgänge, 
+<abbr title="Pulsweitenmodulation">PWM</abbr> und Servos an allen IO pins 
+eines Pi.
 
-## Weiter Probleme mit Java GPIO und Prozesssteuerung
+## Probleme mit Java GPIO und Prozesssteuerung
 ### Nicht kompatible Dateisperre
  
-Ein unmittelbar zu lösendes [Problem](javaIncompFlock_de.html "siehe eigener Beitrag hierzu") erschien im Lichte von Portieren "mit
-allem Verhalten" bei der Linux-üblichen und ja schon eingesetzten 
+Ein unmittelbar zu lösendes [Problem](javaIncompFlock_de.html "siehe eigener Beitrag hierzu")
+erschien im Lichte von Portieren "mit allem Verhalten" bei der
+Linux-üblichen und ja schon eingesetzten 
 Datei-Sperre (lock file, flock()) für den exklusiven Zugriff auf Prozess-IO 
 und watchdog. Es stellte sich heraus, dass ein Java lock einer Datei als 
 "random access file, fully and exclusively" mit java.nio.channels.FileLock
@@ -96,11 +105,11 @@ bei unseren Anwendungen ist das natürlich nicht akzeptabel. Bevor man
 Java-Ports echter Prozessanwendungen auf Linux loslässt.
 
 Die kompatible Lösung sind zwei Methoden (openLock() and closeLock) in
-[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()"), welche ein C-Hilfsprogramm
+[Frame4J: de.weAut.PiUtil](https://weinert-automation.de/java/docs/frame4j/de/weAut/PiUtil.html "openLock() and closeLock()"), welche ein C-Hilfsprogramm
 [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c) nutzen. Wenn Sie 
 dieses kleine Programm ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)) direkt starten und 
 dann auch gleichzeitig die Java-Applikation 
-[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") laufen lassen,
+[JustNotFLock](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html "de.weAut.demos.JustNotFLock (needs Frame4J installed") laufen lassen,
 demonstriert dies die zweifache Sperre ein und derselben Datei.
 
 ### Wegwerfobjekte
@@ -123,8 +132,9 @@ Durch gezielte Wiederverwendung veränderbarer Objekte lässt sich
 Garbage-Collection und Speicherverwaltung verhindern. Bei dem verbreiteten
 Linux-Ansatz „Gerät als Datei“ (device as file) sieht es dabei aber
 schlecht aus. Das Listing (Auszug aus
-[Pi1WireThDemo](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/Pi1WireThDemo.java "de.weAut.tests.Pi1WireThDemo")) zeigt das Auslesen eines 1-wire-Thermometers, die auch edelstahlgekapselt
-und geeignet für die  üblichen Thermometereinsteckröhrchen gibt.  
+[Pi1WireThDemo](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/Pi1WireThDemo.html "de.weAut.tests.Pi1WireThDemo"))
+zeigt das Auslesen eines 1-wire-Thermometers, die es auch edelstahlgekapselt
+und geeignet für die üblichen Thermometereinsteckröhrchen gibt.  
 ```java
   final String devID = args[0]; // 28-02119245cd92 e.g.
   String line1;

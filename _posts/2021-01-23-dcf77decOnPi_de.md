@@ -20,8 +20,8 @@ commentShare: timeSyncLocNet_de.html
 Im [Beitrag "Zeitsynchronisation im lokalen Netz"](/timeSyncLocNet_de.html)
 beschrieb ich die Nutzung von
 <abbr title="Rufzeichen des Langwellensenders in Mainflingen">DCF77</abbr>-Empfängern
-als Quelle der (Atom-)  Standardzeit der 
-<abbr title="Physikalisch-Technischen Bundesanstalt, Braunschweig">PTB</abbr>.
+als Quelle der (Atom-) Standardzeit der 
+<abbr title="Physikalisch-Technischen Bundesanstalt, Braunschweig">PTB</abbr><!--more-->.
 Die Wahl von <abbr title="Amplitudenmodulation">AM</abbr>-Empfängermodulen
 wurde ebenso behandelt wie ihr Anschluss an einen  µ-Controller wie den
 Raspberry Pi.

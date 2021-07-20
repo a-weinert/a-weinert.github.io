@@ -9,7 +9,7 @@ lang: en
 dePage: javaIncompFlock_de.html
 copyrightYear: 2019
 revision: 4
-reviDate: 2021-04-17
+reviDate: 2021-07-20
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 5
@@ -127,7 +127,8 @@ for file locking:
      } // lockFile
   } // closeLock()
 ```
-Excerpt from [JustNotFLock.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java) and [PiUtil.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java)
+Excerpt from [JustNotFLock.java](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html)
+and [PiUtil.java](https://weinert-automation.de/java/docs/frame4j/de/weAut/PiUtil.html)
 <br />  &nbsp;
 
 Besides being a bit longer than C the Java equivalent seems to work: of any two or more Java applications competing for the same lock file this way only one will win.
@@ -188,7 +189,7 @@ is a C process control program stripped from all control (IO) functions.
 The handling of 
 [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)
 will be done by two lock methods (openLock() and closeLock) in
-[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()").
+[Frame4J: de.weAut.PiUtil](https://weinert-automation.de/java/docs/frame4j/de/weAut/PiUtil.html "openLock() and closeLock()").
 Hence, the flock() compatible file lock for Java is almost as simple as in C.
 
 ### Demonstrating the incompatibility
@@ -196,9 +197,9 @@ Hence, the flock() compatible file lock for Java is almost as simple as in C.
 Running this little program
 ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c))
 directly from the shell or putty as well as the Java application
-[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed")
+[JustNotFLock](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html "de.weAut.demos.JustNotFLock (needs Frame4J installed")
 at the same time will demonstrate the double lock on the same file.
-[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed")
+[JustNotFLock](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html "de.weAut.demos.JustNotFLock")
 uses Java's own file lock by java.nio.channels.FileLock.
 
 

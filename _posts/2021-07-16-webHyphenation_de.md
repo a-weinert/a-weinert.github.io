@@ -19,7 +19,7 @@ Die Leser von [Jekyll-Tricks](/twoJekyllTricks_de.html) und
 [Fort von Typo3](/leaveTypo3_de.html "Aus für Typo3") wissen, dass ich
 ein engagierter Befür&shy;worter der statischen Generierung von Web-Bereichen
 bin. Über zwölf Jahre habe ich statische Generierung von Web-Bereichen mit
-[Frame4](https://frame4j.de/index.html "ein Java (8) framework")-Tools
+[Frame4](https://frame4j.de/index.html "ein Java (8) framework")-<!--more-->Tools
 betrieben. 2019 habe ich meine sowie die mir anvertrauten
 Web-Bereiche auf Jekyll (/Liquid) umgestellt.
 

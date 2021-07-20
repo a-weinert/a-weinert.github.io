@@ -9,7 +9,7 @@ lang: de
 enPage: javaIncompFlock.html
 copyrightYear: 2019
 revision: 2
-reviDate: 2020-10-06
+reviDate: 2021-07-20
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 5
@@ -129,8 +129,8 @@ Dateisperren das nutzen, was Java hierzu zu bieten hat:
   } // closeLock()
 ```
 Auszug aus
-[JustNotFLock.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java)
-und [PiUtil.java](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java)
+[JustNotFLock.java](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html)
+und [PiUtil.java](https://weinert-automation.de/java/docs/frame4j/de/weAut/PiUtil.html)
 <br />  &nbsp;
 
 Abgesehen davon, dass es ein bisschen länger als mit C ist, scheint das
@@ -204,7 +204,7 @@ entkleidet ist.
 Die Handhabung von 
 [justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c)
 wird über zwei Methoden (openLock() and closeLock) in
-[Frame4J: de.weAut.PiUtil](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/PiUtil.java "openLock() and closeLock()") vermittelt. Somit ist die zu flock() kompatible Dateisperre für Java
+[Frame4J: de.weAut.PiUtil](https://weinert-automation.de/java/docs/frame4j/de/weAut/PiUtil.html "openLock() and closeLock()") vermittelt. Somit ist die zu flock() kompatible Dateisperre für Java
 genauso einfach wie in C.
 
 ### Die Inkompatibilität vorführen
@@ -213,8 +213,8 @@ Wenn man das kleine Programm
 ([justLock](https://github.com/a-weinert/weAut/blob/master/rasProject_01part/justLock.c))
 direkt von der Konsole bzw. mit putty ausführt und dies gleichzeitig mit
 der Java-Applikation 
-[JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed)")
-tut, bekommt man zwei Sperren zur selben Zeit auf die selbe Datei. [JustNotFLock](https://github.com/a-weinert/weAut/blob/master/frame4j_part/de/weAut/tests/JustNotFLock.java "de.weAut.tests.JustNotFLock (needs Frame4J installed") nutzt Javas eigene Dateisperre mit java.nio.channels.FileLock, welche
+[JustNotFLock](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html "de.weAut.demos.JustNotFLock (needs Frame4J installed)")
+tut, bekommt man zwei Sperren zur selben Zeit auf die selbe Datei. [JustNotFLock](https://weinert-automation.de/java/docs/frame4j/de/weAut/demos/JustNotFLock.html "de.weAut.demos.JustNotFLock (needs Frame4J installed") nutzt Javas eigene Dateisperre mit java.nio.channels.FileLock, welche
 von Dateisperren des Betriebssystems offensichtlich nichts weiß.
 
 ## Repositories

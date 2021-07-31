@@ -254,6 +254,6 @@ accordingly before use.
 Note 7: If you use this
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework")
  version or a newer one (and don't switch off this
-sorting) you may ignore Note 4 to 6.
+sorting) you may ignore Note 4 and 6.
 
 Happy automatic hyphenation.

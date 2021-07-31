@@ -263,7 +263,7 @@ entsprechend.
 Anm. 7: Falls Sie diese oder eine neuere Version von
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework")
 haben (und diese Sortierung nicht abschalten), mögen Sie die Anmerkungen 4
-bis 6 ignorieren.
+und 6 ignorieren.
 
 Glückliche (automatische) Trennung
 

@@ -7,8 +7,8 @@ categories: Jekyll html markdown hyphention
 lang: en
 dePage: webHyphenation_de.html
 copyrightYear: 2021
-revision: 2
-reviDate: 2021-07-17
+revision: 3
+reviDate: 2021-07-31
 date:   2021-07-16
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -243,8 +243,17 @@ reverses the order of find and replace on <code>-dehyphen</code> to the one
 used for <code>-hyphen</code> the "inverse operation" property should hold.
 Note 6: When writing or editing a hyphenation definition file always have 
 <code>-hyphen</code> in mind. Rule of thump: compounds and longer words 
-one gets by adding to shorter ones first.      
+one gets by adding to shorter ones first.
+  
 Mathematical question to the learned readers:   
 Would just length on the non hyphenated word be the right sorting criterion?
+
+Well, as I think the the answer is Yes. Hence, since 31.07.2021 (resp.
+Implementation-Version 1.21.07) FuR will sort the hyphenation definitions
+accordingly before use.   
+Note 7: If you use this
+[Frame4](https://frame4j.de/index_en.html "a Java (8) framework")
+ version or a newer one (and don't switch off this
+sorting) you may ignore Note 4 to 6.
 
 Happy automatic hyphenation.

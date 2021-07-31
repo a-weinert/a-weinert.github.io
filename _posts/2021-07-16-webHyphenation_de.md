@@ -7,8 +7,8 @@ categories: Jekyll html markdown hyhenation
 lang: de
 enPage: webHyphenation.html
 copyrightYear: 2021
-revision: 1
-reviDate: 2021-07-16
+revision: 2
+reviDate: 2021-07-31
 date:  2021-07-16
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -251,10 +251,19 @@ umkehrt, sollte die "inverse Operationen"-Eigenschaft zugesichert sein.
 Anm. 6: Wenn Sie "[Trennungsdateien](#die-trennungsdatei)" schreiben oder 
 bearbeiten, haben Sie immer <code>-hyphen</code> auf dem Schirm.
 Daumenregel: Zusammensetzungen und durch Vor- oder Nachsilben verlängerte
-Worte nach vorn.   
-Mathematische Frage an die schlauen Leser: Wäre ein Sortieren der
+Worte nach vorn.
+ 
+Mathematische Frage an die gelehrten Leser: Wäre ein Sortieren der
 Trennungsdatei nach Wortlänge -- ohne die <code>&amp;shs;</code>s genommen
 -- hinreichend?
+
+Ich denke die Anzwort ist "Ja". Seit dem 31.07.2021 (bzw. der
+Implementation-Version 1.21.07) sortiert FuR die Trennungsdefinitionen vorher
+entsprechend.   
+Anm. 7: Falls Sie diese oder eine neuere Version von
+[Frame4](https://frame4j.de/index_en.html "a Java (8) framework")
+haben (und diese Sortierung nicht abschalten), mögen Sie die Anmerkungen 4
+bis 6 ignorieren.
 
 Glückliche (automatische) Trennung
 

@@ -7,8 +7,8 @@ categories: Typo3 Markdown Jekyll php Apache
 lang: en
 dePage: twoJekyllTricks_de.html
 copyrightYear: 2020
-revision: 1
-reviDate: 2020-12-29
+revision: 2
+reviDate: 2021-08-16
 date:   2020-12-27
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -61,14 +61,15 @@ by its markdown and make Jekyll generate .php instead of .html.
 layout: weAutSimple
 .....
 headline: Users and Accounts
-permalink: userInfo/index_en.php
+permalink: userInfo/index_en.php # for production
+# permalink: userInfo/index_en.html # to test appearance
 copyrightYear: 2020
 ---
 -(%- include referenceLinks.txt %}-(%- raw %}
 <?php $user_account = $_SERVER['REMOTE_USER']; ?>-(% endraw %}
 Some of our informations and [services][enServer] require 
 authentication. If you read this, you've successfully logged
-in with the [weinert-automation.de][enWeAut]> account
+in with the weinert-automation (domain) account
 <b>-(% raw %)<?php  echo($user_account);?>-(% endraw %)}</b>.
 ...
 ```
@@ -90,8 +91,19 @@ You may see the result on
 when logging in as guest:guest. The Jekyll development server won't display
 a .php page. Hence, the testing has to be done on the real server.
 
-This trick #1 wasn't invented by me but found in many places. What I missed 
-(and tried to put here) was a complete presentation of all vital points.
+This trick #1 wasn't invented by me but found in many places. What I 
+missed (and tried to put here) was a complete presentation of all vital
+points.   
+
+Remark July 2021: After more than one year of usage trick #1 stopped working
+with no known reason or cause. Jekyll will handle "raw" no longer as 
+"raw = kepp it exactly as is". Between 'raw' and 'endraw' < und > will now
+be replaced by &amp;lt; and &amp;gt; turning PHP statements to visible
+text.   
+Rescue for above use case: PHP goes to the template, there putting
+'REMOTE_USER' as text into a hidden 'span', from whence JavaScript will 
+transfer it to the target (another span defined in the markdown text).
+It works -- but, alas, is outright ugly.
 
 Trick #2 on the other hand, I did "invent" and develop to working state. 
 Most probably, I would not be the first one, but I was unable to find

@@ -288,7 +288,7 @@ dl.puplist dd a:hover:visited{ text-decoration:underline; color:#609060;}
 @media screen {
  abbr {border-bottom: 1px dotted black;}
 }
-@media (max-width: 880px) { 
+@media only screen and (max-width: 880px) { 
   #slider, .hsl, #motivbild { display: none; }  
   #toptitle { position: absolute; right: 0px; }
   #sidebar{  width:auto; } 

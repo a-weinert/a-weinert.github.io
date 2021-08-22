@@ -97,7 +97,7 @@ points.
 
 Remark July 2021: After more than one year of usage trick #1 stopped working
 with no known reason or cause. Jekyll will handle "raw" no longer as 
-"raw = kepp it exactly as is". Between 'raw' and 'endraw' < und > will now
+"raw = kepp it exactly as is". Between 'raw' and 'endraw' < and > will now
 be replaced by &amp;lt; and &amp;gt; turning PHP statements to visible
 text.   
 Rescue for above use case: PHP goes to the template, there putting

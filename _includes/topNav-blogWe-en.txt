@@ -1,7 +1,7 @@
 <ul class="sf-menu" id="top-nav-we-en-1">
   <li><a href="https://weinert-automation.de/index_en.html" class="b0red"
      title="weinert-automation &mdash; Dr.-Ing. Albrecht Weinert">weAut</a></li>
-  <li><a href="/projects_en.html"
+  <li><a href="https://weinert-automation.de/projects_en.html"
       title="Projects &mdash; hardware and software">projects</a></li>
   <li><a href="https://a-weinert.de/index_en.html" class="b0red"
     title="Prof. Dr.-Ing. Albrecht Weinert">weinert</a></li>

@@ -17,14 +17,14 @@ published: true
 commentIssueId: 1
 commentShare: ./eclipDic_de.html
 ---
-Seit [<img 
+Seit vielen Jahren tut ein Bosch Multi&shy;fuktions&shy;werk&shy;zeug 
+<abbr title="power multi function">PMF</abbr>&nbsp;250&nbsp;CES
+mit Schub&shy;laden&shy;köffer&shy;chen und vielem Säge- Schab- 
+und Schleif&shy;zubehör gute<!--more--> [<img 
 src="\assets\images\postTooltime\pmf250cesKl.jpg" width="442" height="128" 
 title="Bosch PMF 250 CES; click: groß"  alt="Bosch PMF 250 CES"
 class="imgonright" />](\assets\images\postTooltime\pmf250ces.jpg "click: groß"){:target="_blank"}
-vielen Jahren tut ein Bosch Multi&shy;fuktions&shy;werk&shy;zeug 
-<abbr title="power multi function">PMF</abbr>&nbsp;250&nbsp;CES
-mit Schub&shy;laden&shy;köffer&shy;chen und vielem Säge- Schab- 
-und Schleif&shy;zubehör gute Dienste. Bei Wohnungs&shy;reno&shy;vierungen
+ Dienste. Bei Wohnungs&shy;reno&shy;vierungen
 wurde es u.a. zum Fliesen ablösen intensiv ein&shy;gesetzt.
 
 ## Der Konstruktionsfehler

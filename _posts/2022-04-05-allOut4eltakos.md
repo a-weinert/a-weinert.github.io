@@ -19,7 +19,7 @@ commentShare: ./eclipDic.html
 ---
 To have multiple independent electrical light circuits in large or
 adjacent rooms with many distributed switches for each circuit 
-applying latching relays (+ pushbuttons) is a viable solution. 
+applying latching relays (+ pushbuttons) is a viable<!--more--> solution. 
 
 In large or adjacent rooms one or some extra "all off" -- and 
 "on again", of course -- push buttons may be required. By itself this is

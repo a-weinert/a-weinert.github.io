@@ -17,10 +17,10 @@ published: true
 commentIssueId: 1
 commentShare: ./eclipDic_de.html
 ---
-## Licht schalten mit Tasten und Stromstoßrelais
+## Schalten mit Tastern und Stromstoßrelais
 
-Wenn mehrere Schalter für Lichtstromkreise gefordert sind ist der Einsatz
-von Tastern und Stromstoßrelais -- vulgo Eltako -- häufig<!--more--> [<img 
+Wenn mehrere Schalter für Lichtstromkreise gefordert sind, ist der Einsatz
+von Tastern und Stromstoßrelais -- vulgo Eltakos -- häufig<!--more--> [<img 
 src="/assets/images/postEltako/eltako1-sm.jpg" width="327" height="189" 
 title="Licht mit Stromstoßrelais; click: groß"  alt="Licht mit Eltako"
 class="imgonright" />](/assets/images/postEltako/eltako1.jpg "click: groß"){:target="_blank"}
@@ -33,10 +33,10 @@ src="/assets/images/postEltako/eltako2-sm.jpg" width="327" height="168"
 title="Licht mit Stromstoßrelais; click: groß"  alt="Licht mit Eltako"
 class="imgonleft" />](/assets/images/postEltako/eltako2.jpg "click: groß"){:target="_blank"}
 Dies&nbsp;ist mit Standard-Dimmern i.a. 
-nicht realisierbar. 
+nicht realisier&shy;bar. 
 
-Anstelle von gegen L schaltenden Tastern der ersten Schaltung (links) kann
-man auch gegen N schaltende Taster (2. Schaltung, links) einsetzen.
+Anstelle von gegen L schaltenden Tastern der ersten Schaltung (rechts) kann
+man auch gegen N schaltende Taster (2. Schaltung, links) ein&shy;setzen.
 Dieser Ansatz spart i.A. Aufwand bei Verdrahtung und Verkabelung und man
 gewinnt Flexibilität. Dies gilt insbesondere bei ausgedehnten Räumlichkeiten
 mit zahlreichen Schaltstellen und Lichtkreisen -- vor allem, wenn diese auch 
@@ -127,15 +127,15 @@ Der potentiell kritische Teil dieses Ansatzes ist, dass beim geschilderten
 "Wieder-Alles-An"-Vorgang das sog. "sense"-Relais (Eltako R12-100) und ein
 Stromstoßrelais (Eltako S12-100) hintereinander geschaltet an 230 V~
 liegen. Beide haben eine Nennspulenspannung von 230V, die sie nicht wirklich
-benötigen -- aber bei halber Spannung (115 V) ziehen sie nicht an.  
+benötigen -- die halbe Spannung (115 V) genügt aber nicht.  
 Es funktioniert trotzdem zuverlässig, da der S12-110 bei Nennspannung 
-den doppelten Strom (ca. 25mA) zieht und somit bei der Reihenschaltung nur
-1/3 der Spannung bekommt (und sich so nicht bewegt).
+den doppelten Strom (ca. 25mA) zieht und somit bei der Reihen&shy;schaltung
+nur 1/3 der Spannung bekommt (und sich so nicht bewegt).
    
 Die Befürchtung, dass elektronische Relais und Dimmer mit potentialfreier
 sog. Universal-Steuerspannung 8..230 V hier nicht funktionieren würden,
-erwies sich als unbegründet. Die haben eine Einschaltstromspitze von deutlich
-über 30mA und das "sense"-Relais in Reihe zieht zuverlässig an. Die oben
+erwies sich als unbegründet. Die haben eine Einschalt&shy;strom&shy;spitze
+von deutlich über 30mA und das "sense"-Relais in Reihe zieht zuverlässig an. Die oben
 genannte problemlose Austauschbarkeit ohne Funktionsverlust von
 (elektromechanischem) Eltako und (elektronischem) bleibt
 gegeben.<br clear="right" />

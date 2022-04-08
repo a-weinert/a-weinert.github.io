@@ -10,7 +10,7 @@ lang: en
 dePage: boschPMFrepair_de.html
 copyrightYear: 2022
 revision: 2
-reviDate: 2022-03-14
+reviDate: 2022-04-05
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 published: true
@@ -35,7 +35,7 @@ class="imgonleft" />](\assets\images\postTooltime\pmf250cesSchaden.jpg
 The [German post](boschPMFrepair_de.html "Sorry no full Engish text")
 describes a repair &ndash; or modification to be precise &ndash; solving
 the problem.   
-Sorry for having no English version; my tool time English is to poor.  
+Sorry for having no English version; my tool time English is too poor.  
 Even when understanding quite few of the
 [German text](boschPMFrepair_de.html) the pictures might, hopefully,
 be self explaining.

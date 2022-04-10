@@ -18,38 +18,38 @@ commentIssueId: 1
 commentShare: ./eclipDic_de.html
 ---
 Der Artikel beschreibt eine Lösung für "Alle-Lichter-Aus-"Schalter (und
-natürlich auch "Wieder-An" für größere Räum&shy;lich&shy;kei&shy;ten. Die Besonderheit
-liegt darin, dass Der "Alles-Aus-"Zustand durch Betätigung
+natürlich auch "Wieder-An" für größere Räum&shy;lich&shy;kei&shy;ten. Die Be&shy;son&shy;der&shy;heit
+liegt darin, dass Der "Alles-Aus-"Zustand durch Be&shy;tä&shy;ti&shy;gung
 **jedes**<!--more--> Lichtschalters beendet wird. Dies wird mit minimalem 
-Zusatzaufwand zum konventionellen Ansatz erreicht.
+Zu&shy;satz&shy;auf&shy;wand zum kon&shy;ven&shy;tio&shy;nel&shy;len Ansatz erreicht.
 
  
 ## Schalten mit Tastern und Strom&shy;stoß&shy;re&shy;lais
 
 Wenn mehrere Schalter für Licht&shy;strom&shy;kreise gefordert sind, ist der Einsatz
-von Tastern und Strom&shy;stoß&shy;re&shy;lais -- vulgo Eltakos -- häufig<[<img 
+von Tastern und Strom&shy;stoß&shy;re&shy;lais -- vulgo Eltakos -- häufig [<img 
 src="/assets/images/postEltako/eltako1-sm.jpg" width="327" height="189" 
 title="Licht mit Strom&shy;stoß&shy;re&shy;lais; click: groß" alt="Licht mit Eltako"
 class="imgonright" />](/assets/images/postEltako/eltako1.jpg "click: groß"){:target="_blank"}
 die unaufwändigere Lösung im Vergleich zu Wech&shy;sel- oder gar Kreuzschaltungen.
 
-Außerdem kann der (elektromechanische) Eltako ohne weitere Modifikationen 
+Außerdem kann der (elektromechanische) Eltako ohne weitere Mo&shy;di&shy;fi&shy;ka&shy;tio&shy;nen 
 durch einen (elektronischen) Dimmer ersetzt wer&shy;den. Dieser ist dann auch
 von mehreren Stellen aus bedienbar. [<img 
 src="/assets/images/postEltako/eltako2-sm.jpg" width="327" height="168" 
 title="Licht mit Strom&shy;stoß&shy;re&shy;lais; click: groß"  alt="Licht mit Eltako"
 class="imgonleft" />](/assets/images/postEltako/eltako2.jpg "click: groß"){:target="_blank"}
 Dies&nbsp;ist mit Standard-Dimmern i.a. 
-nicht realisier&shy;bar. 
+nicht reali&shy;sier&shy;bar. 
 
 Anstelle von gegen L schaltenden Tastern der ersten Schaltung (rechts) kann
-man auch gegen N schaltende Taster (2. Schaltung, links) ein&shy;setzen.
+man auch gegen N schaltende Taster (2. Schaltung, links) ein&shy;set&shy;zen.
 Dieser Ansatz spart i.A. Aufwand bei Verdrahtung und Verkabelung und man
 gewinnt Flexibilität. Dies gilt ins&shy;be&shy;son&shy;dere bei ausgedehnten Räum&shy;lich&shy;kei&shy;ten
 mit zahlreichen Schaltstellen und Lichtkreisen -- vor allem, wenn diese auch 
-noch zu unter&shy;schiedlichen Stromkreisen / Sicherungsautomaten / Phasen
+noch zu unter&shy;schied&shy;lichen Strom&shy;kreisen / Siche&shy;rungs&shy;aut&shy;oma&shy;ten / Phasen
 gehören.    
-Hinweis: In dem Falle müssen dann aber alle betreffenden Licht&shy;strom&shy;kreise am
+Hinweis: In dem Falle müssen dann aber alle be&shy;tref&shy;fen&shy;den Licht&shy;strom&shy;kreise am
 selben (oder an keinem) 
 <abbr title="Fehlerstrom, engl. RC(D)">FI</abbr>-Schutzschalter
 hängen.<br clear="left" />
@@ -110,21 +110,21 @@ Das Betätigen einer Alles-Aus-Taste ("All off" im Strom&shy;lauf&shy;plan) änd
 Zustand eine eines Eltakos ("all off latch"), der im Zustand "gesetzt" 
 das Alles-Aus-Relais (all off relay) einschaltet. Dies unterbricht mit einem 
 Wechselkontakt (erster von rechts) die L-Versorgung der Kontakte der
-betreffenden "Licht-Eltakos". Mit der 
+be&shy;tref&shy;fen&shy;den "Licht-Eltakos". Mit der 
 <abbr title="normally open; Arbeitskontakt">NO</abbr>-Seite
 dieses Kontakts kann man ein Nachtlicht / Orientierungslicht versorgen.  
 Für die ein&shy;fache "Alles-Aus"-Funktion wäre das schon Alles.
 
 Der zweite Wechselkontakt schaltet die L-Versorgung der Spulen der
-betreffenden "Licht-Eltakos" vom "Kontakt-L" auf eine Leitung (button pushed
+be&shy;tref&shy;fen&shy;den "Licht-Eltakos" vom "Kontakt-L" auf eine Leitung (button pushed
 when all out) zu dem einem Extra-Relais ("on again sense relay" im Stromlauf)
 um.    
 Hinweis: Die Trennung der L-Versorgung der Spulen erfolgt bewusst über zwei
 hintereinander geschaltete Kontakte, da die Umschaltung auf die selbe Leitung
 / dasselbe Relais auch für andere Lichtgruppen (im Stromlauf links angedeutet)
-erfolgt, die zu an&shy;de&shy;ren Sicherungsautomaten und ggf. auch Phasen gehören.
+erfolgt, die zu an&shy;de&shy;ren Siche&shy;rungs&shy;aut&shy;oma&shy;ten und ggf. auch Phasen gehören.
 
-Bei Betätigung eines beliebigen Licht-Tasters wird nun das Extra-Relais 
+Bei Be&shy;tä&shy;ti&shy;gung eines beliebigen Licht-Tasters wird nun das Extra-Relais 
 ("on again sense relay") betätigt, welches mit seinem Arbeitskontakt den
 Alles-Aus-Eltako ("all off latch") betägtigt -- und in die&shy;sem Zustand
 zurücksetzt. Damit fällt das Alles-Aus-Relais (all off relay) ab und als
@@ -135,16 +135,16 @@ Der potentiell kritische Teil dieses Ansatzes ist, dass beim geschilderten
 Strom&shy;stoß&shy;re&shy;lais (Eltako S12-100) hintereinander geschaltet an 230 V~
 liegen. Beide ha&shy;ben eine Nennspulenspannung von 230V, die sie nicht wirklich
 benötigen -- die halbe Spannung (115 V) genügt aber nicht.  
-Es funktioniert trotzdem zuverlässig, da der S12-110 bei Nennspannung 
-den doppelten Strom (ca. 25mA) zieht und somit bei der Reihen&shy;schaltung
+Es funktioniert trotzdem zu&shy;ver&shy;läs&shy;sig, da der S12-110 bei Nennspannung 
+den doppelten Strom (ca. 25mA) zieht und somit bei der Rei&shy;hen&shy;schal&shy;tung
 nur 1/3 der Spannung bekommt (und sich so nicht bewegt).
    
-Die Befürchtung, dass elektronische Relais und Dimmer mit potentialfreier
+Die Befürchtung, dass elek&shy;tro&shy;nische Relais und Dimmer mit potentialfreier
 sog. Universal-Steuerspannung 8..230 V hier nicht funktionieren würden,
-erwies sich als unbegründet. Die ha&shy;ben eine Einschalt&shy;strom&shy;spitze
-von deutlich über 30mA und das "sense"-Relais in Reihe zieht zuverlässig an. Die oben
-genannte problemlose Austauschbarkeit ohne Funktionsverlust von
-(elektromechanischem) Eltako und (elektronischem) bleibt
+erwies sich als unbegründet. Die ha&shy;ben eine Ein&shy;schalt&shy;strom&shy;spitze
+von deutlich über 30mA und das "sense"-Relais in Reihe zieht zu&shy;ver&shy;läs&shy;sig an. Die oben
+genannte problem&shy;lose Aus&shy;tausch&shy;bar&shy;keit ohne Fun&shy;ktions&shy;ver&shy;lust von
+(elektro&shy;mechani&shy;schem) Eltako und (elektronischem) bleibt
 gegeben.<br clear="right" />
  
 ## Der Aufbau in einem Schaltschrank

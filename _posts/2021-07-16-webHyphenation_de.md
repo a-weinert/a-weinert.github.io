@@ -7,8 +7,8 @@ categories: Jekyll html markdown hyhenation
 lang: de
 enPage: webHyphenation.html
 copyrightYear: 2021
-revision: 2
-reviDate: 2021-07-31
+revision: 3
+reviDate: 2022-04-10
 date:  2021-07-16
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -44,7 +44,8 @@ Man benötigt lediglich ein aktuelles (implementation version >= 1.21.06)
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework"), am besten
 als "installed extension" unter Java8 sowie eine Definitionsdatei der
 gewünschten Trennungen in einer einfachen Syntax gemäß
-[dieses Beispiels](https://weinert-automation.de/software/jekyll/hyphDef_de.txt),
+[dieses Beispiels](https://weinert-automation.de/software/jekyll/hyphDef_de.txt
+"die aktuelle Trennungsdatei"){:target="_blank"},
 passend zu Sprache und Themenbereichen Ihrer Texte.
 
 Für alles Folgende brauchen Sie nur die Applikation
@@ -60,7 +61,10 @@ java FuR -help -de # show help with comfort starter in English
 
 ## Die Trennungsdatei
 
-Der Auszug aus der oben erwähnten Beispieldatei zeigt die
+Der Auszug aus der aktuellen
+[Trennungsdatei](https://weinert-automation.de/software/jekyll/hyphDef_de.txt
+"UTF8, neuer Tab"){:target="_blank"} 
+Beispieldatei zeigt die
 "ein Wort pro Zeile mit der gewünschten bedingten Trennung"-Grammatik:
 
 ```markdown
@@ -187,6 +191,9 @@ Dateien bzw. Texte gemäß den Definitionen der nach der option genannten
 Datei (<code>hyphDef_de.txt</code im Beispiel)..   
 alle anderen Optionen und Parameter: Wie für den "Schritt 0" erklärt.
 
+Für Trennungen in einer einzelnen Datei verwende:   
+ &nbsp; &nbsp;<code> java FuR -omitFrntM -hyphen C:\wherItIs\hyphDef_de.txt -filUTF8 singleFile.md</code>
+
 Technisch gesehen erzeugt jede Zeile in der "Trennungsdatei" ein Suchmuster
 (jeweils ohne die <code>&amp;shy;</code>s) und einen Ersatztext (mit ihnen).
 dann laufen im weitesten Sinne die gleichen Vorgänge ab, als hätte man mit
@@ -206,8 +213,8 @@ nutzt auch
 Implementierung der Rabin-Karp-Algorithmen. Rabin-Karp bringt die Suche 
 eines Sub-Texts in einem String von O(t*s) (naive String.indexOf()
 und Konsorten) auf deutlich weniger als O(t), wobei t die Länge des Texts
-und s die Länge des zu findenden Teiltexts  ist.
-Anm. 3 : Schritt 1 ist der wichtigste Vorgang -- hierfür wurde diese
+und s die Länge des zu findenden Teiltexts  ist.     
+Anm. 3: Schritt 1 ist der wichtigste Vorgang -- hierfür wurde diese
 Erweiterung gemacht.  Wir generieren Web-Bereich auf einem SVN-Server mit
 Jekyll im post commit hook und verbreiten (deploy) sie dann (mit FTP) zum
 jeweiligen Web-Server. Dieser "Schritt 1" wird Teil dieser post commit hooks
@@ -224,6 +231,10 @@ Option genannten Trennungsdatei (<code>hyphDef_de.txt</code>) definierten
 Trennungen.  
 Alle anderen Optionen und Parameter: Wie in "Schritt 0" erklärt.
 
+Für Beseitigung der Trennungen in einer einzelnen Datei verwende:   
+ &nbsp; &nbsp;<code> java FuR -omitFrntM -hyphen C:\wherItIs\hyphDef_de.txt -filUTF8 singleFile.md</code>
+
+
 Das Anwenden von "Schritt 1" und dann das Anwenden von "Schritt 2" auf
 einen von vornherein (oder nach "Schritt 0") "trennungslosen" Satz von
 Dateien / Texten sollte diesen in den ursprünglichen
@@ -234,10 +245,10 @@ Anm. 4: Seien Sie sich gewisser "Abschattungseffekte" bewusst, insbesondere
 bei Wortverbindungen, wie runter, gekommen und runtergekommen, deren
 Trennungen beispielsweise so definiert würden:
 ```markdown
-run&shy;ter&shy;ge&shy;kom&shy;en
+run&shy;ter&shy;ge&shy;kom&shy;men
 run&shy;ter
-ge&shy;kom&shy;en
-kom&shy;en
+ge&shy;kom&shy;men
+kom&shy;men
 ```
 Wenn Sie hier die Reihenfolge ändern und beispielsweise
 <code>"kom&amp;shy;men"</code> nach vorne setzten, würde dies alle weiteren

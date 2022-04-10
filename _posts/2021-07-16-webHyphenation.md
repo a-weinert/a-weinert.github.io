@@ -7,16 +7,16 @@ categories: Jekyll html markdown hyphention
 lang: en
 dePage: webHyphenation_de.html
 copyrightYear: 2021
-revision: 3
-reviDate: 2021-07-31
+revision: 4
+reviDate: 2022-04-10
 date:   2021-07-16
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 4
 commentShare:
 ---
-As became clear from from the posts [Jekyll Tricks](/twoJekyllTricks.html) and
-[Dispose of Typo3](/leaveTypo3.html "Out of Typo3") I 
+As became clear from from the posts [Jekyll Tricks](/twoJekyllTricks.html)
+and [Dispose of Typo3](/leaveTypo3.html "Out of Typo3") I 
 am a strong proponent of static web sites generated with tools.    
 
 I've used static site generation for over twelve years with 
@@ -42,7 +42,8 @@ All needed is an actual (implementation version >= 1.21.06)
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework") best as
 installed extension on a Java8 and an hyphenation definition file in the 
 form of
-[this example](https://weinert-automation.de/software/jekyll/hyphDef_de.txt),
+[this example](https://weinert-automation.de/software/jekyll/hyphDef_de.txt
+"actual version, German, UTF8"){:target="_blank"},
 appropriate for your texts' topic and language.
 
 For all that follows you need the tool 
@@ -58,7 +59,9 @@ java FuR -help -de # show help with comfort starter in English
 
 ## Definition file
 
-The excerpt of the hyphenation definition file example mentioned above
+The excerpt of the hyphenation
+[definition file ](https://weinert-automation.de/software/jekyll/hyphDef_de.txt
+"actual version, German, UTF8"){:target="_blank"}
 shows the "one word per line with the hyphenation wanted" grammar:
 
 ```markdown
@@ -179,11 +182,14 @@ visited with the number of finds (and replaces).
 Using the same file and directory criteria as in the "Step 0" example
 and being in the same directory the command is:    
  &nbsp; &nbsp;<code> java FuR -r .md;.html;.htm -filUTF8 -OmitDirs _site;.jekyll-cache;_data -omitFrntM -hyphen ..\factory\hyphDef_de.txt</code>
-
+ 
 <code>-hyphen ..\factory\hyphDef_de.txt </code> hyphenate all files in
 question by the definitions found in the file (<code>hyphDef_de.txt</code)
 named after the option.   
 all other options and parameters: As explained for "Step 0".
+ 
+To hyphenate a single file use:   
+ &nbsp; &nbsp;<code> java FuR -omitFrntM -hyphen C:\wherItIs\hyphDef_de.txt -filUTF8 singleFile.md</code>
 
 Technically for every line in the hyphenation file FuR generates a 
 search pattern (without the <code>&amp;shy;</code>s) and a replacement (with
@@ -203,7 +209,7 @@ uses
 [Frame4](https://frame4j.de/index_en.html "a Java (8) framework")'s
 implementation of the Rabin-Karp algorithms. Rabin-Karp brings the search 
 from O(t*s) (naive String.indexOf() and consorts) to less than O(t), where
-t is the length of the text and s is length of the substring to spot.
+t is the length of the text and s is length of the substring to spot.    
 Note 3: Step 1 is the main step -- the one where all this was done for. We
 generate and (ftp) deploy web sites by Jekyll on the SVN (subversion) server
 in a post commit hook. And we very well may put <code>FuR -hyphen ...</code>
@@ -221,6 +227,9 @@ named after the option. The procedure is the same as explained ion "Step 1"
 except for the reversal of the find pattern and the replacement.      
 all other options and parameters: As explained for "Step 0".
 
+To de-hyphenate a single file use:   
+ &nbsp; &nbsp;<code> java FuR -omitFrntM -dehyphen C:\wherItIs\hyphDef_de.txt -filUTF8 singleFile.md</code>
+
 
 Applying "Step 1" to a set of "hyphen-less" (by "Step 0", e.g.) files and 
 then applying "Step 2" should bring the set of files respectively texts 
@@ -229,10 +238,10 @@ of the other.
 Note 4: Be aware of shadowing effects especially with compound words like
 (German) runter, gekommen und runtergekommen that would be defined as e.g.
 ```markdown
-run&shy;ter&shy;ge&shy;kom&shy;en
+run&shy;ter&shy;ge&shy;kom&shy;men
 run&shy;ter
-ge&shy;kom&shy;en
-kom&shy;en
+ge&shy;kom&shy;men
+kom&shy;men
 ```
 If you change the order here by, e.g., setting <code>"kom&amp;shy;men"</code>
 (kommen) before the others, this would inhibit the extra hyphenations 

@@ -278,7 +278,7 @@ durDiscrPointData_t * disc5(durDiscrPointData_t table[], uint32_t const value){
   return & table[4]; // Note: table[4].v (MXUI32 above) is never used
 } // disc5(durDiscrPointData_t const *, uint32_t const)
 ```
-Nach der Diskrimierung von Modulationszeit (.tim) und -periode (.per)
+Nach der Diskriminierung von Modulationszeit (.tim) und -periode (.per)
 gibt es vier mögliche gute Ergebnisse:   
   &nbsp; &bull; &nbsp; F.S &nbsp;false . Sekunden-Tick   
   &nbsp; &bull; &nbsp; T.S &nbsp;true&nbsp; . Sekunden-Tick   
@@ -372,7 +372,7 @@ dem zugehörigen Paar "call back-Tick + call back-Systemzeit" haben wir die
 Werte zur Korrektur bzw. dem Setzen der Systemzeit beieinander. Somit haben
 wir eine (redundante) Zeitquelle, die NTP ersetzen oder ergänzen kann. Damit
 kann man auch verteilte Systeme in einem abgeschlossenen Netz synchronisieren
-oder dort einen (zusätzlichen) NTP-Server bereitsetellen.
+oder dort einen (zusätzlichen) NTP-Server bereitstellen.
 
 Der ungekürzten Kode findet sich im SVN-Repository
 [weinert-automation.de/svn/](https://weinert-automation.de/svn/rasProject_01/ "guest:guest").

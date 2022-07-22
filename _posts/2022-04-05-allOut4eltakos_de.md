@@ -9,8 +9,8 @@ categories: home electric light latching relays Eltako
 lang: de
 enPage: allOut4eltakos.html
 copyrightYear: 2022
-revision: 1
-reviDate: 2022-04-05
+revision: 2
+reviDate: 2022-07-10
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 published: true
@@ -71,10 +71,10 @@ Es sind also auch "Wieder-An"-Tasten.
 
 Die ein&shy;fache "Alles-Aus"-Lösung hat folgende Konsequenz:   
 Falls jemand beim Verlassen die "Alles-Aus"-Taste betätigt, kann eine 
-unbemerkte Person im Dunkeln zurückbleiben. Diese müsste dann eine solche
+unbemerkte Person im Dunkeln zurück bleiben. Diese müsste dann eine solche
 Taste oder wenigstens einen Ausgang finden. Unter die&shy;sem Aspekt kam in 
 einem Pro&shy;jekt die Forderung auf, dass **jede** "normale" Taste von
-**jedem** Lichtkreis den Zustand "Alles Aus" zurücksetzt. Den nächstgelegenen
+**jedem** Lichtkreis den Zustand "Alles Aus" zurück setzt. Den nächstgelegenen
 oder zuletzt selbst betätigten Lichtschalter bzw. irgendeinen findet man
 bei schlechten Sichtverhältnissen ja leichter und mit weniger Gefahr. Ein
 solches Funktionsmerkmal (feature) kann also einen Sicherheitsgewinn
@@ -144,7 +144,7 @@ sog. Universal-Steuerspannung 8..230 V hier nicht funktionieren würden,
 erwies sich als unbegründet. Die ha&shy;ben eine Ein&shy;schalt&shy;strom&shy;spitze
 von deutlich über 30mA und das "sense"-Relais in Reihe zieht zu&shy;ver&shy;läs&shy;sig an. Die oben
 genannte problem&shy;lose Aus&shy;tausch&shy;bar&shy;keit ohne Fun&shy;ktions&shy;ver&shy;lust von
-(elektro&shy;mechani&shy;schem) Eltako und (elektronischem) bleibt
+elektro&shy;mechani&shy;schem Eltako und elektronischem bleibt
 gegeben.<br clear="right" />
  
 ## Der Aufbau in einem Schaltschrank

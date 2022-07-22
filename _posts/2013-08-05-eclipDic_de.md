@@ -19,7 +19,7 @@ Wer nicht nur Englisch schreibt sondern auch viele deutsche Texte in JavaDoc-
 oder Doxygen-Kommentaren<!--more--> sowie in seinem XML und HTML hat,
 wird von Eclipses
 Rechtschreibhilfe oft eher gestört. Hier gibt es nun ein deutsches Wörterbuch
-mit etwa 27.800 deutschen Wortformen, das neben der Alltagssprache vor allem
+mit etwa 28.000 deutschen Wortformen, das neben der Alltagssprache vor allem
 auch Fachbegriffe aus Java, OO und (Leit-) Technik enthält.
 
 ### Holen und Installieren

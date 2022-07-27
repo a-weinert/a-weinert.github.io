@@ -2,7 +2,7 @@
 layout: weAutPost
 title: '"Alles Aus" mit Komfort für viele Eltako- (Licht-) Stromkreise'
 bigTitle: Alles Aus mit Stromstoßschaltern
-headline: Komfortables "Alle Lichter Aus" Aus mit Stromstoßschaltern
+headline: Komfortables "Alle Lichter Aus" mit Stromstoßschaltern
 permalink: /:title.html
 date:   2022-04-05
 categories: home electric light latching relays Eltako 
@@ -10,18 +10,19 @@ lang: de
 enPage: allOut4eltakos.html
 copyrightYear: 2022
 revision: 2
-reviDate: 2022-07-10
+reviDate: 2022-07-27
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 published: true
 commentIssueId: 1
 commentShare: ./eclipDic_de.html
 ---
-Der Artikel beschreibt eine Lösung für "Alle-Lichter-Aus-"Schalter (und
-natürlich auch "Wieder-An" für größere Räum&shy;lich&shy;kei&shy;ten. Die Be&shy;son&shy;der&shy;heit
-liegt darin, dass Der "Alles-Aus-"Zustand durch Be&shy;tä&shy;ti&shy;gung
-**jedes**<!--more--> Lichtschalters beendet wird. Dies wird mit minimalem 
-Zu&shy;satz&shy;auf&shy;wand zum kon&shy;ven&shy;tio&shy;nel&shy;len Ansatz erreicht.
+Der Artikel beschreibt eine Lösung für "Alle-Lichter-Aus"-Schalter (und
+natürlich auch "Wieder-An" für größere Räum&shy;lich&shy;kei&shy;ten. Die
+Be&shy;son&shy;der&shy;heit liegt darin, dass Der "Alles-Aus"-Zustand durch
+Be&shy;tä&shy;ti&shy;gung **jedes**<!--more--> Lichtschalters beendet
+wird. Dies wird mit minimalem Zu&shy;satz&shy;auf&shy;wand zum
+kon&shy;ven&shy;tio&shy;nel&shy;len Ansatz erreicht.
 
  
 ## Schalten mit Tastern und Strom&shy;stoß&shy;re&shy;lais
@@ -139,13 +140,14 @@ Es funktioniert trotzdem zu&shy;ver&shy;läs&shy;sig, da der S12-110 bei Nennspa
 den doppelten Strom (ca. 25mA) zieht und somit bei der Rei&shy;hen&shy;schal&shy;tung
 nur 1/3 der Spannung bekommt (und sich so nicht bewegt).
    
-Die Befürchtung, dass elek&shy;tro&shy;nische Relais und Dimmer mit potentialfreier
-sog. Universal-Steuerspannung 8..230 V hier nicht funktionieren würden,
-erwies sich als unbegründet. Die ha&shy;ben eine Ein&shy;schalt&shy;strom&shy;spitze
-von deutlich über 30mA und das "sense"-Relais in Reihe zieht zu&shy;ver&shy;läs&shy;sig an. Die oben
-genannte problem&shy;lose Aus&shy;tausch&shy;bar&shy;keit ohne Fun&shy;ktions&shy;ver&shy;lust von
-elektro&shy;mechani&shy;schem Eltako und elektronischem bleibt
-gegeben.<br clear="right" />
+Die Befürchtung, dass elek&shy;tro&shy;nische Relais und Dimmer mit 
+potentialfreier sog. Universal-Steuerspannung 8..230 V hier nicht
+funktionieren würden, erwies sich als unbegründet. Die ha&shy;ben eine
+Ein&shy;schalt&shy;strom&shy;spitze von deutlich über 30mA und das 
+"sense"-Relais in Reihe zieht zu&shy;ver&shy;läs&shy;sig an. Die oben
+genannte problem&shy;lose Aus&shy;tausch&shy;bar&shy;keit ohne
+Fun&shy;ktions&shy;ver&shy;lust von elektro&shy;mechani&shy;schem Eltako und
+elektronischem bleibt gegeben.<br clear="right" />
  
 ## Der Aufbau in einem Schaltschrank
  
@@ -189,6 +191,6 @@ Die 12 Relais auf der 3. Hutschiene sind:
  - 5 Stromstoßschalter *) für Licht&shy;strom&shy;kreise Raum B
  
  _________ &nbsp;    
- Anm. *): Zumindest der weiße "Nicht-Eltako" wird gegen einen "blauen" 
- Dimmer getauscht wer&shy;den.
+ Anm. *): Der weiße "Nicht-Eltako" wurde inzwischen gegen einen blauen 
+ "Richtigen" getauscht.
  

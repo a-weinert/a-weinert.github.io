@@ -1,26 +1,12 @@
 ---
 ---
-/* For Sass to generate weAut.css above front matter is needed. The dashes
-   are enough, and more would produce a lot of scss syntax errors in the 
-   (Eclipe) IDE. 
-   Copyright  2019  Albrecht Weinert
-   For transfering the design of weinert-automation.de ... a-weinert.deand
-   its Wordpress-blog to GItHub Pages this was derived from meva.css the
-   weinert-automation Style sheet, Copyright 2005-2015  Albrecht Weinert
-   
-    V 1.04 19.01.2005 : hrf:link #293d80;
-    V 1.03 21.12.2007 : .rbo instead of .rg (was HS-BO-rot)
-    V.106+ 19.09.2009 : Transfer to blog design
-    V.o36+ 12.04.2010 : ai2t.de extensions
-    V.225+ 11.04.2011 : hide right sidebar; + #sidebarspac for room
-    V.350+ 07.03.2013 : #sidebarspac 122 > 80, .mini 17 > 6 (height)
-    V.282+ 22.03.2013 : includes theme meva4we (todo check %-values)
-    V.433  24.08.2015 : img border 0 for html5
-    V.400+ 16.09.2016 : slider w/o j s display none
-    V.033  23.01.2017 : logos to images/icon(s)_logos (new SVN repo)
-    V.???  07.04.2019 : no more revisions as GitHub Pages use Git
-                        below won't work on Git and has no substitute there' 
-   (V.$Revision: 9 $, $Date: 2017-01-26 12:04:16 +0100 (Do, 26 Jan 2017) $)
+/* For Sass to generate weAut.css above front matter is needed.
+
+   The dashes are enough, and more would produce a lot of scss syntax errors in the (Eclipe) IDE.
+
+   Copyright  2019  2025 Albrecht Weinert
+
+   V. 35  08.11.2025       see /a-weinert.github.io/assets/readme.txt
 */
 
 html, body, div, applet, object, h1, h2, h3, h4, h5, h6, p, 
@@ -89,14 +75,13 @@ td, th{ padding: 2px 6px;}
 #slider li{ width:240px; height:154px; overflow:hidden; display:none;}
 
 #lay4{ position: absolute; left: 0; width:166px; height:120px; z-index: 1;
-  background: #FCFCFC url(/assets/icons_logos/weaut_logo_acr120t.png) no-repeat right;}
-#lay4 p:before {content:url(/assets/icons_logos/weaut_logo_acr120t.png)}
+  background-color: #FCFCFC;}
 
 #toptitle{ position: absolute; right: 244px;  width:480px; height:120px;
   background: transparent; color:#100040; padding: 4px 10px 0 0;
   font-size: 1.9em; text-align:right; text-decoration:none; z-index: 2;}
 @media print{
-  #toptitle, #lay4, #lay4 p, h1 a, #motivbild{
+  #toptitle, /* #lay4,  #lay4 p,*/ h1 a, #motivbild{
    color: black; background: transparent; padding-left: 0;}
 }
 
@@ -201,12 +186,6 @@ a.bb:hover{ color: #0000FF; text-decoration:underline;}
 
 #sidebartop span.we1sw:before{content:url(/assets/people/weinert2sw-h148.jpg)}
 
-#sidebartop span.bo1lo:after {content:url(/assets/icons_logos/bo-logo_o8.gif)}
-
-#sidebartop span.boDe:before {content: "Hochschule Bochum"}
-#sidebartop span.boEn:before {content: "University of Applied Sciences"}
-/* usage: <p id="sidebartop"><span class="bo1lo boEn" title=.... */
-
 #sidebarspac{ padding: 8px 0 8px 0; height: 80px;
    background-color: #FCFCFC; z-index: 3;}
 #sidebarspac.mini{ height: 6px;}
@@ -281,9 +260,12 @@ dl.puplist dd a:hover:visited{ text-decoration:underline; color:#609060;}
  background-color: #FCFCFC; border-top:#e8e8de 1px solid;}
    
 .nodisplay {display:none;}
-@media print {
+@media only print {
  #topwhere,  #topnavbar,  #downbar {display:none;}
  #outer {margin: 0 auto; padding: 0 0 0 0;}
+ #slider, .hsl, #motivbild { display: none; }
+ #toptitle { position: absolute; right: 0px; }
+ #sidebar{ position: relative; float: right; width:140px; }
 }
 @media screen {
  abbr {border-bottom: 1px dotted black;}

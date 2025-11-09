@@ -13,13 +13,12 @@
   <script src="{{ "/assets/script/weAut.js" | relative_url }}"></script>
 <link rel="SHORTCUT ICON" href="/favicon.ico" />
 </head><body ><div id="outer"><div id="inner">
-<div id="lay4" 
-  {%- if pageLang == "de"  -%}
-     title="Das Logo von weinert-automation (A. Weinert 2011)" 
-  {%- else -%}
-     title="weinert-automation's logo (A. Weinert 2011)"
-  {%- endif  -%} 
-></div>
+<div id="lay4" {%- if pageLang == "de"  -%}
+ title="Das Logo von weinert-automation (A. Weinert 2011)" {%- else -%}
+ title="weinert-automation's logo (A. Weinert 2011)" {%- endif -%} >
+ <img src="/assets/icons_logos/weaut_logo_acr120t.png" alt="weinert-automation logo as ligatur weAut"
+  height="120" width="160"/>
+</div>
 <div id="slider"><!-- sliderList-lang -->
 {%- if pageLang == "de"  -%}
    {% include sliderList-de.html %}

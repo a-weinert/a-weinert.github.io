@@ -1,14 +1,14 @@
 <ul class="sf-menu" id="top-nav-we-de-1">
-  <li><a href="/index.html" class="b0red"
-     title="weinert-automation &mdash; Dr.-Ing. Albrecht Weinert">weAut</a></li>
-  <li><a href="https://weinert-automation.de/projects.html"
-     title="Projekte &mdash; Hardware und Software">projekte</a></li>
-  <li><a href="https://a-weinert.de/index.html" class="b0red"
-     title="Prof. Dr.-Ing. Albrecht Weinert">weinert</a></li>
+ <li><a href="https://a-weinert.de/index.html" class="b0red"
+   title="Prof. Dr.-Ing. Albrecht Weinert">weinert</a></li>
+ <li><a href="https://weinert-automation.de/index.html" class="b0red"
+   title="weinert-automation &mdash; Dr.-Ing. Albrecht Weinert">weAut</a></li>
+ <li><a href="https://a-weinert.de/publication.html"
+  title="Publikationen von Albrecht Weinert">publ</a></li> 
+ <li><a href="https://a-weinert.de/cv-pub.html"
+    title="Kurzlebenslauf von Albrecht Weinert">c.v.</a></li>
   <li><a href="/index_de.html"
      title="Blog von A. Weinert (Git)">blog</a></li>
-  <li><a href="https://a-weinert.de/publication.html"
-      title="Publikationen von Albrecht Weinert">pub</a></li>
   <li><a href="https://github.com/a-weinert"
      title="Albrecht Weinert bei Git">git</a></li>
 </ul>

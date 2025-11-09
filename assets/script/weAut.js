@@ -26,18 +26,6 @@ window.onload = function(){
    }
    
    var patt = window.location.href.split('#')[0];
-   var toggleLogo = document.getElementById("lay4");
-   if (toggleLogo) {
-      toggleLogo.onmouseover = function(){
-         if (acryl == 1) {
-            toggleLogo.style.backgroundImage = "url('/assets/icons_logos/weaut_logo_120.png')";
-            acryl = 0;
-         } else {
-            toggleLogo.style.backgroundImage = "url('/assets/icons_logos/weaut_logo_acr120t.png')";
-            acryl = 1;
-         }
-      }; // mouseover
-   } // have toggleLogo
 
    topNav = document.getElementById("topnavbar");
    if (topNav) {

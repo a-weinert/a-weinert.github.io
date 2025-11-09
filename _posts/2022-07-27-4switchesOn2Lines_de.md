@@ -9,8 +9,8 @@ categories: home electric light latching relays Eltako
 lang: de
 enPage: 4switchesOn2Lines.html
 copyrightYear: 2022
-revision: 1
-reviDate: 2022-07-27
+revision: 2
+reviDate: 2025-11-09
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 published: true
@@ -40,9 +40,9 @@ mehr möglich. Aber auch ohne diesen unglücklichen Anlass kommt man
 gelegentlich in die Situation, dass für eine gewünschte Anzahl von Schaltern
 oder Tastern die Zahl der Adern nicht reicht.
 [<img 
-src="/assets/images/postEltako/\4LinesOo2\4LinesOo2_333.jpg" width="333"
+src="/assets/images/postEltako/4LinesOo2/4LinesOo2_333.jpg" width="333"
 height="168" title="Halbwellenansatz; click: groß" alt="Halbwellenansatz"
-class="imgonright" />](/assets/images/postEltako/\4LinesOo2\4LinesOo2.jpg
+class="imgonright" />](/assets/images/postEltako/4LinesOo2/4LinesOo2.jpg
 "click: groß"){:target="_blank"}  
 
 ## Lösungsansatz
@@ -72,7 +72,7 @@ Mit Kleinspannung und einer zusätzlichen Ebene von über Transistoren
 angesteuerte Relais umgeht man all diese Hindernisse.[<img 
 src="/assets/images/postEltako/4LinesOo2/relayModCirc_333.jpg" width="333"
 height="309" title="Relaismodul; click: groß" alt="Relaismodul"
-class="imgonright" />](/assets/images/postEltako/4LinesOo2\relayModCirc.jpg
+class="imgonright" />](/assets/images/postEltako/4LinesOo2/relayModCirc.jpg
 "click: groß"){:target="_blank"}
 
 ## Relaismodule
@@ -109,11 +109,11 @@ der Hutschiene darüber ganz normal mit 230V~ angesteuert.
 [<img 
 src="/assets/images/postEltako/4LinesOo2/relayMod_359.jpg" width="359"
 height="482" title="Relaismodul modifiziert; click: groß" alt="Relaismodul"
-class="imgonleftt" />](/assets/images/postEltako/4LinesOo2\relayMod.jpg
+class="imgonleftt" />](/assets/images/postEltako/4LinesOo2/relayMod.jpg
 "click: groß"){:target="_blank"}
 [<img 
 src="/assets/images/postEltako/4LinesOo2/relayModInt_333.jpg" width="333"
 height="482" title="Relaismodul eingebaut; click: groß" alt="Relaismodul"
-class="imgonright" />](/assets/images/postEltako/4LinesOo2\relayModInt.jpg
+class="imgonright" />](/assets/images/postEltako/4LinesOo2/relayModInt.jpg
 "click: groß"){:target="_blank"}
  

@@ -7,8 +7,8 @@ categories: Typo3 Markdown Jekyll php Apache
 lang: en
 dePage: twoJekyllTricks_de.html
 copyrightYear: 2020
-revision: 2
-reviDate: 2021-08-16
+revision: 3
+reviDate: 2025-11-12
 date:   2020-12-27
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -32,7 +32,8 @@ Ideally this generator also runs on the
 version control system server for said source files. In the case of
 <abbr title="Subversion">SVN</abbr> a post commit*) hook would generate the 
 site and transfer changed content etc. to the web server**).    
-<small>Note *):&nbsp; In the case of GIT it would be a "post push hook".
+<small>Note *):&nbsp; In the case of GIT it would be a "post push hook". In github.io -- i.e. right here --
+don't bother: it has this hook.
 <br />Note **): The SVN server and the (Apache) web server must not be on the
 same machine for this comfort for web authors.</small>
 

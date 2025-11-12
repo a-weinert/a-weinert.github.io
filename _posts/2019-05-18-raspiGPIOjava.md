@@ -7,8 +7,8 @@ categories: Java Raspberry Pi GPIO pigpio Frame4j
 lang: en
 dePage: raspiGPIOjava_de.html
 copyrightYear: 2019
-revision: 11
-reviDate: 2021-07-20
+revision: 12
+reviDate: 2025-11-12
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
 commentIssueId: 3
@@ -26,7 +26,10 @@ See the
 or the 
 [SVN repo](https://weinert-automation.de/svn/rasProject_01/ "rasProject_0 (guest:guest)").
 One part of the success story is using Joan N.N.'s C 
-[pigpio library](http://abyz.me.uk/rpi/pigpio/index.html) with its daemon/server approach.
+[pigpio library](http://abyz.me.uk/rpi/pigpio/index.html) with its daemon/server approach.    
+*Hint*: If, like us, using [pigpio(d)](http://abyz.me.uk/rpi/pigpio/index.html) with the very same C sources and libraries
+on almost all types of Pi from zero ... to 3 and 4, be warned:
+Never touch a Pi5 --- incompatible µC IO changes! 
 
 ## Java on the Pi
 Nevertheless, some people would like to use Java on a Pi, too. That's not a

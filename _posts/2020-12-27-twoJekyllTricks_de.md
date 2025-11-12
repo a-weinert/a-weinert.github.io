@@ -7,8 +7,8 @@ categories: Typo3 Markdown Jekyll php Apache
 lang: de
 enPage: twoJekyllTricks.html
 copyrightYear: 2020
-revision: 2
-reviDate: 2021-08-16
+revision: 3
+reviDate: 2025-11-12
 date:   2020-12-29
 itemtype: "http://schema.org/BlogPosting"
 isPost: true
@@ -34,14 +34,15 @@ Versions&shy;verwaltungs&shy;systems für besagte Quell&shy;dateien. Im Fall von
 <abbr title="Subversion">SVN</abbr> würde ein post commit*) hook den 
 Bereich neu generieren und geänderte Inhalte zum Web-Server**)
 transferieren.    
-<small>Anm. *):&nbsp; Bei GIT wäre das ein "post push hook".
+<small>Anm. *):&nbsp; Bei GIT wäre das ein "post push hook". Auf github.io -- also genau hier --
+kein Stress: es hat diesen Haken schon.
 <br />Anm. **): Der SVN server und der (Apache) Web-Server müssen nicht 
 auf derselben Maschine sein, um diesen Komfort für Web-Autoren zu
 ermöglichen.</small>
 
 Über zwölf Jahre habe ich statische Generierung von Web-Bereichen mit
 [Frame4](https://frame4j.de/index.html "ein Java (8) framework")-Tools
-betrieben. Von 2019 bis heute habe ich meine so&shy;wie die mir an&shy;ver&shy;trau&shy;ten
+betrieben. Von 2019 bis heute habe ich meine sowie die mir an&shy;ver&shy;trau&shy;ten
 Web-Bereiche auf Jekyll/Liquid umgestellt.
 
 

@@ -5,7 +5,7 @@
   title="weinert-automation &mdash; Dr.-Ing. Albrecht Weinert">weAut</a></li>
  <li><a href="https://a-weinert.de/publication_en.html"
   title="Publications by  Albrecht Weinert">publ</a></li>
- <li><a href="https://a-weinert.de/cv-pub_en.html" 
+ <li><a href="/cv-pub_en.html" 
   title="Albrecht Weinert's short CV">c.v.</a></li>
  <li><a href="/index.html"
   title="Albrecht's blog (Git)">blog</a></li>
